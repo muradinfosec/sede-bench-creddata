@@ -1,0 +1,191 @@
+modules-y += linux
+
+ifeq "$(CONFIG_LINUX_VERSION)" "4.14.62"
+linux_version := 4.14.62
+linux_hash := 51ca4d7e8ee156dc0f19bc7768915cfae41dbb0b4f251e4fa8b178c5674c22ab
+else ifeq "$(CONFIG_LINUX_VERSION)" "4.19.139"
+linux_version := 4.19.139
+linux_hash := 9c4ebf21fe949f80fbcfbbd6e7fe181040d325e89475e230ab53ef01f9d55605
+else ifeq "$(CONFIG_LINUX_VERSION)" "5.4.69"
+linux_version := 5.4.69
+linux_hash := a8b31d716b397303a183e42ad525ff2871024a43e3ea530d0fdf73b7f9d27da7
+#
+# linuxboot systems should *NOT* use 5.10.5 until a proper review has
+# been done. This is because `0000-efi_bds.patch` did not cleanly port
+# from 5.4.69 to 5.10.5 which directly affects linuxboot systems.
+#
+else ifeq "$(CONFIG_LINUX_VERSION)" "5.10.5"
+linux_version := 5.10.5
+linux_hash := 3991a9e16a187d78d5f414d89236ae5d7f404a69e60c4c42a9d262ee19612ef4
+else
+$(error "$(BOARD): does not specify linux kernel version under CONFIG_LINUX_VERSION")
+endif 
+
+linux_base_dir := linux-$(linux_version)
+
+# TODO: fixup the patch process
+# input file in the heads config/ dir
+# Allow board config to specialize Linux configuration if necessary
+linux_kconfig := $(or $(CONFIG_LINUX_CONFIG),config/linux.config)
+
+# Output directory for the Linux kernel build is based on the
+# configuration file name, not the board name
+linux_dir := $(linux_base_dir)/$(notdir $(basename $(linux_kconfig)))
+
+linux_tar := linux-$(linux_version).tar.xz
+linux_major_ver := $(basename $(basename $(CONFIG_LINUX_VERSION)))
+linux_url := https://cdn.kernel.org/pub/linux/kernel/v$(linux_major_ver).x/$(linux_tar)
+
+# Ensure that touching the config file will force a reconfig/rebuild
+$(build)/$(linux_dir)/.configured: $(linux_kconfig)
+
+linux_configure := \
+	mkdir -p "$(build)/$(linux_dir)" \
+	&& cp "$(pwd)/$(linux_kconfig)" "$(build)/$(linux_dir)/.config" \
+	&& $(MAKE) -C .. \
+		CROSS_COMPILE="$(CROSS)" \
+		O="$(build)/$(linux_dir)" \
+		olddefconfig \
+
+linux_output += arch/x86/boot/bzImage
+
+# Once we have extracted the kernel tar file, install the headers
+# so that other submodules can make use of them.
+$(INSTALL)/include/linux/limits.h: $(build)/$(linux_base_dir)/.canary
+	$(MAKE) \
+		-C "$(build)/$(linux_base_dir)" \
+		INSTALL_HDR_PATH="$(INSTALL)" \
+		O="$(linux_dir)" \
+		KCONFIG_CONFIG="$(pwd)/$(linux_kconfig)" \
+		headers_install
+
+
+# qemu
+linux_modules-$(CONFIG_LINUX_E1000)	+= drivers/net/ethernet/intel/e1000/e1000.ko
+
+# x230 and winterfell
+linux_modules-$(CONFIG_LINUX_E1000E)	+= drivers/net/ethernet/intel/e1000e/e1000e.ko
+
+# Dell R630 ethernet and RAID controller
+linux_modules-$(CONFIG_LINUX_IGB)	+= drivers/net/ethernet/intel/igb/igb.ko
+linux_modules-$(CONFIG_LINUX_MEGARAID)	+= drivers/scsi/megaraid/megaraid_mm.ko
+linux_modules-$(CONFIG_LINUX_MEGARAID)	+= drivers/scsi/megaraid/megaraid_sas.ko
+linux_modules-$(CONFIG_LINUX_MEGARAID)	+= drivers/scsi/megaraid/megaraid_mbox.ko
+
+# Intel s2600wf scsi controller
+linux_modules-$(CONFIG_LINUX_SCSI_GDTH)	+= drivers/scsi/gdth.ko
+linux_modules-$(CONFIG_LINUX_ATA)	+= drivers/ata/libata.ko
+linux_modules-$(CONFIG_LINUX_AHCI)	+= drivers/ata/ahci.ko
+#linux_modules-$(CONFIG_LINUX_AHCI)	+= drivers/ata/ahci_platform.ko
+linux_modules-$(CONFIG_LINUX_AHCI)	+= drivers/ata/libahci.ko
+#linux_modules-$(CONFIG_LINUX_AHCI)	+= drivers/ata/libahci_platform.ko
+
+# Solarflare network card
+linux_modules-$(CONFIG_LINUX_SFC)	+= drivers/net/ethernet/sfc/sfc.ko
+linux_modules-$(CONFIG_LINUX_SFC)	+= drivers/net/mdio.ko
+
+# Mellanox ConnectX-3 (winterfell)
+linux_modules-$(CONFIG_LINUX_MLX4)	+= drivers/net/ethernet/mellanox/mlx4/mlx4_core.ko
+linux_modules-$(CONFIG_LINUX_MLX4)	+= drivers/net/ethernet/mellanox/mlx4/mlx4_en.ko
+
+# Broadcom 57302 (25g) for Tioga Pass
+linux_modules-$(CONFIG_LINUX_BCM)	+= drivers/net/ethernet/broadcom/bnxt/bnxt_en.ko
+
+# USB modules for both types of controllers
+# older boards also need ohci and uhci
+linux_modules-$(CONFIG_LINUX_USB_COMPANION_CONTROLLER)	+= drivers/usb/host/uhci-hcd.ko
+linux_modules-$(CONFIG_LINUX_USB_COMPANION_CONTROLLER)	+= drivers/usb/host/ohci-hcd.ko
+linux_modules-$(CONFIG_LINUX_USB_COMPANION_CONTROLLER)	+= drivers/usb/host/ohci-pci.ko
+linux_modules-$(CONFIG_LINUX_USB)	+= drivers/usb/host/ehci-hcd.ko
+linux_modules-$(CONFIG_LINUX_USB)	+= drivers/usb/host/ehci-pci.ko
+linux_modules-$(CONFIG_LINUX_USB)	+= drivers/usb/host/xhci-hcd.ko
+linux_modules-$(CONFIG_LINUX_USB)	+= drivers/usb/host/xhci-pci.ko
+linux_modules-$(CONFIG_LINUX_USB)	+= drivers/usb/storage/usb-storage.ko
+
+# NVMe driver for winterfell and other servers
+linux_modules-$(CONFIG_LINUX_NVME)	+= drivers/nvme/host/nvme.ko
+linux_modules-$(CONFIG_LINUX_NVME)	+= drivers/nvme/host/nvme-core.ko
+
+# ME drivers for talking the the management engine
+linux_modules-$(CONFIG_LINUX_MEI)	+= drivers/misc/mei/mei.ko
+linux_modules-$(CONFIG_LINUX_MEI)	+= drivers/misc/mei/mei-me.ko
+
+EXTRA_FLAGS := -fdebug-prefix-map=$(pwd)=heads -gno-record-gcc-switches
+
+linux_target := \
+	O="$(build)/$(linux_dir)" \
+	CROSS_COMPILE="$(CROSS)" \
+	AFLAGS_KERNEL="$(EXTRA_FLAGS)" \
+	CFLAGS_KERNEL="$(EXTRA_FLAGS)" \
+	CFLAGS_MODULE="$(EXTRA_FLAGS)" \
+	KBUILD_BUILD_USER=$(notdir $(linux_kconfig)) \
+	KBUILD_BUILD_HOST=linuxboot \
+	KBUILD_BUILD_TIMESTAMP="1970-00-00" \
+	KBUILD_BUILD_VERSION=0 \
+	$(MAKE_JOBS) \
+
+# We cross compile linux now
+linux_depends := musl-cross
+
+#
+# Linux kernel module installation
+#
+# This is special cases since we have to do a special strip operation on
+# the kernel modules to make them fit into the ROM image.
+#
+module_initrd_dir	:= $(shell mktemp -d)
+module_initrd_lib_dir	:= $(module_initrd_dir)/lib/modules
+FOO := $(shell mkdir -p "$(module_initrd_lib_dir)")
+
+define linux_module =
+
+# Each module depends on building the Linux kernel
+$(build)/$(linux_dir)/$1: $(build)/$(linux_dir)/$(linux_output)
+
+# The cpio file will depend on every module
+$(build)/$(BOARD)/modules.cpio: $(module_initrd_lib_dir)/$(notdir $1)
+
+# Strip the modules when we install them so that they will be extra small
+$(module_initrd_lib_dir)/$(notdir $1): $(build)/$(linux_dir)/$1
+	$(call do,INSTALL-MODULE,$1, \
+		$(CROSS)strip \
+			--preserve-dates \
+			--strip-debug \
+			-o "$$@" \
+			"$$<" \
+	)
+endef
+
+$(call map,linux_module,$(linux_modules-y))
+
+# We can't rebuild the module initrd until the kernel has been rebuilt
+$(build)/$(BOARD)/modules.cpio: $(build)/$(linux_dir)/.build
+	$(call do-cpio,$@,$(module_initrd_dir))
+	@$(RM) -rf "$(module_initrd_dir)"
+
+
+# The output of the linux.intermediate is the bzImage in the
+# linus build directory.  We need to copy it into our board
+# specific directory for ease of locating it later.
+$(build)/$(BOARD)/bzImage: $(build)/$(linux_dir)/.build
+	$(call do-copy,$(dir $<)/$(linux_output),$@)
+	@touch $@ # force a timestamp update
+	@sha256sum "$@" | tee -a "$(HASHES)"
+
+
+# menuconfig target allows us to easily reconfigure this Linux kernel
+# Afterwars make linux.saveconfig to generate a minimal config from it
+linux.menuconfig:
+	$(MAKE) \
+		-C "$(build)/$(linux_base_dir)" \
+		O="$(build)/$(linux_dir)" \
+		menuconfig \
+
+# The config file in the repo is stored as a "defconfig" format
+# which only includes the options that have changed from the defaults.
+linux.saveconfig:
+	$(MAKE) \
+		-C "$(build)/$(linux_base_dir)" \
+		O="$(build)/$(linux_dir)" \
+		savedefconfig
+	mv "$(build)/$(linux_dir)/defconfig" "$(pwd)/$(linux_kconfig)"

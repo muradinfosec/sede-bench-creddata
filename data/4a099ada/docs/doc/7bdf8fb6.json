@@ -1,0 +1,156 @@
+{
+  "ApiSpecs": [
+    {
+      "HttpVerb": "POST",
+      "Path": "/api/v1/aggregator",
+      "Calls": [
+        {
+          "Id": 0,
+          "CurrentPath": "/api/v1/aggregator",
+          "MethodType": "POST",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"wuaw\":\"bctk\",\"ofm\":\"122i2413v54666f32cbv0030jf496496\"}",
+            "Content-Type": " application/json\r",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {},
+          "RequestBody": "{\"tags\":\"\",\"step\":60,\"numerator\":\"$(cpu.idle)\",\"metric\":\"test.idle\",\"hostgroup_id\":343,\"endpoint\":\"testenp\",\"denominator\":\"2\"}",
+          "ResponseBody": "{\"id\":16,\"grp_id\":343,\"numerator\":\"$(cpu.idle)\",\"denominator\":\"2\",\"endpoint\":\"testenp\",\"metric\":\"test.idle\",\"tags\":\"\",\"ds_type\":\"GAUGE\",\"step\":60,\"creator\":\"root\"}",
+          "ResponseCode": 200
+        }
+      ]
+    },
+    {
+      "HttpVerb": "GET",
+      "Path": "/api/v1/hostgroup/343/aggregators",
+      "Calls": [
+        {
+          "Id": 1,
+          "CurrentPath": "/api/v1/hostgroup/343/aggregators",
+          "MethodType": "GET",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"maiu\":\"fkwl\",\"hyl\":\"774c3735s81805v45nxt5240np506780\"}",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {},
+          "RequestBody": "",
+          "ResponseBody": "{\"hostgroup\": \"test_group\", \"aggregators\": [{\"id\":13,\"grp_id\":343,\"numerator\":\"$(cpu.idle)\",\"denominator\":\"2\",\"endpoint\":\"testenp\",\"metric\":\"test.idle\",\"tags\":\"\",\"ds_type\":\"GAUGE\",\"step\":60,\"creator\":\"root\"},{\"id\":14,\"grp_id\":343,\"numerator\":\"$(cpu.idle)\",\"denominator\":\"2\",\"endpoint\":\"testenp\",\"metric\":\"test.idle\",\"tags\":\"\",\"ds_type\":\"GAUGE\",\"step\":60,\"creator\":\"root\"},{\"id\":15,\"grp_id\":343,\"numerator\":\"$(cpu.idle)\",\"denominator\":\"2\",\"endpoint\":\"testenp\",\"metric\":\"test.idle\",\"tags\":\"\",\"ds_type\":\"GAUGE\",\"step\":60,\"creator\":\"root\"},{\"id\":16,\"grp_id\":343,\"numerator\":\"$(cpu.idle)\",\"denominator\":\"2\",\"endpoint\":\"testenp\",\"metric\":\"test.idle\",\"tags\":\"\",\"ds_type\":\"GAUGE\",\"step\":60,\"creator\":\"root\"}]}",
+          "ResponseCode": 200
+        }
+      ]
+    },
+    {
+      "HttpVerb": "PUT",
+      "Path": "/api/v1/aggregator",
+      "Calls": [
+        {
+          "Id": 2,
+          "CurrentPath": "/api/v1/aggregator",
+          "MethodType": "PUT",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"dupa\":\"obad\",\"qyh\":\"409l2560i03014o56qnm8233fb125322\"}",
+            "Content-Type": " application/json\r",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {},
+          "RequestBody": "{\"tags\":\"\",\"step\":60,\"numerator\":\"$(cpu.idle)\",\"metric\":\"test.idle\",\"id\":16,\"endpoint\":\"testenp\",\"denominator\":\"$#\"}",
+          "ResponseBody": "{\"id\":16,\"grp_id\":343,\"numerator\":\"$(cpu.idle)\",\"denominator\":\"$#\",\"endpoint\":\"testenp\",\"metric\":\"test.idle\",\"tags\":\"\",\"ds_type\":\"GAUGE\",\"step\":60,\"creator\":\"root\"}",
+          "ResponseCode": 200
+        }
+      ]
+    },
+    {
+      "HttpVerb": "GET",
+      "Path": "/api/v1/aggregator/16",
+      "Calls": [
+        {
+          "Id": 3,
+          "CurrentPath": "/api/v1/aggregator/16",
+          "MethodType": "GET",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"fwyt\":\"yobp\",\"ayj\":\"037w1197h39910d73wse4197th670954\"}",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {},
+          "RequestBody": "",
+          "ResponseBody": "{\"id\":16,\"grp_id\":343,\"numerator\":\"$(cpu.idle)\",\"denominator\":\"$#\",\"endpoint\":\"testenp\",\"metric\":\"test.idle\",\"tags\":\"\",\"ds_type\":\"GAUGE\",\"step\":60,\"creator\":\"root\"}",
+          "ResponseCode": 200
+        }
+      ]
+    },
+    {
+      "HttpVerb": "DELETE",
+      "Path": "/api/v1/aggregator/16",
+      "Calls": [
+        {
+          "Id": 4,
+          "CurrentPath": "/api/v1/aggregator/16",
+          "MethodType": "DELETE",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"okyo\":\"xujs\",\"fnd\":\"095e0537a39148u31cno5530lc120771\"}",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {},
+          "RequestBody": "",
+          "ResponseBody": "{\"message\":\"aggregator:16 is deleted\"}",
+          "ResponseCode": 200
+        }
+      ]
+    }
+  ]
+}

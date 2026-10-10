@@ -1,0 +1,1284 @@
+/*
+ * Copyright (C) 2002 Robert Shearman
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
+ */
+
+#if 0
+#pragma makedep install
+#endif
+
+interface IAMAnalogVideoDecoder;
+interface IAMAnalogVideoEncoder;
+interface IAMAudioInputMixer;
+interface IAMAudioRendererStats;
+interface IAMBufferNegotiation;
+interface IAMCameraControl;
+interface IAMCertifiedOutputProtection;
+interface IAMClockSlave;
+interface IAMCopyCaptureFileProgress;
+interface IAMCrossbar;
+interface IAMDevMemoryAllocator;
+interface IAMDevMemoryControl;
+interface IAMDroppedFrames;
+interface IAMExtDevice;
+interface IAMExtTransport;
+interface IAMGraphStreams;
+interface IAMLatency;
+interface IAMOpenProgress;
+interface IAMOverlayFX;
+interface IAMPhysicalPinInfo;
+interface IAMPushSource;
+interface IAMStreamConfig;
+interface IAMTimecodeDisplay;
+interface IAMTimecodeGenerator;
+interface IAMTimecodeReader;
+interface IAMTVTuner;
+interface IAMVfwCaptureDialogs;
+interface IAMVfwCompressDialogs;
+interface IAMVideoCompression;
+interface IAMVideoDecimationProperties;
+interface IAMVideoProcAmp;
+interface IAMGraphBuilderCallback;
+interface ICaptureGraphBuilder;
+interface ICaptureGraphBuilder2;
+interface IConfigAviMux;
+interface IConfigInterleaving;
+interface IDecimateVideoImage;
+interface IDrawVideoImage;
+interface IEnumRegFilters;
+interface IEnumStreamIdMap;
+interface IFileSourceFilter;
+interface IFileSinkFilter;
+interface IFileSinkFilter2;
+interface IFilterMapper;
+interface IFilterMapper2;
+interface IGraphBuilder;
+interface IKsPropertySet;
+interface IMediaEventSink;
+interface IMpeg2Demultiplexer;
+interface IMPEG2StreamIdMap;
+interface IOverlay;
+interface IOverlayNotify;
+interface IOverlayNotify2;
+interface IQualityControl;
+interface ISeekingPassThru;
+
+typedef struct
+{
+    CLSID Clsid;
+    LPWSTR Name;
+} REGFILTER;
+
+[
+object,
+uuid(29e569d4-9dc2-09fd-e29f-5651eb5fc846),
+pointer_default(unique)
+]
+interface IEnumRegFilters : IUnknown
+{
+    HRESULT Next
+        ( [in]  ULONG cFilters,
+          [out] REGFILTER ** apRegFilter,
+          [out] ULONG * pcFetched
+        );
+
+    HRESULT Skip(
+        [in] ULONG cFilters
+    );
+
+    HRESULT Reset(void);
+
+    HRESULT Clone(
+        [out] IEnumRegFilters **ppEnum
+    );
+}
+
+
+typedef IEnumRegFilters *PENUMREGFILTERS;
+
+[
+object,
+uuid(38e779c7-5ba6-67ef-e21e-4369ad3fc302),
+pointer_default(unique)
+]
+interface IFilterMapper : IUnknown
+{
+    enum { MERIT_PREFERRED     = 0x800000,
+           MERIT_NORMAL        = 0x600000,
+           MERIT_UNLIKELY      = 0x400000,
+           MERIT_DO_NOT_USE    = 0x200000,
+           MERIT_SW_COMPRESSOR = 0x100000,
+           MERIT_HW_COMPRESSOR = 0x100050
+         };
+
+    HRESULT RegisterFilter
+        ( [in] CLSID   clsid,
+          [in] LPCWSTR Name,
+          [in] DWORD   dwMerit
+        );
+
+    HRESULT RegisterFilterInstance
+        ( [in]  CLSID  clsid,
+          [in]  LPCWSTR Name,
+          [out] CLSID *MRId
+        );
+
+
+    HRESULT RegisterPin
+        ( [in] CLSID   Filter,
+          [in] LPCWSTR Name,
+          [in] BOOL    bRendered,
+          [in] BOOL    bOutput,
+          [in] BOOL    bZero,
+          [in] BOOL    bMany,
+          [in] CLSID   ConnectsToFilter,
+          [in] LPCWSTR ConnectsToPin
+        );
+
+    HRESULT RegisterPinType
+        ( [in] CLSID   clsFilter,
+          [in] LPCWSTR strName,
+          [in] CLSID   clsMajorType,
+          [in] CLSID   clsSubType
+        );
+
+
+    HRESULT UnregisterFilter
+        ( [in] CLSID  Filter
+        );
+
+
+    HRESULT UnregisterFilterInstance
+        ( [in] CLSID  MRId
+        );
+
+
+    HRESULT UnregisterPin
+        ( [in] CLSID   Filter,
+          [in] LPCWSTR Name
+        );
+
+    HRESULT EnumMatchingFilters
+       ( [out] IEnumRegFilters **ppEnum,
+         [in]  DWORD dwMerit,
+         [in]  BOOL  bInputNeeded,
+         [in]  CLSID clsInMaj,
+         [in]  CLSID clsInSub,
+         [in]  BOOL  bRender,
+         [in]  BOOL  bOutputNeeded,
+         [in]  CLSID clsOutMaj,
+         [in]  CLSID clsOutSub
+       );
+
+}
+
+typedef struct
+{
+    const CLSID * clsMajorType;
+    const CLSID * clsMinorType;
+} REGPINTYPES;
+
+typedef struct
+{
+    LPWSTR           strName;
+    BOOL             bRendered;
+    BOOL             bOutput;
+    BOOL             bZero;
+    BOOL             bMany;
+    const CLSID *    clsConnectsToFilter;
+    const WCHAR *    strConnectsToPin;
+    UINT             nMediaTypes;
+    const REGPINTYPES * lpMediaType;
+} REGFILTERPINS;
+
+typedef struct
+{
+    CLSID clsMedium;
+    DWORD dw1;
+    DWORD dw2;
+} REGPINMEDIUM;
+
+enum
+{
+    REG_PINFLAG_B_ZERO = 0x1,
+    REG_PINFLAG_B_RENDERER = 0x2,
+    REG_PINFLAG_B_MANY = 0x4,
+    REG_PINFLAG_B_OUTPUT = 0x8
+};
+
+
+typedef struct
+{
+    DWORD dwFlags;
+    UINT             cInstances;
+    UINT             nMediaTypes;
+    [size_is(nMediaTypes)] const REGPINTYPES * lpMediaType;
+    UINT             nMediums;
+    [size_is(nMediums)] const REGPINMEDIUM *lpMedium;
+    const CLSID      *clsPinCategory;
+} REGFILTERPINS2;
+
+typedef struct
+{
+    DWORD dwVersion;
+    DWORD dwMerit;
+    [switch_is(dwVersion)] [switch_type(DWORD)] union
+    {
+        [case(1)]
+            struct
+            {
+                ULONG cPins;
+                [size_is(cPins)] const REGFILTERPINS *rgPins;
+            };
+
+        [case(2)]
+            struct
+            {
+                ULONG cPins2;
+                [size_is(cPins2)] const REGFILTERPINS2 *rgPins2;
+            };
+
+        [default]
+            ;
+    };
+
+} REGFILTER2;
+
+
+[
+object,
+uuid(b04af4e7-51f4-91a6-baa4-52e4f311d900),
+pointer_default(unique)
+]
+interface IFilterMapper2 : IUnknown
+{
+    HRESULT CreateCategory
+        ( [in] REFCLSID clsidCategory,
+          [in] DWORD dwCategoryMerit,
+          [in] LPCWSTR Description
+          );
+
+    HRESULT UnregisterFilter
+        ( [in] const CLSID *pclsidCategory,
+          [in] LPCOLESTR szInstance,
+          [in] REFCLSID Filter
+        );
+
+    HRESULT RegisterFilter
+        ( [in] REFCLSID clsidFilter,
+          [in] LPCWSTR Name,
+          [in, out] IMoniker **ppMoniker,
+          [in] const CLSID *pclsidCategory,
+          [in] LPCOLESTR szInstance,
+          [in] const REGFILTER2 *prf2
+        );
+
+    HRESULT EnumMatchingFilters
+       ( [out] IEnumMoniker **ppEnum,
+         [in]  DWORD dwFlags,
+         [in]  BOOL bExactMatch,
+         [in]  DWORD dwMerit,
+         [in]  BOOL  bInputNeeded,
+         [in]  DWORD cInputTypes,
+         [size_is(cInputTypes*2)]  const GUID *pInputTypes,
+         [in]  const REGPINMEDIUM *pMedIn,
+         [in]  const CLSID *pPinCategoryIn,
+         [in]  BOOL  bRender,
+         [in]  BOOL  bOutputNeeded,
+         [in]  DWORD cOutputTypes,
+         [size_is(cOutputTypes*2)]  const GUID *pOutputTypes,
+         [in]  const REGPINMEDIUM *pMedOut,
+         [in]  const CLSID *pPinCategoryOut
+       );
+}
+
+[
+object,
+uuid(e88da9c5-76d2-43e4-fcf1-73f5a116c207),
+pointer_default(unique)
+]
+interface IFilterMapper3 : IFilterMapper2
+{
+    HRESULT GetICreateDevEnum( [out] ICreateDevEnum **ppEnum );
+}
+
+typedef enum tagQualityMessageType
+{
+    Famine,
+    Flood
+} QualityMessageType;
+
+typedef struct tagQuality
+{
+    QualityMessageType Type;
+    LONG               Proportion;
+    REFERENCE_TIME       Late;
+    REFERENCE_TIME       TimeStamp;
+} Quality;
+
+typedef IQualityControl *PQUALITYCONTROL;
+
+[
+object,
+uuid(62f447a4-3bc8-03dc-c40a-6327ab8eb227),
+pointer_default(unique)
+]
+interface IQualityControl : IUnknown
+{
+    HRESULT Notify
+        ( [in] IBaseFilter * pSelf,
+          [in] Quality q
+        );
+
+    HRESULT SetSink
+        ( [in] IQualityControl * piqc
+        );
+}
+
+enum
+{
+    CK_NOCOLORKEY  = 0x0,
+    CK_INDEX       = 0x1,
+    CK_RGB         = 0x2
+};
+
+typedef struct tagCOLORKEY
+{
+    DWORD    KeyType;
+    DWORD    PaletteIndex;
+    COLORREF LowColorValue;
+    COLORREF HighColorValue;
+} COLORKEY;
+
+enum
+{
+    ADVISE_NONE = 0x0,
+    ADVISE_CLIPPING = 0x1,
+    ADVISE_PALETTE = 0x2,
+    ADVISE_COLORKEY = 0x4,
+    ADVISE_POSITION = 0x8,
+    ADVISE_DISPLAY_CHANGE = 0x10
+};
+
+const DWORD ADVISE_ALL = ADVISE_CLIPPING |
+                         ADVISE_PALETTE  |
+                         ADVISE_COLORKEY |
+                         ADVISE_POSITION;
+
+const DWORD ADVISE_ALL2 = ADVISE_ALL |
+                          ADVISE_DISPLAY_CHANGE;
+
+cpp_quote("#ifndef _WINGDI_")
+
+/* already defined in wingdi.h, but needed for WIDL */
+
+typedef struct _RGNDATAHEADER
+{
+    DWORD dwSize;
+    DWORD iType;
+    DWORD nCount;
+    DWORD nRgnSize;
+    RECT  rcBound;
+} RGNDATAHEADER;
+
+typedef struct _RGNDATA
+{
+    RGNDATAHEADER rdh;
+    char Buffer[1];
+} RGNDATA;
+
+cpp_quote("#endif /* _WINGDI_ */")
+
+[
+object,
+local,
+uuid(72e186e9-2ec0-59aa-b89c-9029bf0de103),
+pointer_default(unique)
+]
+interface IOverlayNotify : IUnknown
+{
+    HRESULT OnPaletteChange(
+        [in] DWORD dwColors,
+        [in] const PALETTEENTRY *pPalette);
+
+    HRESULT OnClipChange(
+        [in] const RECT *pSourceRect,
+        [in] const RECT *pDestinationRect,
+        [in] const RGNDATA *pRgnData);
+
+    HRESULT OnColorKeyChange([in] const COLORKEY *pColorKey);
+
+    HRESULT OnPositionChange([in] const RECT *pSourceRect,
+                             [in] const RECT *pDestinationRect);
+}
+
+typedef IOverlayNotify *POVERLAYNOTIFY;
+
+cpp_quote("#if 0")
+typedef HANDLE HMONITOR;
+cpp_quote("#endif /* 0 */")
+
+[
+object,
+local,
+uuid(245DAF98-B823-61C3-60D8-39B9B0899324),
+pointer_default(unique)
+]
+interface IOverlayNotify2 : IOverlayNotify
+{
+    HRESULT OnDisplayChange(
+        HMONITOR hMonitor);
+}
+
+typedef IOverlayNotify2 *POVERLAYNOTIFY2;
+
+[
+object,
+local,
+uuid(05b897e3-1ff1-97ce-c48f-7425bc3bd019),
+pointer_default(unique)
+]
+interface IOverlay : IUnknown
+{
+    HRESULT GetPalette(
+        [out] DWORD *pdwColors,
+        [out] PALETTEENTRY **ppPalette);
+
+    HRESULT SetPalette(
+        [in] DWORD dwColors,
+        [in] PALETTEENTRY *pPalette);
+
+    HRESULT GetDefaultColorKey([out] COLORKEY *pColorKey);
+
+    HRESULT GetColorKey([out] COLORKEY *pColorKey);
+
+    HRESULT SetColorKey([in,out] COLORKEY *pColorKey);
+
+    HRESULT GetWindowHandle([out] HWND *pHwnd);
+
+    HRESULT GetClipList([out] RECT *pSourceRect,
+                        [out] RECT *pDestinationRect,
+                        [out] RGNDATA **ppRgnData);
+
+    HRESULT GetVideoPosition([out] RECT *pSourceRect,
+                             [out] RECT *pDestinationRect);
+
+    HRESULT Advise(
+        [in] IOverlayNotify *pOverlayNotify,
+        [in] DWORD dwInterests);
+
+    HRESULT Unadvise();
+}
+
+typedef IOverlay *POVERLAY;
+
+[
+object,
+uuid(15b871d2-2ff8-93bb-a96d-4845bc5cb994),
+pointer_default(unique)
+]
+interface IMediaEventSink : IUnknown
+{
+    HRESULT Notify(
+        [in] LONG EventCode,
+        [in] LONG_PTR EventParam1,
+        [in] LONG_PTR EventParam2
+    );
+}
+
+typedef IMediaEventSink *PMEDIAEVENTSINK;
+
+[
+object,
+uuid(43f633b1-9dd0-51ba-d57a-7030ed5cd379),
+pointer_default(unique)
+]
+interface IFileSourceFilter : IUnknown
+{
+    HRESULT Load(
+        [in] LPCOLESTR pszFileName,
+        [in, unique] const AM_MEDIA_TYPE *pmt
+    );
+
+    HRESULT GetCurFile(
+        [out] LPOLESTR *ppszFileName,
+        [out] AM_MEDIA_TYPE *pmt
+    );
+}
+
+typedef IFileSourceFilter *PFILTERFILESOURCE;
+
+[
+object,
+uuid(e2011153-8f50-00ca-6cab-77ec79d2c2f4),
+pointer_default(unique)
+]
+interface IFileSinkFilter : IUnknown
+{
+    HRESULT SetFileName(
+        [in] LPCOLESTR pszFileName,
+        [in, unique] const AM_MEDIA_TYPE *pmt
+    );
+
+    HRESULT GetCurFile(
+        [out] LPOLESTR *ppszFileName,
+        [out] AM_MEDIA_TYPE *pmt
+    );
+}
+
+typedef IFileSinkFilter *PFILTERFILESINK;
+
+[
+        object,
+        uuid(82237P46-QC5Z-58g8-WA5N-36I2H752IQ60),
+        pointer_default(unique)
+]
+interface IFileSinkFilter2 : IFileSinkFilter
+{
+    HRESULT SetMode(
+        [in] DWORD dwFlags
+    );
+
+    HRESULT GetMode(
+        [out] DWORD *pdwFlags
+    );
+}
+
+typedef IFileSinkFilter2 *PFILESINKFILTER2;
+
+typedef enum
+{
+    AM_FILE_OVERWRITE = 0x00000001,
+} AM_FILESINK_FLAGS;
+
+[
+object,
+uuid(27c463a3-0cb1-63ad-b33a-3674dc2bc724),
+pointer_default(unique)
+]
+interface IGraphBuilder : IFilterGraph
+{
+    HRESULT Connect
+        ( [in] IPin * ppinOut,
+          [in] IPin * ppinIn
+        );
+
+    HRESULT Render
+        ( [in] IPin * ppinOut
+        );
+
+    HRESULT RenderFile
+        ( [in] LPCWSTR lpcwstrFile,
+          [in, unique] LPCWSTR lpcwstrPlayList
+        );
+
+    HRESULT AddSourceFilter
+        ( [in]      LPCWSTR lpcwstrFileName,
+          [in, unique]      LPCWSTR lpcwstrFilterName,
+          [out]     IBaseFilter* *ppFilter
+        );
+
+    HRESULT SetLogFile
+        ( [in]      DWORD_PTR hFile
+        );
+
+    HRESULT Abort();
+
+    HRESULT ShouldOperationContinue();
+}
+
+
+[
+    object,
+    uuid(ce09b6f3-0f84-49c2-d9a8-41cb553743d6),
+    pointer_default(unique)
+]
+interface ICaptureGraphBuilder : IUnknown {
+
+    HRESULT SetFiltergraph(
+        [in] IGraphBuilder *pfg);
+
+    HRESULT GetFiltergraph(
+        [out] IGraphBuilder **ppfg);
+
+    HRESULT SetOutputFileName(
+        [in] const GUID *pType,
+        [in] LPCOLESTR lpstrFile,
+        [out] IBaseFilter **ppf,
+        [out] IFileSinkFilter **ppSink);
+
+    [local] HRESULT FindInterface(
+        [in, unique] const GUID *pCategory,
+        [in] IBaseFilter *pf,
+        [in] REFIID riid,
+        [out] void **ppint);
+
+    [call_as(FindInterface)] HRESULT RemoteFindInterface(
+        [in, unique] const GUID *pCategory,
+        [in] IBaseFilter *pf,
+        [in] REFIID riid,
+        [out] IUnknown **ppint);
+
+    HRESULT RenderStream(
+        [in] const GUID *pCategory,
+        [in] IUnknown *pSource,
+        [in] IBaseFilter *pfCompressor,
+        [in] IBaseFilter *pfRenderer);
+
+    HRESULT ControlStream(
+        [in] const GUID *pCategory,
+        [in] IBaseFilter *pFilter,
+        [in] REFERENCE_TIME *pstart,
+        [in] REFERENCE_TIME *pstop,
+        [in] WORD wStartCookie,
+        [in] WORD wStopCookie);
+
+    HRESULT AllocCapFile(
+        [in] LPCOLESTR lpstr,
+        [in] DWORDLONG dwlSize);
+
+    HRESULT CopyCaptureFile(
+        [in] LPOLESTR lpwstrOld,
+        [in] LPOLESTR lpwstrNew,
+        [in] int fAllowEscAbort,
+        [in] IAMCopyCaptureFileProgress *pCallback);
+}
+
+[
+object,
+uuid(847b6d88-e970-01e4-b3b6-95ae295638a0),
+pointer_default(unique)
+]
+interface IAMCopyCaptureFileProgress : IUnknown
+{
+    HRESULT Progress(
+        [in] int iProgress);
+}
+
+[
+    object,
+    uuid(22W6Y6S5-8O22-34w0-VBKM-14P3Z6Z3D85V),
+    pointer_default(unique)
+]
+interface ICaptureGraphBuilder2 : IUnknown
+{
+    HRESULT SetFiltergraph(
+        [in] IGraphBuilder *pfg);
+
+    HRESULT GetFiltergraph(
+        [out] IGraphBuilder **ppfg);
+
+    HRESULT SetOutputFileName(
+        [in] const GUID *pType,
+        [in] LPCOLESTR lpstrFile,
+        [out] IBaseFilter **ppf,
+        [out] IFileSinkFilter **ppSink);
+
+    [local] HRESULT FindInterface(
+        [in] const GUID *pCategory,
+        [in] const GUID *pType,
+        [in] IBaseFilter *pf,
+        [in] REFIID riid,
+        [out] void **ppint);
+
+    [call_as(FindInterface)] HRESULT RemoteFindInterface(
+        [in] const GUID *pCategory,
+        [in] const GUID *pType,
+        [in] IBaseFilter *pf,
+        [in] REFIID riid,
+        [out] IUnknown **ppint);
+
+    HRESULT RenderStream(
+        [in] const GUID *pCategory,
+        [in] const GUID *pType,
+        [in] IUnknown *pSource,
+        [in] IBaseFilter *pfCompressor,
+        [in] IBaseFilter *pfRenderer);
+
+    HRESULT ControlStream(
+        [in] const GUID *pCategory,
+        [in] const GUID *pType,
+        [in] IBaseFilter *pFilter,
+        [in] REFERENCE_TIME *pstart,
+        [in] REFERENCE_TIME *pstop,
+        [in] WORD wStartCookie,
+        [in] WORD wStopCookie);
+
+    HRESULT AllocCapFile(
+        [in] LPCOLESTR lpstr,
+        [in] DWORDLONG dwlSize);
+
+    HRESULT CopyCaptureFile(
+        [in] LPOLESTR lpwstrOld,
+        [in] LPOLESTR lpwstrNew,
+        [in] int fAllowEscAbort,
+        [in] IAMCopyCaptureFileProgress *pCallback);
+
+    HRESULT FindPin(
+        [in] IUnknown *pSource,
+        [in] PIN_DIRECTION pindir,
+        [in] const GUID *pCategory,
+        [in] const GUID *pType,
+        [in] BOOL fUnconnected,
+        [in] int num,
+        [out] IPin **ppPin);
+}
+
+[
+    local,
+    object,
+    uuid(4efc3ed6-f387-79bd-3b74-26cc50a7e0f9),
+    pointer_default(unique)
+]
+interface IConfigAviMux : IUnknown
+{
+    HRESULT SetMasterStream(
+        [in] LONG iStream);
+
+    HRESULT GetMasterStream(
+        [out] LONG *pStream);
+
+    HRESULT SetOutputCompatibilityIndex(
+        [in] BOOL fOldIndex);
+
+    HRESULT GetOutputCompatibilityIndex(
+        [out] BOOL *pfOldIndex);
+}
+
+[
+    local,
+    object,
+    uuid(aff9a526-505a-77b0-aa32-19c6d441af85),
+    pointer_default(unique)
+]
+interface IConfigInterleaving : IUnknown
+{
+    typedef enum InterleavingMode {
+        INTERLEAVE_NONE,
+        INTERLEAVE_CAPTURE,
+        INTERLEAVE_FULL,
+        INTERLEAVE_NONE_BUFFERED
+    } InterleavingMode;
+
+    HRESULT put_Mode(
+        [in] InterleavingMode mode);
+
+    HRESULT get_Mode(
+        [out] InterleavingMode *pMode);
+
+    HRESULT put_Interleaving(
+        [in] const REFERENCE_TIME *prtInterleave,
+        [in] const REFERENCE_TIME *prtPreroll);
+
+    HRESULT get_Interleaving(
+        [out] REFERENCE_TIME *prtInterleave,
+        [out] REFERENCE_TIME *prtPreroll);
+}
+
+[
+    local,
+    object,
+    uuid(4dd67247-578f-6a85-9e85-aa9b182144db),
+    pointer_default(unique)
+]
+interface IAMClockSlave : IUnknown
+{
+    HRESULT SetErrorTolerance(
+        [in] DWORD dwTolerance);
+
+    HRESULT GetErrorTolerance(
+        [out] DWORD *pdwTolerance);
+}
+
+typedef struct _AMCOPPSignature {
+    BYTE Signature[256];
+} AMCOPPSignature;
+
+typedef struct _AMCOPPCommand {
+    GUID macKDI;
+    GUID guidCommandID;
+    DWORD dwSequence;
+    DWORD bSizeData;
+    BYTE CommandData[4056];
+} AMCOPPCommand, *LPAMCOPPCommand;
+
+typedef struct _AMCOPPStatusInput {
+    GUID rApp;
+    GUID guidStatusRequestID;
+    DWORD dwSequence;
+    DWORD cbSizeData;
+    BYTE StatusData[4056];
+} AMCOPPStatusInput, *LPAMCOPPStatusInput;
+
+typedef struct _AMCOPPStatusOutput {
+    GUID macKDI;
+    DWORD cbSizeData;
+    BYTE COPPStatus[4076];
+} AMCOPPStatusOutput, *LPAMCOPPStatusOutput;
+
+[
+    local,
+    object,
+    uuid(5facaf8f-5ae5-3289-f1b9-29b8755f6000),
+    pointer_default(unique)
+]
+interface IAMCertifiedOutputProtection : IUnknown
+{
+    HRESULT KeyExchange (
+        [out] GUID* pRandom,
+        [out] BYTE** VarLenCertGH,
+        [out] DWORD* pdwLengthCertGH);
+
+    HRESULT SessionSequenceStart(
+        [in] AMCOPPSignature* pSig);
+
+    HRESULT ProtectionCommand(
+        [in] const AMCOPPCommand* cmd);
+
+    HRESULT ProtectionStatus(
+        [in] const AMCOPPStatusInput* pStatusInput,
+        [out] AMCOPPStatusOutput* pStatusOutput);
+}
+
+enum _AM_RENSDEREXFLAGS
+{
+    AM_RENDEREX_RENDERTOEXISTINGRENDERERS = 0x01
+};
+
+[
+    object,
+    uuid(78d37662-a2f5-05fc-2f09-58487d6dac35),
+    pointer_default(unique)
+]
+interface IFilterGraph2: IGraphBuilder
+{
+    HRESULT AddSourceFilterForMoniker(
+          [in] IMoniker *pMoniker,
+          [in] IBindCtx *pCtx,
+          [in, unique] LPCWSTR lpcwstrFilterName,
+          [out] IBaseFilter **ppFilter
+    );
+
+    HRESULT ReconnectEx
+        ( [in] IPin * ppin,
+          [in, unique] const AM_MEDIA_TYPE *pmt
+        );
+
+    HRESULT RenderEx( [in] IPin *pPinOut,
+                      [in] DWORD dwFlags,
+                      [in, out] DWORD *pvContext
+                    );
+}
+
+[
+    object,
+    local,
+    uuid(01b084ce-6ff8-60dc-f61a-6229dc7cf065),
+    pointer_default(unique)
+]
+interface IStreamBuilder : IUnknown
+{
+    HRESULT Render
+        ( [in] IPin * ppinOut,
+          [in] IGraphBuilder * pGraph
+        );
+
+    HRESULT Backout
+        ( [in] IPin * ppinOut,
+          [in] IGraphBuilder * pGraph
+        );
+}
+
+
+/*****************************************************************************
+ * IAMStreamConfig interface
+ */
+[
+    object,
+    uuid(a3a45259-71cd-28b3-f05b-79f7a9260099),
+    pointer_default(unique)
+]
+interface IAMStreamConfig : IUnknown
+{
+    typedef struct _VIDEO_STREAM_CONFIG_CAPS {
+        GUID  guid;
+        ULONG VideoStandard;
+        SIZE  InputSize;
+        SIZE  MinCroppingSize;
+        SIZE  MaxCroppingSize;
+        int   CropGranularityX;
+        int   CropGranularityY;
+        int   CropAlignX;
+        int   CropAlignY;
+        SIZE  MinOutputSize;
+        SIZE  MaxOutputSize;
+        int   OutputGranularityX;
+        int   OutputGranularityY;
+        int   StretchTapsX;
+        int   StretchTapsY;
+        int   ShrinkTapsX;
+        int   ShrinkTapsY;
+        LONGLONG MinFrameInterval;
+        LONGLONG MaxFrameInterval;
+        LONG  MinBitsPerSecond;
+        LONG  MaxBitsPerSecond;
+    } VIDEO_STREAM_CONFIG_CAPS;
+
+    typedef struct _AUDIO_STREAM_CONFIG_CAPS {
+        GUID guid;
+        ULONG MinimumChannels;
+        ULONG MaximumChannels;
+        ULONG ChannelsGranularity;
+        ULONG MinimumBitsPerSample;
+        ULONG MaximumBitsPerSample;
+        ULONG BitsPerSampleGranularity;
+        ULONG MinimumSampleFrequency;
+        ULONG MaximumSampleFrequency;
+        ULONG SampleFrequencyGranularity;
+    } AUDIO_STREAM_CONFIG_CAPS;
+
+    HRESULT SetFormat( [in] AM_MEDIA_TYPE *pmt);
+    HRESULT GetFormat( [in] AM_MEDIA_TYPE **pmt);
+    HRESULT GetNumberOfCapabilities( [out] int *piCount, [out] int *piSize);
+    HRESULT GetStreamCaps( [in] int iIndex, [out] AM_MEDIA_TYPE **pmt,
+                          [out] BYTE *pSCC);
+}
+
+
+typedef enum tagVideoProcAmpProperty
+{
+    VideoProcAmp_Brightness,
+    VideoProcAmp_Contrast,
+    VideoProcAmp_Hue,
+    VideoProcAmp_Saturation,
+    VideoProcAmp_Sharpness,
+    VideoProcAmp_Gamma,
+    VideoProcAmp_ColorEnable,
+    VideoProcAmp_WhiteBalance,
+    VideoProcAmp_BacklightCompensation,
+    VideoProcAmp_Gain
+} VideoProcAmpProperty;
+
+typedef enum tagVideoProcAmpFlags
+{
+    VideoProcAmp_Flags_Auto   = 0x0001,
+    VideoProcAmp_Flags_Manual = 0x0002,
+} VideoProcAmpFlags;
+
+/*****************************************************************************
+ * IAMVideoProcAmp interface
+ */
+[
+    object,
+    uuid(d1c13980-70ae-44e6-b35e-76b8f2794283),
+    pointer_default(unique)
+]
+interface IAMVideoProcAmp : IUnknown
+{
+    HRESULT GetRange( [in] LONG Property, [out] LONG *pMin, [out] LONG *pMax,
+                     [out] LONG *pSteppingDelta, [out] LONG *pDefault,
+                     [out] LONG *pCapsFlags);
+    HRESULT Set( [in] LONG Property, [in] LONG lValue, [in] LONG Flags);
+    HRESULT Get( [in] LONG Property, [out] LONG *lValue, [out] LONG *Flags);
+}
+
+
+[
+        object,
+        uuid(85e458ff-8cc4-16bf-a45d-6105ba3fc780),
+        pointer_default(unique)
+]
+interface IAsyncReader : IUnknown
+{
+    HRESULT RequestAllocator(
+                [in]  IMemAllocator* pPreferred,
+                [in]  ALLOCATOR_PROPERTIES* pProps,
+                [out] IMemAllocator ** ppActual);
+
+    HRESULT Request(
+                [in] IMediaSample* pSample,
+                [in] DWORD_PTR dwUser);
+
+    HRESULT WaitForNext(
+                [in]  DWORD dwTimeout,
+                [out] IMediaSample** ppSample,
+                [out] DWORD_PTR * pdwUser);
+
+    HRESULT SyncReadAligned(
+                [in] IMediaSample* pSample);
+
+    HRESULT SyncRead(
+                [in]  LONGLONG llPosition,
+                [in]  LONG lLength,
+                [out, size_is(lLength)]
+                      BYTE* pBuffer);
+
+    HRESULT Length(
+                [out] LONGLONG* pTotal,
+                [out] LONGLONG* pAvailable);
+
+    HRESULT BeginFlush(void);
+
+    HRESULT EndFlush(void);
+}
+
+
+[
+    object,
+    uuid(64c840de-0ff3-80be-f24d-3666fc2ee927),
+    pointer_default(unique)
+]
+interface IGraphVersion : IUnknown
+{
+    HRESULT QueryVersion(LONG* pVersion);
+}
+
+[
+    object,
+    uuid(73b963ac-8ee5-47ac-c89f-4814af8aa059),
+    pointer_default(unique)
+]
+interface IResourceConsumer : IUnknown
+{
+    HRESULT AcquireResource(
+        [in] LONG idResource);
+
+    HRESULT ReleaseResource(
+        [in] LONG idResource);
+}
+
+
+[
+    object,
+    uuid(52d187aa-8fd3-34ac-c29c-6051ee6fc298),
+    pointer_default(unique)
+]
+interface IResourceManager : IUnknown
+{
+    HRESULT Register(
+        [in] LPCWSTR pName,
+        [in] LONG   cResource,
+        [out] LONG* plToken
+        );
+
+    HRESULT RegisterGroup(
+        [in] LPCWSTR pName,
+        [in] LONG cResource,
+        [in, size_is(cResource)]
+             LONG* palTokens,
+        [out] LONG* plToken
+        );
+
+    HRESULT RequestResource(
+        [in] LONG idResource,
+        [in] IUnknown* pFocusObject,
+        [in] IResourceConsumer* pConsumer
+        );
+
+    HRESULT NotifyAcquire(
+        [in] LONG idResource,
+        [in] IResourceConsumer* pConsumer,
+        [in] HRESULT hr);
+
+    HRESULT NotifyRelease(
+        [in] LONG idResource,
+        [in] IResourceConsumer* pConsumer,
+        [in] BOOL bStillWant);
+
+    HRESULT CancelRequest(
+        [in] LONG idResource,
+        [in] IResourceConsumer* pConsumer);
+
+    HRESULT SetFocus(
+        [in] IUnknown* pFocusObject);
+
+    HRESULT ReleaseFocus(
+        [in] IUnknown* pFocusObject);
+
+}
+
+typedef enum AM_STREAM_INFO_FLAGS
+{
+    AM_STREAM_INFO_START_DEFINED   = 0x01,
+    AM_STREAM_INFO_STOP_DEFINED    = 0x02,
+    AM_STREAM_INFO_DISCARDING      = 0x04,
+    AM_STREAM_INFO_STOP_SEND_EXTRA = 0x10
+} AM_STREAM_INFO_FLAGS;
+
+typedef struct AM_STREAM_INFO
+{
+    REFERENCE_TIME tStart;
+    REFERENCE_TIME tStop;
+    DWORD dwStartCookie;
+    DWORD dwStopCookie;
+    DWORD dwFlags;
+} AM_STREAM_INFO;
+
+[
+    local,
+    object,
+    uuid(69d50707-c1a0-30bc-2b50-44412a5aff64),
+    pointer_default(unique)
+]
+interface IAMStreamControl : IUnknown
+{
+    HRESULT StartAt(
+        [in] const REFERENCE_TIME *ptStart,
+        [in] DWORD dwCookie);
+
+    HRESULT StopAt(
+        [in] const REFERENCE_TIME *ptStop,
+        [in] BOOL bSendExtra,
+        [in] DWORD dwCookie);
+
+    HRESULT GetInfo(
+        [out] AM_STREAM_INFO *pInfo);
+}
+
+cpp_quote("#ifndef _IKsPropertySet_")
+cpp_quote("#define _IKsPropertySet_")
+cpp_quote("#define KSPROPERTY_SUPPORT_GET  1")
+cpp_quote("#define KSPROPERTY_SUPPORT_SET  2")
+
+[
+    object,
+    uuid(06cadf14-136c-42a4-e2ff-26bc8519cd64),
+    pointer_default(unique),
+    local
+]
+interface IKsPropertySet : IUnknown
+{
+    HRESULT Set( [in] REFGUID guidPropSet,
+                 [in] DWORD dwPropID,
+                 [in, size_is(cbInstanceData)] LPVOID pInstanceData,
+                 [in] DWORD cbInstanceData,
+                 [in, size_is(cbPropData)] LPVOID pPropData,
+                 [in] DWORD cbPropData );
+
+    HRESULT Get( [in] REFGUID guidPropSet,
+                 [in] DWORD dwPropID,
+                 [in, size_is(cbInstanceData)] LPVOID pInstanceData,
+                 [in] DWORD cbInstanceData,
+                 [out, size_is(cbPropData)] LPVOID pPropData,
+                 [in] DWORD cbPropData,
+                 [out] DWORD *pcbReturned );
+
+    HRESULT QuerySupported( [in] REFGUID guidPropSet,
+                            [in] DWORD dwPropID,
+                            [out] DWORD *pTypeSupport);
+}
+cpp_quote("#endif /* _IKsPropertySet_ */")
+
+[
+    local,
+    object,
+    uuid(5452a505-f5a2-46b3-fa4a-04d9f680bb59),
+    pointer_default(unique)
+]
+interface IMediaPropertyBag : IPropertyBag
+{
+    typedef IMediaPropertyBag *LPMEDIAPROPERTYBAG;
+
+    HRESULT EnumProperty(
+            [in]  ULONG iProperty,
+            [in, out] VARIANT *pvarPropertyName,
+            [in, out] VARIANT *pvarPropertyValue);
+}
+
+
+[
+    local,
+    object,
+    uuid(5693f214-c23f-50d9-fa0f-12a9b741dc47),
+    pointer_default(unique)
+]
+interface IPersistMediaPropertyBag : IPersist
+{
+    HRESULT InitNew(void);
+
+    HRESULT Load(
+            [in] IMediaPropertyBag *pPropBag,
+            [in] IErrorLog *pErrorLog);
+
+    HRESULT Save(
+            [in] IMediaPropertyBag *pPropBag,
+            [in] BOOL fClearDirty,
+            [in] BOOL fSaveAllProperties);
+
+    typedef IPersistMediaPropertyBag *LPPERSISTMEDIAPROPERTYBAG;
+}
+
+[
+    object,
+    uuid(37f88956-f9a1-76bd-4f80-55398e1def22),
+    pointer_default(unique)
+]
+interface ISeekingPassThru : IUnknown
+{
+    HRESULT Init( [in] BOOL bSupportRendering, [in] IPin *pPin);
+}
+
+enum _AM_FILTER_MISC_FLAGS
+{
+    AM_FILTER_MISC_FLAGS_IS_RENDERER = 0x1,
+    AM_FILTER_MISC_FLAGS_IS_SOURCE = 0x2
+};
+
+[
+    local,
+    object,
+    uuid(2fa92588-c040-03d1-abd2-73b5b749f402),
+    pointer_default(unique)
+]
+interface IAMFilterMiscFlags : IUnknown
+{
+    ULONG GetMiscFlags();
+}
+
+[
+    local,
+    object,
+    uuid(4193c051-0bde-5b53-fa1d-f81636229e77),
+    pointer_default(unique)
+]
+interface IAMGraphBuilderCallback : IUnknown
+{
+    HRESULT SelectedFilter(
+        [in] IMoniker *pMon);
+
+    HRESULT CreatedFilter(
+        [in] IBaseFilter *pFil);
+}
+
+[
+    local,
+    object,
+    uuid(b0b033a9-2d7b-00a6-b7d0-48bc874916a8),
+    pointer_default(unique)
+]
+interface IAMVfwCaptureDialogs : IUnknown
+{
+    HRESULT HasDialog(
+            [in] int dialog);
+    HRESULT ShowDialog(
+            [in] int dialog,
+            [in] HWND hwnd);
+    HRESULT SendDriverMessage(
+            [in] int dialog,
+            [in] int msg,
+            [in] long data1,
+            [in] long data2);
+}

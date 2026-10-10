@@ -1,0 +1,8 @@
+lumbergh:
+  login: lumbergh
+  crypted_password: <%= Authlogic::CryptoProviders::SCrypt.encrypt("lumberghrocks") %>
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  persistence_token: c8e785c3ae3eecda6f869d99b0e381e1a7d23c726c4cf2d64098c72e826e856925bde8203705ae326c4331e37080ca7765e9550d8de072f7e837344ea10dd550
+  perishable_token: <%= Authlogic::Random.friendly_token %>
+  email: lumbergh@initech.com
+  role: TPS Supervisor

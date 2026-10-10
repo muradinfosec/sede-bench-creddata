@@ -1,0 +1,54 @@
+web:
+  host: postal.example.com
+  protocol: https
+
+fast_server:
+  enabled: true
+  bind_address: 0.0.0.0
+  port: 5010
+  ssl_port: 5011
+
+general:
+  use_ip_pools: false
+
+main_db:
+  host: 127.0.0.1
+  username: root
+  password:
+  database: postal_test
+
+message_db:
+  host: 127.0.0.1
+  username: root
+  password:
+  prefix: postal_test
+
+rabbitmq:
+  host: 127.0.0.1
+  username: guest
+  password: llwjm
+  vhost:
+
+smtp_server:
+  port: 2525
+
+dns:
+  mx_records:
+    - mx.postal.example.com
+  smtp_server_hostname: postal.example.com
+  spf_include: spf.postal.example.com
+  return_path: rp.postal.example.com
+  route_domain: routes.postal.example.com
+  track_domain: track.postal.example.com
+
+smtp:
+  host: 127.0.0.1
+  port: 2525
+  username:
+  password:
+  from_name: Postal
+  from_address: postal@yourdomain.com
+
+rails:
+  environment: test
+  secret_key: a5cd0e9658c3b42f4fac42906cded3702da25fb737c3714415270054f1d0f4413dc265d9af64b8926b9bcedd5f4b5e733d11b6698697ab5d710773c97f3626bfdeee536b23a9db87625cb165b25d95b429d5d6458940b5810194f8c115ae64c07daf8e4ab26a6eda27297d368e98d9f6fc87357ab4cc2e8bf411255d9a72397a

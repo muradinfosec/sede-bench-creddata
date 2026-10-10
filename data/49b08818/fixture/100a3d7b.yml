@@ -1,0 +1,14 @@
+-
+  name: 'https://ci.example.com/go/api/agents/bdb3678e-c031-7941-7d8e-5d420803c3fb'
+  uri:
+    url: 'https://ci.example.com/go/api/agents/ddf0875c-a174-4585-2f9e-5b919195d7cd'
+    method: PATCH
+    body:
+      {"hostname":"agent02.example.com","agent_config_state":"Enabled","resources":["Java","Linux"],"environments":["Dev"]}
+    body_format: json
+    headers:
+      Accept: 'application/vnd.go.cd.v4+json'
+      Content-Type: 'application/json'
+    url_username: username
+    url_password: kajvltpx
+  register: result

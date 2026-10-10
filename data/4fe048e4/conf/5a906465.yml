@@ -1,0 +1,29 @@
+web:
+  host: localhost:5000
+  protocol: http
+
+fast_server:
+  bind_address: 0.0.0.0
+  port: 5001
+  ssl_port: 5002
+
+main_db:
+  username: root
+
+logging:
+  stdout: true
+
+message_db:
+  username: root
+
+rabbitmq:
+  username: guest
+  password: wczyb
+  vhost: /
+
+smtp_server:
+  port: 2525
+
+rails:
+  environment: development
+  secret_key: 79c29cce2233ffeef7992f46f995b74fcf810a81cf1c33172fe2848d736fdbcbb4b17d9117e3d0b21462f4f0372ec1d2d9f8e123f655e6afc0a2e5c45643178d

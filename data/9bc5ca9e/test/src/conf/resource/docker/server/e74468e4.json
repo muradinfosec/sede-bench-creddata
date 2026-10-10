@@ -1,0 +1,11 @@
+{
+  "auths": {
+    "https://index.docker.io/v1/": {
+      "auth": "LD0gg8HwdCJnBoF3WUm2JFpkDm==",
+      "email": "dockerman@hub.com"
+    }
+  },
+  "credHelpers": {
+    "https://index.docker.io/v1/": "magic-missile"
+  }
+}

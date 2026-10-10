@@ -1,0 +1,16 @@
+{
+  "key": "564054wz-675145246mh3w6016362qkhk",
+  "signature_scheme": "hmac-sha256",
+  "unpack": "json",
+  "pack": "json",
+  "ssh": "",
+  "task_scheme": "leastload",
+  "interface": "tcp://*",
+  "location": "laradock-ipython",
+  "notification": 33338,
+  "iopub": 33337,
+  "control": 33336,
+  "mux": 33335,
+  "task": 33334,
+  "registration": 33333
+}

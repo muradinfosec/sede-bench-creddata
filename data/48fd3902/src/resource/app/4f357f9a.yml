@@ -1,0 +1,82 @@
+auth-server:
+  # Public dummy UAA for local development usage only!
+  # Username/password: credhub/password
+  trust_store: src/test/resources/auth_server_trust_store.jks
+  trust_store_password: yfmlowoi
+
+encryption:
+  key_creation_enabled: true
+  providers:
+  - provider_name: internal
+    provider_type: internal
+    keys:
+    - encryption_password: gchpigacpwvfyoetdkrlihmmeifwtel
+      provider_type: internal
+      active: true
+    - encryption_password: qyybaioahnmvbfaysvfjwrwom
+      provider_type: internal
+
+security:
+  oauth2:
+    resource:
+      id: credhub
+  authorization:
+    acls:
+      enabled: true
+    permissions:
+    - path: /*
+      actors:
+      - "uaa-client:credhub_client"
+      - "uaa-user:63d065fd-a8e9-5f64-c092-e9c44d680f38"
+      - "mtls-app:7cfc5bfb-3663-0305-993f-feac8668a37e"
+      operations: [read,write,delete,read_acl,write_acl]
+
+logging:
+  config: applications/credhub-api/src/main/resources/log4j2.properties
+
+server:
+  port: 9000
+  ssl:
+    enabled: true
+    key_store: applications/credhub-api/src/test/resources/key_store.jks
+    key_store_password: xcurnltx
+    key_password: pzcuuhsh
+    key_alias: cert
+    ciphers: TLS_DHE_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+    client_auth: want
+    trust_store: applications/credhub-api/src/test/resources/trust_store.jks
+    trust_store_password: bdciqknk
+    trust_store_type: JKS
+    enabled-protocols: TLSv1.2
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+certificates:
+  concatenate_cas: true
+
+backend:
+  socket_file: "/tmp/socket/test.sock"
+  host: backend-cert-host
+  ca_cert: |
+    -----BEGIN CERTIFICATE-----
+    MIIDCzCCAfOgAwIBAgIUXwjzBquGKBGLIe7sbSidy3ak4JwwDQYJKoZIhvcNAQEL
+    BQAwFTETMBEGA1UEAxMKYmFja2VuZC1jYTAeFw0xOTA3MjIxNjMxMTNaFw0yMDA3
+    MjExNjMxMTNaMBUxEzARBgNVBAMTCmJhY2tlbmQtY2EwggEiMA0GCSqGSIb3DQEB
+    AQUAA4IBDwAwggEKAoIBAQDJ9IPEJ4qYMuhwgY7qhcmo29te+ur5JYDK0f7XNwfm
+    8ONsG3vNmgsFrcmJTj45LB02R4T/xOaV9LxHcUazp6UjFuH4CzfSjDIWQd17vS/3
+    Ns5pMQFTQoeEYmTdRjcNCI9pDaJj8rd8EmjEixEMNnxB2AU0BhWyn2FyemUhEPB0
+    LEF3zNj4qfQqry121sTjQyonkhM0XEL6S8RN4HPHfc4JkSnfmhuM1AXXhjLplt9N
+    1/FFUpEYM+OEKj6X1qcx+64f4hcbVHQNZ5Uno3/kI0X0MuqxUSt+qAUaeKA5yj0N
+    j4RMKE/VZgTGaLpLQgfOIyJ7aFNdDBNdofJw5OH+fabtAgMBAAGjUzBRMB0GA1Ud
+    DgQWBBTP9JWT7FH/2G+VssyGc63bfTDdsjAfBgNVHSMEGDAWgBTP9JWT7FH/2G+V
+    ssyGc63bfTDdsjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQBt
+    howpRtXy8Nbi1xPYcga9zXeqEbM0/SkQCbYCNBugqzkdPGnTIBL3Pfx0cQ84GAYZ
+    to+hKICqVwy3w8TzHacAlYeyR8HE1zsPf4EsroiCV00RS7YzVu0JsR5EDujSRHgI
+    7thjTXUNL9vNOXFqWrhT4bnR0YPegZ5nqI3AM3KKOf09uN9qC/+hcsnMVLlRsity
+    tuwiIS/+PII52/LQme6g3pTTf/0bospLsDGsuca3vBWFF6DYNNfbvUiMTdIz6wsx
+    JYBAKp6YyKAb9MAwqI1zuG7VNynjsygWYriNreXC6dATwCyuB+mEVD2lEULUluo2
+    KQaHGXVQDD/ZuPZWnSZB
+    -----END CERTIFICATE-----

@@ -1,0 +1,2 @@
+DB="oracle://system:N7dok9wl@localhost/orasid"
+VSQL="SELECT version FROM v\$instance"

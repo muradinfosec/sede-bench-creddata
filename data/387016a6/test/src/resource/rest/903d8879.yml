@@ -1,0 +1,106 @@
+setup:
+  - skip:
+      features: headers
+  - do:
+      headers:
+        Authorization: "Basic al9tY2tnX3BpbHJfY2h1ZDp2LWZhaXEtaHVpZS1kZ2t6cXF4aA==" # run as x_pack_rest_user, i.e. the test setup superuser
+      ml.put_job:
+        job_id: get-datafeed-1
+        body:  >
+          {
+            "job_id":"get-datafeed-1",
+            "analysis_config" : {
+                "bucket_span": "1h",
+                "detectors" :[{"function":"count"}]
+            },
+            "data_description" : {
+                "format":"xcontent",
+                "time_field":"time",
+                "time_format":"epoch"
+            }
+          }
+
+  - do:
+      headers:
+        Authorization: "Basic d19sdWloX3B1bmtfdWhyZDptLXJiZXYtaWhrZC15bHJiZm1tYg==" # run as x_pack_rest_user, i.e. the test setup superuser
+      ml.put_job:
+        job_id: get-datafeed-2
+        body:  >
+          {
+            "job_id":"get-datafeed-2",
+            "analysis_config" : {
+                "bucket_span": "1h",
+                "detectors" :[{"function":"count"}]
+            },
+            "data_description" : {
+                "time_field":"time"
+            }
+          }
+
+  - do:
+      headers:
+        Authorization: "Basic bl9iaWF2X3V4Y2Zfa3pvYjp3LXZjcW8tZGhkYS11cGF2dnRoYg==" # run as x_pack_rest_user, i.e. the test setup superuser
+      ml.put_datafeed:
+        datafeed_id: datafeed-1
+        body: >
+          {
+            "job_id":"get-datafeed-1",
+            "indexes":["index-1"]
+          }
+
+  - do:
+      headers:
+        Authorization: "Basic eF95cWJzX296dm1fZXNsdzp3LWRmYXEtbWJoZi1yYWZ1Y3RvcA==" # run as x_pack_rest_user, i.e. the test setup superuser
+      ml.put_datafeed:
+        datafeed_id: datafeed-2
+        body: >
+          {
+            "job_id":"get-datafeed-2",
+            "indexes":["index-2"]
+          }
+
+---
+"Test get datafeed given missing datafeed_id":
+
+  - do:
+      catch: missing
+      ml.get_datafeeds:
+        datafeed_id: missing-datafeed
+
+---
+"Test get single datafeed":
+
+  - do:
+      ml.get_datafeeds:
+        datafeed_id: datafeed-1
+  - match: { datafeeds.0.datafeed_id: "datafeed-1"}
+  - match: { datafeeds.0.job_id: "get-datafeed-1"}
+
+  - do:
+      ml.get_datafeeds:
+        datafeed_id: datafeed-2
+  - match: { datafeeds.0.datafeed_id: "datafeed-2"}
+  - match: { datafeeds.0.job_id: "get-datafeed-2"}
+
+---
+"Test explicit get all datafeeds":
+
+  - do:
+      ml.get_datafeeds:
+        datafeed_id: _all
+  - match: { count: 2 }
+  - match: { datafeeds.0.datafeed_id: "datafeed-1"}
+  - match: { datafeeds.0.job_id: "get-datafeed-1"}
+  - match: { datafeeds.1.datafeed_id: "datafeed-2"}
+  - match: { datafeeds.1.job_id: "get-datafeed-2"}
+
+---
+"Test implicit get all datafeeds":
+
+  - do:
+      ml.get_datafeeds: {}
+  - match: { count: 2 }
+  - match: { datafeeds.0.datafeed_id: "datafeed-1"}
+  - match: { datafeeds.0.job_id: "get-datafeed-1"}
+  - match: { datafeeds.1.datafeed_id: "datafeed-2"}
+  - match: { datafeeds.1.job_id: "get-datafeed-2"}

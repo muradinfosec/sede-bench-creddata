@@ -1,0 +1,46 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+# services "svc1" was not valid:
+# * spec.ports[0].protocol: Unsupported value: "VHF": supported values: TCP, UDP, SCTP
+#
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2017-02-03T06:11:32Z"
+    labels:
+      app: svc1
+      newvalue: modified
+    name: svc1
+    namespace: edit-test
+    resourceVersion: "1904"
+    selfLink: /api/v1/namespaces/edit-test/services/svc1
+    uid: 8aeb23de-e2b3-13b6-0e5f-fbda61f4ad19
+  spec:
+    clusterIP: 10.0.0.248
+    ports:
+    - name: "80"
+      port: 83
+      protocol: TCP
+      targetPort: 81
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  data:
+    baz: qux
+    foo: changed-value2
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2017-02-03T06:12:07Z"
+    name: cm1
+    namespace: edit-test
+    resourceVersion: "1903"
+    selfLink: /api/v1/namespaces/edit-test/configmaps/cm1
+    uid: f64ddfde-d8f7-84c6-6f7f-ddbd45f9cd08
+kind: List
+metadata: {}

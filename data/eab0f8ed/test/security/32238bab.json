@@ -1,0 +1,67 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/justeat/httpclient-interception/master/src/HttpClientInterception/Bundles/http-request-bundle-schema.json",
+  "items": [
+    {
+      "comment": "https://github.com/HIT-ReFreSH/moodle-local_oauth",
+      "uri": "https://moodle.local/local/oauth/token.php",
+      "method": "POST",
+      "contentFormat": "json",
+      "contentJson": {
+        "access_token": "37d887d4ff0339d8281c6b38426095beeb18a0c2",
+        "expires_in": 3600,
+        "token_type": "Bearer",
+        "scope": "user_info",
+        "refresh_token": "e0cb353eee7a7724b15324369dd9cfb2cf4d1ee7"
+      }
+    },
+    {
+      "comment": "https://github.com/HIT-ReFreSH/moodle-local_oauth",
+      "uri": "https://moodle.local/local/oauth/user_info.php",
+      "contentFormat": "json",
+      "contentJson": {
+        "id": "22",
+        "username": "johndoe",
+        "idnumber": "1234567",
+        "firstname": "John",
+        "lastname": "Doe",
+        "email": "john.doe@example.com",
+        "lang": "en",
+        "phone1": "7654321",
+        "auth": "manual",
+        "country": "avalon",
+        "description": "John Doe's Moodle account" 
+      }
+    },
+    {
+      "comment": "https://github.com/HIT-ReFreSH/moodle-local_oauth",
+      "uri": "https://zh.moodle.local/local/oauth/token.php",
+      "method": "POST",
+      "contentFormat": "json",
+      "contentJson": {
+        "access_token": "23c090d8ec1790e8773b8f96435727ebdd72a8b5",
+        "expires_in": 3600,
+        "token_type": "Bearer",
+        "scope": "user_info",
+        "refresh_token": "c7dd586cef5c3470a44083623cc0fae9ba1f9ff2"
+      }
+    },
+    {
+      "comment": "https://github.com/HIT-ReFreSH/moodle-local_oauth",
+      "uri": "https://zh.moodle.local/local/oauth/user_info.php",
+      "contentFormat": "json",
+      "contentJson": {
+        "id": "22",
+        "username": "zhangsan",
+        "idnumber": "ZH1234567",
+        "firstname": "三",
+        "lastname": "张",
+        "email": "zhangsan@example.com",
+        "lang": "zh_CN",
+        "phone1": "7654321",
+        "auth": "casattras",
+        "country": "秦",
+        "description": "张三的 Moodle 账号"
+      }
+    }
+  ]
+}

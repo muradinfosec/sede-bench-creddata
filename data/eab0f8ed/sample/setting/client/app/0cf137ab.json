@@ -1,0 +1,18 @@
+﻿{
+  "Dropbox": {
+    "ClientId": "jpk24g2uxfxe939",
+    "ClientSecret": "sbmenjd6up6gcd2"
+  },
+  "GitHub": {
+    "ClientId": "49e302895d8b09ea5656",
+    "ClientSecret": "33e3ce162931057e1cf68e51fd74494db324722e"
+  },
+  "Google": {
+    "ClientId": "560027070069-37ldt4kfuohhu3m495hk2j4pjp92d382.apps.googleusercontent.com",
+    "ClientSecret": "d8E-UWq7XNutkHvB9rpwAa8c"
+  },
+  "Twitter": {
+    "ConsumerKey": "4ElJUaYqOvjh4ia7vzL1j",
+    "ConsumerSecret": "Id1wUoOCkXfl8CLrGhMDXJEWtZjH2nlAfOTcL0UC"
+  }
+}

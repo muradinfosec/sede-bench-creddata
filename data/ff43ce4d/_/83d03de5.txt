@@ -1,0 +1,32 @@
+App Credentials
+
+These credentials allow your app to access the Slack API. They are secret. Please don't share your app credentials with anyone, include them in public code repositories, or store them in insecure ways.
+App ID: A0487F6PJE7
+Date of App Creation: October 26, 2022
+Client ID: 543912748098.4279516800483
+Client Secret: 6e281b98915a11eccedd5f82bda0f022
+
+You'll need to send this secret along with your client ID when making your oauth.v2.access request.
+Signing Secret: 5476c5fb1f878171983954b9d1017d67
+
+Slack signs the requests we send you using this secret. Confirm that each request comes from Slack by verifying its unique signature.
+Verification Token: BcumG0YIBZ7ZZVrINObMx2jy
+
+App Token: xapp-5-J3581U3HIC0-3683262728705-13u44e1k45951mc4y9n95e1c8854xap7f21v40f9e95r203132938ix9234t5h49
+
+Bot User OAuth Token: xoxb-697039480465-1977882494644-oU7dKy2SLRMXEhnbYPwCJoNC
+xapp-2-J6451I4ENO4-9033487728613-892xr8g93852u060v243qcl9021wm58v3ns6605ra2ubf1r37rv7m9kzcki4pxd3
+
+
+
+Bot User OAuth Token
+xoxb-472856556376-9903209283354-gK3oTl7TJVRNZlbfTGzFIcXE  <---WORKING
+
+xoxe.xoxp-0-Ca1rKKK7KorkZyw7GRR8NS9xWIAaGVs0IoKtYfQyCKDqUza8UoGbFyK6AFzhOIM2HET0ZXS5RWEvBN56MoHoOcCgCkQjNCOrCIG0DFIpHOF1IcIuUkH5JzR1YrAaWLD0Orp0FJXfINUlQHUlHAErCJgdJYY4IYS4Ydd2
+xoxe-0-Cs8jTLS7JuguHfm7TYX8VU59Uxu5USDuVOQ6XGM6VQTmWKJ8ZMD1PiW6VjXuXNCoDfqgBJRwYuPhHMJeGRw1BkirODsoRJG1VamgC6V6OJE6LEVrRqTzULG6SuhjGlReEUxeDHAeDrUiPVA1Qh
+
+
+
+curl -F file=@logs5.zip -F "initial_comment=File Upload Example" -F channels=dashboard-external-logs -H "Authorization: Bearer xoxb-072200603393-6142844649822-nF2tWz2XTHYOKzuyGYrSScOL" https://slack.com/api/files.upload
+
+curl -F file=@logs5.zip -F "initial_comment=File Upload Example" -F channels=C048084B26A -H "Authorization: Bearer xoxb-904083234217-1341643781781-jR7dNn2KUKFOQsjnNYzPRpDX" https://slack.com/api/files.upload

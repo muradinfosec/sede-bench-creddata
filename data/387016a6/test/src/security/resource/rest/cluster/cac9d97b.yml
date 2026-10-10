@@ -1,0 +1,76 @@
+---
+setup:
+  - skip:
+      features: headers
+
+  - do:
+      cluster.health:
+        wait_for_status: yellow
+
+  - do:
+      security.put_user:
+        username: "dls_fls_user"
+        body:  >
+          {
+            "password": "s3krit-password",
+            "roles" : [ "dls_fls_role" ]
+          }
+
+---
+teardown:
+  - do:
+      security.delete_user:
+        username: "dls_fls_user"
+        ignore: 404
+
+---
+"Search with document and field level security":
+  - do:
+      search:
+        rest_total_hits_as_int: true
+        request_cache: true
+        index: my_remote_cluster:shared_index
+
+  - match: { hits.total: 2}
+  - length: { hits.hits.0._source: 3 }
+  - match: { hits.hits.0._source.secret: "sesame" }
+
+  - do:
+      headers: { Authorization: "Basic eXhoX3Z2dl9wdGlhOnM3cWhkcC1mZG52ZnZqcg==" }
+      search:
+        rest_total_hits_as_int: true
+        ccs_minimize_roundtrips: false
+        request_cache: true
+        index: my_remote_cluster:shared_index
+
+  - match: { hits.total: 1}
+  - length: { hits.hits.0._source: 2 }
+  - is_true: hits.hits.0._source.public
+  - match: { hits.hits.0._source.name: "doc 1" }
+
+---
+"Async search with document and field level security":
+  - skip:
+      version: " - 7.6.99"
+      reason: "async search available since 7.7"
+
+  - do:
+      async_search.submit:
+        index: my_remote_cluster:shared_index
+        wait_for_completion_timeout: 10s
+
+  - match: { response.hits.total.value: 2}
+  - length: { response.hits.hits.0._source: 3 }
+  - match: { response.hits.hits.0._source.secret: "sesame" }
+
+  - do:
+      headers: { Authorization: "Basic bmZtX2lhYl9iY2l6OmM3YmV2dC1naHlldmtteA==" }
+      async_search.submit:
+        index: my_remote_cluster:shared_index
+        wait_for_completion_timeout: 10s
+
+  - match: { response.hits.total.value: 1}
+  - length: { response.hits.hits.0._source: 2 }
+  - is_true: response.hits.hits.0._source.public
+  - match: { response.hits.hits.0._source.name: "doc 1" }
+

@@ -1,0 +1,29 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+# The edited file had a syntax error: error parsing edited-file: error converting YAML to JSON: yaml: line 18: could not find expected ':'
+#
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2017-02-12T20:11:19Z"
+  labels:
+    component: apiserver
+    provider: kubernetes
+  name: kubernetes
+  namespace: default
+  resourceVersion: "8"
+  selfLink: /api/v1/namespaces/default/services/kubernetes
+  uid: 5c2c4660-b24a-33a5-a832-caea89b1ed57
+spec
+  clusterIP: 10.0.0.1
+  ports:
+    name: https
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  sessionAffinity: ClientIP
+  type: ClusterIP
+status:
+  loadBalancer: {

@@ -1,0 +1,338 @@
+setup:
+  - skip:
+      features: headers
+
+  - do:
+      cluster.health:
+          wait_for_status: yellow
+
+---
+teardown:
+  - do:
+      security.delete_user:
+        username: "test_user"
+        ignore: 404
+
+  - do:
+      security.delete_role:
+        name: "foo_only_access"
+        ignore: 404
+
+---
+"Index-based access":
+
+  - do:
+      security.put_role:
+        name: "foo_only_access"
+        body:  >
+            {
+              "cluster": [ "all" ],
+              "indices": [
+                { "names": ["foo"], "privileges": ["all"] },
+                { "names": ["rollup"], "privileges": ["all"] }
+              ]
+            }
+
+  - do:
+      security.put_user:
+        username: "test_user"
+        body:  >
+          {
+            "password" : "x-pack-test-password",
+            "roles" : [ "foo_only_access" ],
+            "full_name" : "foo only"
+          }
+
+  - do:
+      indices.create:
+        index: foo
+        body:
+          mappings:
+            properties:
+              timestamp:
+                type: date
+              value_field:
+                type: integer
+  - do:
+      headers:
+        Authorization: "Basic b192a3BuX3BsenJfdXFudzp0LXpidXotd3RvbC13cHpuZGNsdg==" # run as x_pack_rest_user, i.e. the test setup superuser
+      index:
+        index: foo
+        body:
+          timestamp: 123
+          value_field: 1232
+
+  - do:
+      indices.create:
+        index: foobar
+        body:
+          mappings:
+            properties:
+              timestamp:
+                type: date
+              value_field:
+                type: integer
+  - do:
+      headers:
+        Authorization: "Basic cV9vdnFvX3VoaHdfZ2hseDptLWVyaGgtbHRqdS1obnN5a2dteQ==" # run as x_pack_rest_user, i.e. the test setup superuser
+      index:
+        index: foobar
+        body:
+          timestamp: 123
+          value_field: 456
+
+  - do:
+      headers: { Authorization: "Basic Ymd1eF92c2FjOnItcGh3dC1wc3FjLWZudG56bnpw" } # test_user
+      indices.refresh:
+        index: foo
+
+  # This index pattern will match both indices, but we only have permission to read one
+  - do:
+      headers: { Authorization: "Basic cm9kdF9ucW5xOmQtZ3pqdy15dHhtLWVocWpwemd4" } # test_user
+      rollup.put_job:
+        id: foo
+        body:  >
+          {
+            "index_pattern": "foo*",
+            "rollup_index": "rollup",
+            "cron": "*/1 * * * * ?",
+            "page_size" :10,
+            "groups" : {
+              "date_histogram": {
+                "field": "timestamp",
+                "interval": "1s"
+              }
+            },
+            "metrics": [
+              {
+                "field": "value_field",
+                "metrics": ["min", "max", "sum"]
+              }
+            ]
+          }
+
+  - is_true: acknowledged
+
+  - do:
+      headers: { Authorization: "Basic Zm9heF9uaHN4OnAtdG9wby1jeWhqLXBkd3FncXp2" } # test_user
+      rollup.start_job:
+        id: foo
+  - is_true: started
+
+  - do:
+      headers: { Authorization: "Basic cWhxdV9pZHZ5OmwteWZodS1tb2d1LW5wZHBwb2Nr" } # test_user
+      indices.refresh:
+        index: rollup
+
+  # this is a hacky way to sleep for 5s, since we will never have 10 nodes
+  - do:
+      catch: request_timeout
+      cluster.health:
+        wait_for_nodes: 10
+        timeout: "5s"
+  - match:
+     timed_out: true
+
+  - do:
+      headers: { Authorization: "Basic Ynppbl9wd3dtOmktcGxhaC1qaGRiLXp4Ymlub3pk" } # test_user
+      rollup.get_jobs:
+        id: foo
+  - match:
+        jobs.0.stats.documents_processed: 1
+
+  - do:
+      headers: { Authorization: "Basic YnBjYl9sbWttOnotb2l5cC1wb3B0LXpwaGV0c3l1" } # test_user
+      search:
+        rest_total_hits_as_int: true
+        index: foo
+        body:
+          query:
+            match_all: {}
+
+  - match:
+      hits.total: 1
+
+  - do:
+      headers: { Authorization: "Basic d21jd19kaGpvOmktZ2J1di14cXltLXduZmtzZG1t" } # test_user
+      search:
+        rest_total_hits_as_int: true
+        index: rollup
+        body:
+          query:
+            match_all: {}
+
+  - match:
+      hits.total: 1
+  - match:
+      hits.hits.0._id: "foo$VxMkzTqILshClbtbFi4-rQ"
+  - match:
+      hits.hits.0._source:
+        timestamp.date_histogram.time_zone: "UTC"
+        timestamp.date_histogram.timestamp: 0
+        value_field.max.value: 1232.0
+        _rollup.version: 2
+        timestamp.date_histogram.interval: "1s"
+        value_field.sum.value: 1232.0
+        value_field.min.value: 1232.0
+        timestamp.date_histogram._count: 1
+        _rollup.id: "foo"
+
+
+---
+"Attribute-based access":
+
+  - do:
+      security.put_role:
+        name: "foo_only_access"
+        body:  >
+            {
+              "cluster": [ "all" ],
+              "indices": [
+                {
+                    "names": ["foo"],
+                    "privileges": ["all"],
+                    "query": {
+                        "template": {
+                            "source": "{\"bool\":{\"filter\":[{\"term\":{\"visibility\":\"public\"}}]}}"
+                        }
+                    }
+                },
+                { "names": ["rollup"], "privileges": ["all"] }
+              ]
+            }
+
+  - do:
+      security.put_user:
+        username: "test_user"
+        body:  >
+          {
+            "password" : "x-pack-test-password",
+            "roles" : [ "foo_only_access" ],
+            "full_name" : "foo only"
+          }
+
+  - do:
+      indices.create:
+        index: foo
+        body:
+          mappings:
+            properties:
+              timestamp:
+                type: date
+              value_field:
+                type: integer
+              visibility:
+                type: keyword
+  - do:
+      headers:
+        Authorization: "Basic bF9maW91X3BqeW9feWJmcTp1LWdicmQtYWdweS1pc2Z0dG91dQ==" # run as x_pack_rest_user, i.e. the test setup superuser
+      index:
+        index: foo
+        body:
+          timestamp: 123
+          value_field: 1232
+          visibility: "public"
+  - do:
+      headers:
+        Authorization: "Basic aF9oam9oX3N4bmxfcmt3aDpzLXp6b2Etamd6bi1kYmZ2amNqZg==" # run as x_pack_rest_user, i.e. the test setup superuser
+      index:
+        index: foobar
+        body:
+          timestamp: 123
+          value_field: 456
+          visibility: "private"
+
+  - do:
+      headers: { Authorization: "Basic bWt3dV9kcmNqOnMta29sai1wdWlqLWtncGp4aXZi" } # test_user
+      indices.refresh:
+        index: foo
+
+  # Index contains two docs, but we should only be able to see one of them
+  - do:
+      headers: { Authorization: "Basic dHJtcF91ZXhrOmYtemZoZS1maWR5LXVzcHZlcXFm" } # test_user
+      rollup.put_job:
+        id: foo
+        body:  >
+          {
+            "index_pattern": "foo",
+            "rollup_index": "rollup",
+            "cron": "*/1 * * * * ?",
+            "page_size" :10,
+            "groups" : {
+              "date_histogram": {
+                "field": "timestamp",
+                "interval": "1s"
+              }
+            },
+            "metrics": [
+              {
+                "field": "value_field",
+                "metrics": ["min", "max", "sum"]
+              }
+            ]
+          }
+  - is_true: acknowledged
+
+  - do:
+      headers: { Authorization: "Basic eWtsbl9wdmliOm0tdm13bi1ranR6LWlscWlob2tx" } # test_user
+      rollup.start_job:
+        id: foo
+  - is_true: started
+
+  - do:
+      headers: { Authorization: "Basic ZWtpc19yb3ZxOmotaXV1Yi1vYXN2LWlva25kaWxo" } # test_user
+      indices.refresh:
+        index: rollup
+
+  # this is a hacky way to sleep for 5s, since we will never have 10 nodes
+  - do:
+      catch: request_timeout
+      cluster.health:
+        wait_for_nodes: 10
+        timeout: "5s"
+  - match:
+     timed_out: true
+
+  - do:
+      headers: { Authorization: "Basic dG5wZV9sZGlxOnMtcG9ncy1iamxwLWdjeXlobXpq" } # test_user
+      rollup.get_jobs:
+        id: foo
+  - match:
+        jobs.0.stats.documents_processed: 1
+
+  - do:
+      headers: { Authorization: "Basic Z2l3YV9penNiOmotdWxzYi15YXFlLXFtZGJ5Zmd6" } # test_user
+      search:
+        rest_total_hits_as_int: true
+        index: foo
+        body:
+          query:
+            match_all: {}
+
+  - match:
+      hits.total: 1
+
+  - do:
+      headers: { Authorization: "Basic ZnBnaF90dGJ0OnotZXNjei1vd2NqLW9kY2hneXZ5" } # test_user
+      search:
+        rest_total_hits_as_int: true
+        index: rollup
+        body:
+          query:
+            match_all: {}
+
+  - match:
+      hits.total: 1
+  - match:
+      hits.hits.0._id: "foo$VxMkzTqILshClbtbFi4-rQ"
+  - match:
+      hits.hits.0._source:
+        timestamp.date_histogram.time_zone: "UTC"
+        timestamp.date_histogram.timestamp: 0
+        value_field.max.value: 1232.0
+        _rollup.version: 2
+        timestamp.date_histogram.interval: "1s"
+        value_field.sum.value: 1232.0
+        value_field.min.value: 1232.0
+        timestamp.date_histogram._count: 1
+        _rollup.id: "foo"

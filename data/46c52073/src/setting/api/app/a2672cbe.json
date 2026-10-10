@@ -1,0 +1,19 @@
+{
+    "Logging": {
+        "LogLevel": {
+            "Default": "Trace",
+            "System": "Information",
+            "Microsoft": "None"
+        }
+
+    },
+    "AllowedHosts": "*",
+
+    "EmailsConfiguration": {
+        "FromEmail": "no-reply@mymeetings.com"
+    },
+    "Security": {
+        /* NOTE! This is sensitive data and should be stored in secure way (not here). Added only for demo purpose. */
+        "TextEncryptionKey": "J914E2IG871UR4195853F425"
+    }
+}

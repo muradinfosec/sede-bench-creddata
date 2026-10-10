@@ -1,0 +1,12 @@
+{
+	"kind": "ConfigMap",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "mymap",
+		"namespace": "default",
+		"selfLink": "/api/v1/namespaces/default/configmaps/mymap",
+		"uid": "acdb52d2-d3b2-78b3-2f6c-dbbf81e2df10",
+		"resourceVersion": "149",
+		"creationTimestamp": "2017-02-03T05:59:00Z"
+	}
+}

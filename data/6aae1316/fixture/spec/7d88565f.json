@@ -1,0 +1,155 @@
+HTTP/1.1 200 OK
+
+{
+  "value": [
+    {
+      "pullRequestThreadContext": null,
+      "id": 141,
+      "publishedDate": "2016-11-01T16:30:32.74Z",
+      "lastUpdatedDate": "2016-11-01T16:30:32.74Z",
+      "comments": [
+        {
+          "id": 1,
+          "parentCommentId": 0,
+          "author": {
+            "id": "84228635-7389-9500-5083-188cdd25bc73",
+            "displayName": "[DefaultCollection]\\Project Collection Service Accounts",
+            "url": "https://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/_apis/Identities/72495898-5734-5836-8484-136ede43ac21",
+            "imageUrl": "https://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/_api/_common/identityImage?id=73568155-8929-7977-5730-270fef12fa75",
+            "isContainer": true
+          },
+          "content": "The pull request is mergable and the target commit would be 39f52d24533cc712fc845ed9fd1b6c06b3942588.",
+          "publishedDate": "2016-11-01T16:30:32.74Z",
+          "lastUpdatedDate": "2016-11-01T16:30:32.74Z",
+          "commentType": "system",
+          "usersLiked": []
+        }
+      ],
+      "threadContext": null,
+      "properties": {
+        "CodeReviewMergeCommit": {
+          "$type": "System.String",
+          "$value": "39f52d24533cc712fc845ed9fd1b6c06b3942588"
+        },
+        "CodeReviewMergeStatus": {
+          "$type": "System.String",
+          "$value": "Succeeded"
+        },
+        "CodeReviewSourceCommit": {
+          "$type": "System.String",
+          "$value": "b60280bc6e62e2f880f1b63c1e24987664d3bda3"
+        },
+        "CodeReviewTargetCommit": {
+          "$type": "System.String",
+          "$value": "f47bbc106853afe3c1b07a81754bce5f4b8dbf62"
+        },
+        "CodeReviewThreadType": {
+          "$type": "System.String",
+          "$value": "MergeAttempt"
+        }
+      },
+      "isDeleted": false
+    },
+    {
+      "pullRequestThreadContext": null,
+      "id": 142,
+      "publishedDate": "2016-11-01T16:30:35Z",
+      "lastUpdatedDate": "2016-11-01T16:30:35Z",
+      "comments": [
+        {
+          "id": 1,
+          "parentCommentId": 0,
+          "author": {
+            "id": "43126004-5815-1333-3280-612ecc56cc84",
+            "displayName": "[DefaultCollection]\\Project Collection Service Accounts",
+            "url": "https://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/_apis/Identities/22386776-2052-2344-3656-214bbd78eb66",
+            "imageUrl": "https://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/_api/_common/identityImage?id=88864782-1818-0700-8412-236cea29eb43",
+            "isContainer": true
+          },
+          "content": "generated_by_danger",
+          "publishedDate": "2016-11-01T16:30:35Z",
+          "lastUpdatedDate": "2016-11-01T16:30:35Z",
+          "commentType": "system",
+          "usersLiked": []
+        }
+      ],
+      "threadContext": null,
+      "properties": {
+        "CodeReviewThreadType": {
+          "$type": "System.String",
+          "$value": "ReviewersUpdate"
+        },
+        "CodeReviewReviewersUpdatedAddedDisplayName": {
+          "$type": "System.String",
+          "$value": "Johnnie McLeod"
+        },
+        "CodeReviewReviewersUpdatedAddedTfId": {
+          "$type": "System.String",
+          "$value": "2428198325304a9caeb788d60d57acfd"
+        },
+        "CodeReviewReviewersUpdatedByDisplayname": {
+          "$type": "System.String",
+          "$value": "Normal Paulk"
+        },
+        "CodeReviewReviewersUpdatedByTfId": {
+          "$type": "System.String",
+          "$value": "b335b0d4578f4944b94ca45216eb1a1a"
+        },
+        "CodeReviewReviewersUpdatedNumAdded": {
+          "$type": "System.Int32",
+          "$value": 1
+        },
+        "CodeReviewReviewersUpdatedNumRemoved": {
+          "$type": "System.Int32",
+          "$value": 0
+        }
+      },
+      "isDeleted": false
+    },
+    {
+      "pullRequestThreadContext": null,
+      "id": 143,
+      "publishedDate": "2016-11-01T16:30:36.58Z",
+      "lastUpdatedDate": "2016-11-01T16:30:36.58Z",
+      "comments": [
+        {
+          "id": 1,
+          "parentCommentId": 0,
+          "author": {
+            "id": "24806358-3154-9926-2263-468eca98af79",
+            "displayName": "[DefaultCollection]\\Project Collection Service Accounts",
+            "url": "https://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/_apis/Identities/99029675-1244-4632-7888-836dbb86be76",
+            "imageUrl": "https://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/_api/_common/identityImage?id=83375706-6418-6547-6952-261abd99de98",
+            "isContainer": true
+          },
+          "content": "Normal Paulk voted 10",
+          "publishedDate": "2016-11-01T16:30:36.58Z",
+          "lastUpdatedDate": "2016-11-01T16:30:36.58Z",
+          "commentType": "system",
+          "usersLiked": []
+        }
+      ],
+      "threadContext": null,
+      "properties": {
+        "CodeReviewThreadType": {
+          "$type": "System.String",
+          "$value": "VoteUpdate"
+        },
+        "CodeReviewVotedByDisplayName": {
+          "$type": "System.String",
+          "$value": "Normal Paulk"
+        },
+        "CodeReviewVotedByTfId": {
+          "$type": "System.String",
+          "$value": "e1633c96-4ac5-43d4-3001-6663af8480ba"
+        },
+        "CodeReviewVoteResult": {
+          "$type": "System.String",
+          "$value": "10"
+        }
+      },
+      "isDeleted": false
+    }
+  ],
+  "count": 4
+}

@@ -1,0 +1,19 @@
+{
+	"kind": "ConfigMap",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "cm1",
+		"namespace": "edit-test",
+		"selfLink": "/api/v1/namespaces/edit-test/configmaps/cm1",
+		"uid": "f23ffefc-c8f0-81a4-1e7f-eddc83d4fc18",
+		"resourceVersion": "1414",
+		"creationTimestamp": "2017-02-03T06:12:07Z",
+		"annotations":{"kubernetes.io/change-cause":"original creating command a"}
+	},
+	"data": {
+		"baz": "qux",
+		"foo": "changed-value",
+		"new-data": "new-value",
+		"new-data2": "new-value"
+	}
+}

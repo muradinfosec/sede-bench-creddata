@@ -1,0 +1,37 @@
+{
+  "name": "PASERK k3.local Test Vectors",
+  "tests": [
+    {
+      "name": "k3.local-1",
+      "expect-fail": false,
+      "key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "paserk": "k3.local.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    {
+      "name": "k3.local-2",
+      "expect-fail": false,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "paserk": "k3.local.nXIqr2P1jue7iRm6hY1-b4UOgvYXeSqUcUaIo9zXyt2"
+    },
+    {
+      "name": "k3.local-3",
+      "expect-fail": false,
+      "key": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e90",
+      "paserk": "k3.local.tBJvl4C9nun7qBy0iI6-g9TXvkIHtThAaOtIh4hOzbU"
+    },
+    {
+      "name": "k3.local-fail-1",
+      "expect-fail": true,
+      "key": null,
+      "paserk": "k3.local.OVct2P9iyv0zIc1dW4-m8SZuuOLqYhZmZeMn0yWpm3",
+      "comment": "If the PASERK is too short, this must fail to deserialize."
+    },
+    {
+      "name": "k3.local-fail-2",
+      "expect-fail": true,
+      "key": null,
+      "paserk": "k4.local.sWNhh6F9epx7dTn8tD3-k5XCtwPTzKlMtKeUg1bTky3",
+      "comment": "Implementations MUST NOT accept a PASERK of the wrong version."
+    }
+  ]
+}

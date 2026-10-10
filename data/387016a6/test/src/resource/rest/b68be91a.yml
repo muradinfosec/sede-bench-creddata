@@ -1,0 +1,461 @@
+setup:
+  - skip:
+      features: headers
+  - do:
+      indices.create:
+        index: foo
+        body:
+          mappings:
+            properties:
+              the_field:
+                type: date
+              value_field:
+                type: integer
+
+  - do:
+      indices.create:
+        index: foo2
+        body:
+          mappings:
+            properties:
+              the_field:
+                type: date
+              value_field:
+                type: integer
+
+  - do:
+      indices.create:
+        index: foo3
+        body:
+          mappings:
+            properties:
+              the_field:
+                type: date
+              value_field:
+                type: integer
+  - do:
+      headers:
+        Authorization: "Basic dl9ndWR3X3Brb2VfbGhlYjp5LXJ5anYtYWV2Zi1kbWNheG95bg==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.put_job:
+        id: foo
+        body:  >
+          {
+            "index_pattern": "foo",
+            "rollup_index": "foo_rollup",
+            "cron": "*/30 * * * * ?",
+            "page_size" :10,
+            "groups" : {
+              "date_histogram": {
+                "field": "the_field",
+                "calendar_interval": "1h"
+              }
+            },
+            "metrics": [
+              {
+                "field": "value_field",
+                "metrics": ["min", "max", "sum"]
+              }
+            ]
+          }
+
+---
+"Verify one job caps by rollup index":
+
+  - do:
+      rollup.get_rollup_index_caps:
+        index: "foo_rollup"
+
+  - match:
+      foo_rollup:
+        rollup_jobs:
+          - job_id: "foo"
+            rollup_index: "foo_rollup"
+            index_pattern: "foo"
+            fields:
+              the_field:
+                - agg: "date_histogram"
+                  calendar_interval: "1h"
+                  time_zone: "UTC"
+              value_field:
+                - agg: "min"
+                - agg: "max"
+                - agg: "sum"
+
+---
+"Verify two job caps by rollup index":
+
+  - do:
+      headers:
+        Authorization: "Basic ZV9rb3ZxX3NheXpfbHZrazpwLXBuaHEtenplaC1td2J5eHhkaA==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.put_job:
+        id: foo2
+        body:  >
+          {
+            "index_pattern": "foo",
+            "rollup_index": "foo_rollup",
+            "cron": "*/30 * * * * ?",
+            "page_size" :10,
+            "groups" : {
+              "date_histogram": {
+                "field": "the_field",
+                "calendar_interval": "1h"
+              }
+            },
+            "metrics": [
+              {
+                "field": "value_field",
+                "metrics": ["min", "max", "sum"]
+              }
+            ]
+          }
+  - do:
+      rollup.get_rollup_index_caps:
+        index: "foo_rollup"
+
+  - match:
+      foo_rollup:
+        rollup_jobs:
+          - job_id: "foo"
+            rollup_index: "foo_rollup"
+            index_pattern: "foo"
+            fields:
+              the_field:
+                - agg: "date_histogram"
+                  calendar_interval: "1h"
+                  time_zone: "UTC"
+              value_field:
+                - agg: "min"
+                - agg: "max"
+                - agg: "sum"
+          - job_id: "foo2"
+            rollup_index: "foo_rollup"
+            index_pattern: "foo"
+            fields:
+              the_field:
+                - agg: "date_histogram"
+                  calendar_interval: "1h"
+                  time_zone: "UTC"
+              value_field:
+                - agg: "min"
+                - agg: "max"
+                - agg: "sum"
+
+
+---
+"Verify two different job caps by rollup index":
+
+  - do:
+      headers:
+        Authorization: "Basic cF9xY3h6X2ViYXNfZXh4dzpoLW51ZGQtbHRycy1kaWlwc3FuZg==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.put_job:
+        id: foo2
+        body:  >
+          {
+            "index_pattern": "foo2",
+            "rollup_index": "foo_rollup2",
+            "cron": "*/30 * * * * ?",
+            "page_size" :10,
+            "groups" : {
+              "date_histogram": {
+                "field": "the_field",
+                "calendar_interval": "1h"
+              }
+            },
+            "metrics": [
+              {
+                "field": "value_field",
+                "metrics": ["min", "max", "sum"]
+              }
+            ]
+          }
+  - do:
+      rollup.get_rollup_index_caps:
+        index: "foo_rollup"
+
+  - match:
+      foo_rollup:
+        rollup_jobs:
+          - job_id: "foo"
+            rollup_index: "foo_rollup"
+            index_pattern: "foo"
+            fields:
+              the_field:
+                - agg: "date_histogram"
+                  calendar_interval: "1h"
+                  time_zone: "UTC"
+              value_field:
+                - agg: "min"
+                - agg: "max"
+                - agg: "sum"
+
+---
+"Verify all job caps by rollup index":
+
+  - do:
+      headers:
+        Authorization: "Basic b19ibnVyX2JpYmlfZGp4dzp0LWV3YmEtY3pray1waXN5dG9ycg==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.put_job:
+        id: foo2
+        body:  >
+          {
+            "index_pattern": "foo2",
+            "rollup_index": "foo_rollup",
+            "cron": "*/30 * * * * ?",
+            "page_size" :10,
+            "groups" : {
+              "date_histogram": {
+                "field": "the_field",
+                "calendar_interval": "1h"
+              }
+            },
+            "metrics": [
+              {
+                "field": "value_field",
+                "metrics": ["min", "max", "sum"]
+              }
+            ]
+          }
+  - do:
+      headers:
+        Authorization: "Basic ZV9tYWd4X2lqY2Nfa210YzpoLW1jcnAtYnV1ZS1sdmZpbGFqdA==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.put_job:
+        id: foo3
+        body:  >
+          {
+            "index_pattern": "foo3",
+            "rollup_index": "foo_rollup2",
+            "cron": "*/30 * * * * ?",
+            "page_size" :10,
+            "groups" : {
+              "date_histogram": {
+                "field": "the_field",
+                "calendar_interval": "1h"
+              }
+            },
+            "metrics": [
+              {
+                "field": "value_field",
+                "metrics": ["min", "max", "sum"]
+              }
+            ]
+          }
+
+  - do:
+      rollup.get_rollup_index_caps:
+        index: "_all"
+
+  - match:
+      $body:
+        foo_rollup:
+          rollup_jobs:
+            - job_id: "foo"
+              rollup_index: "foo_rollup"
+              index_pattern: "foo"
+              fields:
+                the_field:
+                  - agg: "date_histogram"
+                    calendar_interval: "1h"
+                    time_zone: "UTC"
+                value_field:
+                  - agg: "min"
+                  - agg: "max"
+                  - agg: "sum"
+            - job_id: "foo2"
+              rollup_index: "foo_rollup"
+              index_pattern: "foo2"
+              fields:
+                the_field:
+                  - agg: "date_histogram"
+                    calendar_interval: "1h"
+                    time_zone: "UTC"
+                value_field:
+                  - agg: "min"
+                  - agg: "max"
+                  - agg: "sum"
+        foo_rollup2:
+          rollup_jobs:
+            - job_id: "foo3"
+              rollup_index: "foo_rollup2"
+              index_pattern: "foo3"
+              fields:
+                the_field:
+                  - agg: "date_histogram"
+                    calendar_interval: "1h"
+                    time_zone: "UTC"
+                value_field:
+                  - agg: "min"
+                  - agg: "max"
+                  - agg: "sum"
+
+---
+"Verify job caps by rollup index comma delimited list":
+
+- do:
+    headers:
+      Authorization: "Basic ZF94cmxrX2V4aHBfd2V4ejpyLWl5dWEtdmJ3bi15Y3drdGVyaw==" # run as x_pack_rest_user, i.e. the test setup superuser
+    rollup.put_job:
+      id: foo2
+      body:  >
+        {
+          "index_pattern": "foo2",
+          "rollup_index": "foo_rollup",
+          "cron": "*/30 * * * * ?",
+          "page_size" :10,
+          "groups" : {
+            "date_histogram": {
+              "field": "the_field",
+              "calendar_interval": "1h"
+            }
+          },
+          "metrics": [
+            {
+              "field": "value_field",
+              "metrics": ["min", "max", "sum"]
+            }
+          ]
+        }
+- do:
+    headers:
+      Authorization: "Basic dV93ZGd0X2Jmc2RfYWRmdTpoLWx5bHYtY3F6Yy1yY3lsa2Fidw==" # run as x_pack_rest_user, i.e. the test setup superuser
+    rollup.put_job:
+      id: foo3
+      body:  >
+        {
+          "index_pattern": "foo3",
+          "rollup_index": "foo_rollup2",
+          "cron": "*/30 * * * * ?",
+          "page_size" :10,
+          "groups" : {
+            "date_histogram": {
+              "field": "the_field",
+              "calendar_interval": "1h"
+            }
+          },
+          "metrics": [
+            {
+              "field": "value_field",
+              "metrics": ["min", "max", "sum"]
+            }
+          ]
+        }
+
+- do:
+    rollup.get_rollup_index_caps:
+      index: "foo_rollup2,foo_rollup"
+
+- match:
+    $body:
+      foo_rollup:
+        rollup_jobs:
+        - job_id: "foo"
+          rollup_index: "foo_rollup"
+          index_pattern: "foo"
+          fields:
+            the_field:
+            - agg: "date_histogram"
+              calendar_interval: "1h"
+              time_zone: "UTC"
+            value_field:
+            - agg: "min"
+            - agg: "max"
+            - agg: "sum"
+        - job_id: "foo2"
+          rollup_index: "foo_rollup"
+          index_pattern: "foo2"
+          fields:
+            the_field:
+            - agg: "date_histogram"
+              calendar_interval: "1h"
+              time_zone: "UTC"
+            value_field:
+            - agg: "min"
+            - agg: "max"
+            - agg: "sum"
+      foo_rollup2:
+        rollup_jobs:
+        - job_id: "foo3"
+          rollup_index: "foo_rollup2"
+          index_pattern: "foo3"
+          fields:
+            the_field:
+            - agg: "date_histogram"
+              calendar_interval: "1h"
+              time_zone: "UTC"
+            value_field:
+            - agg: "min"
+            - agg: "max"
+            - agg: "sum"
+
+---
+"Verify index pattern":
+
+  - do:
+      headers:
+        Authorization: "Basic ZF9rb3JyX3lhb2xfdHJubjpuLXh5YnQtZWtzeS1weG1qYXdraw==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.put_job:
+        id: foo2
+        body:  >
+          {
+            "index_pattern": "foo2",
+            "rollup_index": "foo_rollup",
+            "cron": "*/30 * * * * ?",
+            "page_size" :10,
+            "groups" : {
+              "date_histogram": {
+                "field": "the_field",
+                "calendar_interval": "1h"
+              }
+            },
+            "metrics": [
+              {
+                "field": "value_field",
+                "metrics": ["min", "max", "sum"]
+              }
+            ]
+          }
+  - do:
+      headers:
+        Authorization: "Basic bl9mZW5yX3d6dHdfb25udTpuLXVtY3ItaXpqai1kZ3F3dWRtdw==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.put_job:
+        id: foo3
+        body:  >
+          {
+            "index_pattern": "foo3",
+            "rollup_index": "foo_rollup2",
+            "cron": "*/30 * * * * ?",
+            "page_size" :10,
+            "groups" : {
+              "date_histogram": {
+                "field": "the_field",
+                "calendar_interval": "1h"
+              }
+            },
+            "metrics": [
+              {
+                "field": "value_field",
+                "metrics": ["min", "max", "sum"]
+              }
+            ]
+          }
+
+  - do:
+      rollup.get_rollup_index_caps:
+        index: "*_rollup2"
+
+  - match:
+      $body:
+        foo_rollup2:
+          rollup_jobs:
+            - job_id: "foo3"
+              rollup_index: "foo_rollup2"
+              index_pattern: "foo3"
+              fields:
+                the_field:
+                  - agg: "date_histogram"
+                    calendar_interval: "1h"
+                    time_zone: "UTC"
+                value_field:
+                  - agg: "min"
+                  - agg: "max"
+                  - agg: "sum"
+

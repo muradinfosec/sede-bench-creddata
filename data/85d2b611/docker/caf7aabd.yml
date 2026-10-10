@@ -1,0 +1,43 @@
+version: '2'
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ../data/mysql:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./gogs/init.sql:/docker-entrypoint-initdb.d/gogs-init.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+  redis:
+    image: redis:3
+    volumes:
+      - ../data/redis:/data
+    ports:
+      - "6379:6379"
+  gogs:
+    image: gogs/gogs
+    ports:
+      - "10022:22"
+      - "10080:3000"
+    volumes:
+      - ../data/gogs:/data
+      - ./gogs:/custom
+    environment:
+      - GOGS_CUSTOM=/custom
+    depends_on:
+      - mysql
+  ssh:
+    build:
+      context: .
+      dockerfile: Dockerfile-ssh
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./ssh/authorized_keys:/authorized_keys
+    environment:
+      - AUTH_MECHANISM=publicKey
+      - CONTAINER=docker_ssh_1
+      - AUTHORIZED_KEYS=/authorized_keys
+    ports:
+      - "233:22"

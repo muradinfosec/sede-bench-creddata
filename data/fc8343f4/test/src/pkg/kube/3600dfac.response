@@ -1,0 +1,16 @@
+{
+	"apiVersion": "company.com/v1",
+	"kind": "Bar",
+	"metadata": {
+		"name": "test",
+		"namespace": "default",
+		"selfLink": "/apis/company.com/v1/namespaces/default/bars/test",
+		"uid": "fb09e49b-b378-59f4-a207-fdce26c0aa27",
+		"resourceVersion": "16954",
+		"creationTimestamp": "2017-02-13T00:47:26Z"
+	},
+	"some-field": "field1",
+	"third-field": {
+		"sub-field": "bar2"
+	}
+}

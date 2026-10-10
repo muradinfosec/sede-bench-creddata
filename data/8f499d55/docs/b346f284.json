@@ -1,0 +1,6 @@
+{
+  "apiKey": "c1d46bc9a70f41014669b2f5f74eb4b7",
+  "indexName": "grafana_tanka",
+  "inputSelector": "#algolia-docsearch",
+  "debug": true
+}

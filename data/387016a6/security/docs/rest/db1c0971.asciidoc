@@ -1,0 +1,66 @@
+[role="xpack"]
+[[security-api-oidc-logout]]
+=== OpenID Connect logout API
+++++
+<titleabbrev>OpenID Connect logout</titleabbrev>
+++++
+
+Submits a request to invalidate a refresh token and an access token that was
+generated as a response to a call to `/_security/oidc/authenticate`.
+
+[[security-api-oidc-logout-request]]
+==== {api-request-title}
+
+`POST /_security/oidc/logout`
+
+[[security-api-oidc-logout-desc]]
+==== {api-description-title}
+
+If the OpenID Connect authentication realm in {es} is accordingly configured,
+the response to this call will contain a URI pointing to the End Session
+Endpoint of the OpenID Connect Provider in order to perform Single Logout.
+
+{es} exposes all the necessary OpenID Connect related functionality via the
+OpenID Connect APIs. These APIs are used internally by {kib} in order to provide
+OpenID Connect based authentication, but can also be used by other, custom web
+applications or other clients. See also
+<<security-api-oidc-authenticate,OpenID Connect authenticate API>>
+and
+<<security-api-oidc-prepare-authentication,OpenID Connect prepare authentication API>>.
+
+[[security-api-oidc-logout-request-body]]
+==== {api-request-body-title}
+
+`access_token`::
+  (Required, string) The value of the access token to be invalidated as part of the logout.
+
+`refresh_token`::
+  (Optional, string) The value of the refresh token to be invalidated as part of the logout.
+
+
+[[security-api-oidc-logout-example]]
+==== {api-examples-title}
+
+The following example performs logout
+
+[source,console]
+--------------------------------------------------
+POST /_security/oidc/logout
+{
+  "token" : "kHpogqXvmmZrc7DkKJCkZXCyDXMgw3SrDLM9eVKvuVJfagEvavl4ZBVko6YdFZW0IL3dTU4plz61ZGZkxJR5brDxCYLzZIWon7RsFU==",
+  "refresh_token": "bRACqoUP0HnndKZd39cB"
+}
+--------------------------------------------------
+// TEST[catch:request]
+
+The following example output of the response contains the URI pointing to the
+End Session Endpoint of the OpenID Connect Provider with all the parameters of
+the Logout Request, as HTTP GET parameters:
+
+[source,js]
+--------------------------------------------------
+{
+  "redirect" : "https://op-provider.org/logout?id_token_hint=eyJhbGciOiJzQzU5OSIsInR5cCI6ImZQYyJ9.eyJzdWIiOiI0ODQxMjczODk4IiwiVGFCbSI6IlFlTXQgb2l0IiwiaWF0Ijo0MzMxNTc5NTc5fQ.ZfaXxsZHMJmCRJ1BN4iahLzSy84XOj7sBF_vhScgm9i&post_logout_redirect_uri=http%3A%2F%2Foidc-kibana.elastic.co%2Floggedout&state=lGYK0EcSLjqH6pkT5EVZjC6eIW5YCGgywj2sxROO"
+}
+--------------------------------------------------
+// NOTCONSOLE

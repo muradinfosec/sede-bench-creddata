@@ -1,0 +1,140 @@
+---
+setup:
+  - skip:
+      features: headers
+  - do:
+      cluster.health:
+        wait_for_status: yellow
+  - do:
+      security.put_user:
+        username: "joe"
+        body:  >
+          {
+            "password": "s3krit-password",
+            "roles" : [ "superuser" ]
+          }
+  - do:
+      security.put_role:
+        name: "user"
+        body:  >
+          {
+            "cluster": ["monitor"],
+            "indices": [
+              {
+                "names": "*",
+                "privileges": ["all"]
+              }
+            ]
+          }
+  - do:
+      security.put_user:
+        username: "unprivileged_user"
+        body:  >
+          {
+            "password": "s3krit-password",
+            "roles" : [ "user" ]
+          }
+
+---
+teardown:
+  - do:
+      security.delete_user:
+        username: "joe"
+        ignore: 404
+  - do:
+      security.delete_role:
+        name: "user"
+        ignore: 404
+  - do:
+      security.delete_user:
+        username: "unprivileged_user"
+        ignore: 404
+
+---
+"Test changing users password":
+  - skip:
+      features: catch_unauthorized
+  - do:
+      headers:
+        Authorization: "Basic bG5mOmk5YXpvai15cnZpY2dmdg=="
+      cluster.health: {}
+  - match: { timed_out: false }
+
+# change password
+  - do:
+      security.change_password:
+        username: "joe"
+        body:  >
+            {
+              "password" : "s3krit-password2"
+            }
+
+# attempt to login with invalid credentials
+  - do:
+      catch: unauthorized
+      headers:
+        Authorization: "Basic bWdiOmU2cHFwdy1uZXh1bGJ0dQ=="
+      cluster.health: {}
+
+# login with new credentials
+  - do:
+      headers:
+        Authorization: "Basic cG50OnY1aXN3ay1mdGR2dXdiZTY="
+      cluster.health: {}
+  - match: { timed_out: false }
+
+---
+"Test user changing their own password":
+  - skip:
+      features: catch_unauthorized
+# test that the role actually works
+  - do:
+      headers:
+        Authorization: "Basic aXBhdGF2a25jbnljX21rdG86ZTZwaW1jLW90eWVueWdw"
+      cluster.health: {}
+  - match: { timed_out: false }
+
+# change password as the current user. the user role only grants the ability to change their own password
+  - do:
+      headers:
+        Authorization: "Basic a255ZXBkd3RxaWZ4X2NkZHk6bzdjdXpuLXBrcWZhd2Rk"
+      security.change_password:
+        body:  >
+            {
+              "password" : "s3krit-password2"
+            }
+
+# attempt to login with invalid credentials
+  - do:
+      catch: unauthorized
+      headers:
+        Authorization: "Basic ZW14a3Rjbmpzc3FjX2J0c2M6cjliZm1hLWlzcHFjbGlk"
+      cluster.health: {}
+
+# login with new credentials
+  - do:
+      headers:
+        Authorization: "Basic dWlhZGVnZ2JraG5sX3R1dG46dTVkYmh5LXlmeG1hYXdmMA=="
+      cluster.health: {}
+  - match: { timed_out: false }
+
+---
+"Test unauthorized user changing anothers password":
+# test that the role actually works
+  - do:
+      headers:
+        Authorization: "Basic c3lwem5kemh6eGVpX3h6dHA6djJjb2JsLWVtYXFsa29v"
+      cluster.health: {}
+  - match: { timed_out: false }
+
+# attempt to change another users password
+  - do:
+      headers:
+        Authorization: "Basic aWVteHV5b25yaGVmX21zaWw6eTJ5cWp5LW9ydmtsa2Jv"
+      catch: forbidden
+      security.change_password:
+        username: "anotheruser"
+        body:  >
+            {
+              "password" : "s3krit-password2"
+            }

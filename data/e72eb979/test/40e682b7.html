@@ -1,0 +1,15 @@
+<p>Test that Authorization header can be set via setRequestHeader.</p>
+<script>
+if (window.testRunner)
+    testRunner.dumpAsText();
+
+try {
+    var req = new XMLHttpRequest;
+    req.open("GET", "resources/basic-auth/basic-auth.php?uid=Authorization-Header", false);
+    req.setRequestHeader("Authorization", "Basic TmttZGp2a3F0bmFrZi1MeHJvZmQ6RXh4YWx5cW12amRtZS1XdXJham4=");
+    req.send(null);
+    document.write(req.responseText.match(/Authorization\-Header/) ? "PASS" : ("FAIL. Unexpected response: " + req.responseText));
+} catch (ex) {
+    document.write("FAIL. Exception: " + ex);
+}
+</script>

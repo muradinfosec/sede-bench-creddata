@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+SMTP
+SASL
+SASL AUTH NTLM
+RFC4954
+NTLM
+</keywords>
+</info>
+
+# Server-side
+<reply>
+<servercmd>
+AUTH NTLM
+REPLY AUTH 334 NTLM supported
+REPLY %b64[NTLMSSP%00%01%00%00%00%06%82%08%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00]b64% 334 TlRMTVNTUAACAAAABpNIVESZFVEPeqCTk90AFOJxiAtXDPTQHXJZAJ8IbaNqAADXA6BVYNDCKiKUYNFNJxOQAFkGVTAVPEQUZuYUMYYONTFYPPwVFdLiHD3BhTYiPGHFZEXgZIXSDeTsDJFWXeCmGLXWhYVhVUZKGVRyRTQMdKXvJU2FXnNbOD2KtVKqJZFPAREfNFYMNgZdBKJXFJNDTJ==
+REPLY TlRMTVNTUAADAAAAXILISIUMJFTKJAxNFKONBBNPDSMkVIHHKYVUUKUWPXPSXLnPfLNZQJGVWTFEYICEpuBTDJlsShDRUQVAkcc3xo06xOdMUBZgziemLrnFhehPnb8d+lkfaxJP9T48fMn0C8ndGVLwb7M8v5UsW59VJ5KDEAVVF64= 235 Authenticated
+</servercmd>
+</reply>
+
+# Client-side
+<client>
+<server>
+smtp
+</server>
+<features>
+NTLM
+SSL
+!SSPI
+</features>
+<name>
+SMTP NTLM authentication
+</name>
+<stdin crlf="yes">
+mail body
+</stdin>
+<command>
+smtp://%HOSTIP:%SMTPPORT/%TESTNUMBER --mail-rcpt recipient@example.com --mail-from sender@example.com -u testuser:testpass -T -
+</command>
+</client>
+
+# Verify data after the test has been "shot"
+<verify>
+<protocol crlf="yes">
+EHLO %TESTNUMBER
+AUTH NTLM
+%b64[NTLMSSP%00%01%00%00%00%06%82%08%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00]b64%
+TlRMTVNTUAADAAAAPWSVYIZPRTJZNQzLBBAFPKKYYCIxCTXYIFYTSPAGFYTICCtBfULZZALZZVFTSKWGbiMHECnvKxAZDPBCimt2lw84xUnRNIFailleZmuLaehXbp0u+quqcaNM6C84hHv3U3lbCSFga4T3g2JvA05AZ8DUIBEPE86=
+MAIL FROM:%LTsender@example.com%GT
+RCPT TO:%LTrecipient@example.com%GT
+DATA
+QUIT
+</protocol>
+<upload crlf="yes">
+mail body
+.
+</upload>
+</verify>
+</testcase>

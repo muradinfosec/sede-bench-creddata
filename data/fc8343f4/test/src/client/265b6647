@@ -1,0 +1,1 @@
+{"apiVersion":"v1","kind":"ServiceAccount","metadata":{"creationTimestamp":"2024-09-20T17:16:28Z","name":"foobar","namespace":"default","resourceVersion":"207","uid":"d9cd16c9-11af-3d6c-de11-de701f72d5b0"}}

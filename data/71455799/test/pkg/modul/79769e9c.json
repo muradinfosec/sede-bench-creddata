@@ -1,0 +1,22 @@
+[
+ {
+  "Id": "MODULE-USER",
+  "Type": "aws_iam_user",
+  "Attrs": {
+   "arn": "arn:aws:iam::929327065333:user/MODULE-USER",
+   "id": "MODULE-USER",
+   "name": "MODULE-USER",
+   "path": "/",
+   "unique_id": "AIDA4RGRXYT25M6BE6OWU"
+  }
+ },
+ {
+  "Id": "AKIA3LEMNUS3HYCVTPAM",
+  "Type": "aws_iam_access_key",
+  "Attrs": {
+   "id": "AKIA2TFUWFZ3HHEONHMX",
+   "status": "Active",
+   "user": "MODULE-USER"
+  }
+ }
+]

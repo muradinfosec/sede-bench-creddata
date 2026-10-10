@@ -1,0 +1,39 @@
+{
+  "name": "PASERK k4.seal Test Vectors",
+  "tests": [
+    {
+      "name": "k4.seal-1",
+      "expect-fail": false,
+      "sealing-secret-key": "281790f2ee8b3291c4ad3f24b846477c87259826de372e55ea27c0eae7dd7b8eb2834bf554491a246687f5b784c44fb7a7145889f8f9c0c9a750a719c9ac0579",
+      "sealing-public-key": "b6703ff085769b380150a1a962f52cc9a3582880a2d6f6a3c259b167c2ad8290",
+      "unsealed": "0000000000000000000000000000000000000000000000000000000000000000",
+      "paserk": "k4.seal.OPFn-AEUsKUWtAUZrutVvd9YaZ4CmV4_lk6ii8N72l5gTnl8RlL_zRFqWTZZV9gSnPzARQ_QklrZ2Qs6cJGKOENNOnsDXL5haXcr-QbTXgoLVBvT4ruJ8MdjWXGRTVc9"
+    },
+    {
+      "name": "k4.seal-2",
+      "expect-fail": false,
+      "sealing-secret-key": "a781fd80c56b3a3caf58123ef967ec02fe89d5b8ae25e13ef0885827e3cb9798b4daa0df7a65a068f74ac9672a83fa8530f2cc354cde7f8b0b2344578ee62ac8",
+      "sealing-public-key": "a0fbc3dc2f99a538b40fb7616a83cf4276b6cf223fff5a2c2d3236235eb87dc7",
+      "unsealed": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "paserk": "k4.seal.3-VOL4pX5b7eV3uMhYHfOhJNN77YyYtd7wYXrH9rRucKNmq0aO-6AWIFU4xOXUCBk0mzBZeWAPAKrvejqixqeRXm-MQXt8yFGHmM1RzpdJw80nabbyDIsNCpBwltU-uj"
+    },
+    {
+      "name": "k4.seal-fail-1",
+      "expect-fail": true,
+      "comment": "Invalid authentication tag on sealed key.",
+      "sealing-secret-key": "a280fa58d77b8d3ceb35202db794df74ae03f3b9df53b61df3209547a0ad6985d5aee5bd1e83a868d58bc7744b70ba8335e4dd740bed5b1d1e6413159eb73fd4",
+      "sealing-public-key": "a0fbc3dc2f99a538b40fb7616a83cf4276b6cf223fff5a2c2d3236235eb87dc7",
+      "unsealed": null,
+      "paserk": "k4.seal.3-VOL5pX5b7eV3uMhYHfOhJNN77YyYtd7wYXrH9rRucKNmq0aO-6AWIFU4xOXUCBk0mzBZeWAPAKrvejqixqeRXm-MQXt8yFGHmM1RzpdJw80nabbyDItNCpBwltV-uj"
+    },
+    {
+      "name": "k4.seal-fail-2",
+      "expect-fail": true,
+      "comment": "Implementations MUST NOT accept a PASERK of the wrong version.",
+      "sealing-secret-key": "f626ba03a22a4b9afa71025cd940da56ea31d2e1ae18e59ef7800994f5da9295d7fef5ed5e05b832c40dd2023c11ba3340b0de245ddb2a4b1f2814896ba12cf2",
+      "sealing-public-key": "a0fbc3dc2f99a538b40fb7616a83cf4276b6cf223fff5a2c2d3236235eb87dc7",
+      "unsealed": null,
+      "paserk": "k3.seal.LpevSc3v4VYqlUjEr3OD4LSMaYspcU-VlqI8rpywnFwVKqT1sMJQB_K3GwyszVueA8QJ3KmBUr4ravEb8DsazPuXcWbrnQF4CJmUQSgaTI4YyCb35n-xkx8CDA7ig-m-lhhYKkp_r3Ybcm-s9BKPlPW2VRr791ukbrCSRXFkQ8sR"
+    }
+  ]
+}

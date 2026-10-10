@@ -1,0 +1,35 @@
+{
+	"kind": "Service",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "svc1",
+		"namespace": "edit-test",
+		"selfLink": "/api/v1/namespaces/edit-test/services/svc1",
+		"uid": "497f54dc-aa5a-40e2-6f44-eceb75a7be81",
+		"resourceVersion": "1437",
+		"creationTimestamp": "2017-02-03T21:52:59Z",
+		"labels": {
+			"app": "svc1",
+			"new-label": "new-value"
+		}
+	},
+	"spec": {
+		"ports": [
+			{
+				"name": "81",
+				"protocol": "TCP",
+				"port": 82,
+				"targetPort": 81
+			}
+		],
+		"selector": {
+			"app": "svc1"
+		},
+		"clusterIP": "10.0.0.15",
+		"type": "ClusterIP",
+		"sessionAffinity": "None"
+	},
+	"status": {
+		"loadBalancer": {}
+	}
+}

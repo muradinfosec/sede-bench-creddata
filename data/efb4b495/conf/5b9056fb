@@ -1,0 +1,2 @@
+DB="mymysql://root:G3wav2da@localhost/"
+VSQL="SELECT version() AS version;"

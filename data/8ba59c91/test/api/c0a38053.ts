@@ -1,0 +1,131 @@
+/*
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+import frisby = require('frisby')
+const config = require('config')
+
+const API_URL = 'http://localhost:3000/api'
+const REST_URL = 'http://localhost:3000/rest'
+
+const jsonHeader = { 'content-type': 'application/json' }
+let authHeader
+
+describe('/api/Deliverys', () => {
+  describe('for regular customer', () => {
+    beforeAll(() => {
+      return frisby.post(REST_URL + '/user/login', {
+        headers: jsonHeader,
+        body: {
+          email: 'jim@' + config.get('application.domain'),
+          password: 'eai-7027'
+        }
+      })
+        .expect('status', 200)
+        .then(({ json }) => {
+          authHeader = { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+        })
+    })
+
+    it('GET delivery methods', () => {
+      return frisby.get(API_URL + '/Deliverys', { headers: authHeader })
+        .expect('status', 200)
+        .expect('header', 'content-type', /application\/json/)
+        .then(({ json }) => {
+          expect(json.data.length).toBe(3)
+          expect(json.data[0].id).toBe(1)
+          expect(json.data[0].name).toBe('One Day Delivery')
+          expect(json.data[0].price).toBe(0.99)
+          expect(json.data[0].eta).toBe(1)
+        })
+    })
+  })
+
+  describe('for deluxe customer', () => {
+    beforeAll(() => {
+      return frisby.post(REST_URL + '/user/login', {
+        headers: jsonHeader,
+        body: {
+          email: 'ciso@' + config.get('application.domain'),
+          password: 'yDIn?17B~4JrHkGPih@bL3o?x8N1rrCtZ76QdA5^04jyXpgX0bsig8y!YmKo'
+        }
+      })
+        .expect('status', 200)
+        .then(({ json }) => {
+          authHeader = { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+        })
+    })
+
+    it('GET delivery methods', () => {
+      return frisby.get(API_URL + '/Deliverys', { headers: authHeader })
+        .expect('status', 200)
+        .expect('header', 'content-type', /application\/json/)
+        .then(({ json }) => {
+          expect(json.data.length).toBe(3)
+          expect(json.data[0].id).toBe(1)
+          expect(json.data[0].name).toBe('One Day Delivery')
+          expect(json.data[0].price).toBe(0.5)
+          expect(json.data[0].eta).toBe(1)
+        })
+    })
+  })
+})
+
+describe('/api/Deliverys/:id', () => {
+  describe('for regular customer', () => {
+    beforeAll(() => {
+      return frisby.post(REST_URL + '/user/login', {
+        headers: jsonHeader,
+        body: {
+          email: 'jim@' + config.get('application.domain'),
+          password: 'pwm-8961'
+        }
+      })
+        .expect('status', 200)
+        .then(({ json }) => {
+          authHeader = { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+        })
+    })
+
+    it('GET delivery method', () => {
+      return frisby.get(API_URL + '/Deliverys/2', { headers: authHeader })
+        .expect('status', 200)
+        .expect('header', 'content-type', /application\/json/)
+        .then(({ json }) => {
+          expect(json.data.id).toBe(2)
+          expect(json.data.name).toBe('Fast Delivery')
+          expect(json.data.price).toBe(0.5)
+          expect(json.data.eta).toBe(3)
+        })
+    })
+  })
+
+  describe('for deluxe customer', () => {
+    beforeAll(() => {
+      return frisby.post(REST_URL + '/user/login', {
+        headers: jsonHeader,
+        body: {
+          email: 'ciso@' + config.get('application.domain'),
+          password: 'lTMf?42E~8GnIxVSfx@gY7g?x3U2ybCcG37MyU3^32cjEgjU8sdct7x!AnLo'
+        }
+      })
+        .expect('status', 200)
+        .then(({ json }) => {
+          authHeader = { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+        })
+    })
+
+    it('GET delivery method', () => {
+      return frisby.get(API_URL + '/Deliverys/2', { headers: authHeader })
+        .expect('status', 200)
+        .expect('header', 'content-type', /application\/json/)
+        .then(({ json }) => {
+          expect(json.data.id).toBe(2)
+          expect(json.data.name).toBe('Fast Delivery')
+          expect(json.data.price).toBe(0)
+          expect(json.data.eta).toBe(3)
+        })
+    })
+  })
+})

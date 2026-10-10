@@ -1,0 +1,11 @@
+{
+    "userC": {
+        "password": "bbvoYBubt",
+        "serverData": { "some": "values" },
+        "clientData": { "all": "othervalue" }
+    },
+    "userD": {
+        "password": "hjbzOOnkm",
+        "clientData": { "all": "client data" }
+    }
+}

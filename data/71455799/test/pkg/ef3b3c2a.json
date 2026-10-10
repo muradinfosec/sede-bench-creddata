@@ -1,0 +1,42 @@
+[
+ {
+  "encrypted_secret": null,
+  "id": "AKIA5IUBQSV472EJU33J",
+  "key_fingerprint": null,
+  "pgp_key": null,
+  "secret": null,
+  "ses_smtp_password_v4": null,
+  "status": "Active",
+  "user": "test-driftctl"
+ },
+ {
+  "encrypted_secret": null,
+  "id": "AKIA7XHHBTI7RKQ23EPQ",
+  "key_fingerprint": null,
+  "pgp_key": null,
+  "secret": null,
+  "ses_smtp_password_v4": null,
+  "status": "Active",
+  "user": "test-driftctl"
+ },
+ {
+  "encrypted_secret": null,
+  "id": "AKIA2WNXXGM36UYCF53P",
+  "key_fingerprint": null,
+  "pgp_key": null,
+  "secret": null,
+  "ses_smtp_password_v4": null,
+  "status": "Active",
+  "user": "test-driftctl2"
+ },
+ {
+  "encrypted_secret": null,
+  "id": "AKIA6HXLYYX2UNIYQNCH",
+  "key_fingerprint": null,
+  "pgp_key": null,
+  "secret": null,
+  "ses_smtp_password_v4": null,
+  "status": "Active",
+  "user": "test-driftctl2"
+ }
+]

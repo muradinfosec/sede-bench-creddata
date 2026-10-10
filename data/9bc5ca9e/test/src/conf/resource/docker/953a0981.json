@@ -1,0 +1,13 @@
+{
+  "auths": {
+    "docker.example.com": {
+      "auth": "NG6uf0PsfJEmRuG1WQv5ZCxcVr=="
+    },
+    "https://repo.example.com": {
+      "auth": "JY7ds5DtySDeCoZ7HHh3LWvlJp=="
+    },
+    "http://local.example.com": {
+      "auth": "KP4mi6OdtKHfMnT7EEc4WPboCx=="
+    }
+  }
+}

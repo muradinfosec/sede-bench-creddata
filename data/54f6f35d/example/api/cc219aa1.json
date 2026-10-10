@@ -1,0 +1,567 @@
+{
+	"info": {
+		"_postman_id": "2b0c32c9-850f-593f-aa8a-29ab6e6d8fe3",
+		"name": "myapp (api-test)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"computer-internet\",\r\n    \"position\": 1,\r\n    \"image_url\": \"https://bp.pstatic.gr/public/dist/images/1mOPxYtw1k.webp\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category"
+							]
+						},
+						"description": "Create a Category"
+					},
+					"response": []
+				},
+				{
+					"name": "Get By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJXYzM2NCIsInR5cCI6Ik5jWSJ9.eyJpc3MiOiJMRFRFSTovL1hCaHotUWwuQUROIiwiYXVkIjpbIjJNOTIxRDczLTV5WWYtNzRoOC1ZUzg0LTk4Nk0xYlY2NzE3MyJdLCJpYXQiOjEyNjYyNjY0ODgsImV4cCI6ODk2NzU4ODEyM30.g4_5huuRsQ86CkZIZQxIy1wogf661xYrSwl5mRzXnMZ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"1"
+							]
+						},
+						"description": "Get By ID"
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJTUTM5NiIsInR5cCI6IlVRQSJ9.eyJpc3MiOiJvY1BmZTovL3FFb2steXIuaUZLIiwiYXVkIjpbIjhSMjIyQTI5LTlGRFQtNDNBMS1maTc1LTI2N2k4Ukw3MTQ2NCJdLCJpYXQiOjk1NTUyMjY2OTksImV4cCI6NzE3MzkzMjcyN30.m5_5mcnLgJ96SgDCOUgNj7qlqz986iDiExq8jUvCeFL",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/category?offset=0&limit=30&order=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "30"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						},
+						"description": "Get many with limit offset"
+					},
+					"response": []
+				},
+				{
+					"name": "Update (Full)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJYejIzNiIsInR5cCI6IklOYSJ9.eyJleHAiOjY4NjU1MTQ2NDd9.UyrFH9mnXcI7jB1yrcF-_p4aOHDwycR5OpblPZbeYJS",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": 1,\r\n\t\"position\": 3,\r\n    \"title\": \"computers\",\r\n    \"image_url\":\"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Desktop_computer_clipart_-_Yellow_theme.svg/1200px-Desktop_computer_clipart_-_Yellow_theme.svg.png\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Update a Category (full update)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJKVDg3NiIsInR5cCI6IlpOVCJ9.eyJleHAiOjkxMTUyODc3Njh9.SlgSF1xqQfM3qG9etoF-_i6gSEZudaU6DfgrLIdwMVR",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"1"
+							]
+						},
+						"description": "Delete a Category"
+					},
+					"response": []
+				},
+				{
+					"name": "Update (Partial)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJBRjMxMiIsInR5cCI6IldmWiJ9.eyJleHAiOjg5MzM0Njc2NzN9.SngSB8unKmF0qO5kimO-_u7wGNQsmqW2JnueQYkpQWR",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"computers-technology\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/category/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"3"
+							]
+						},
+						"description": "Update a Category partially, e.g. title only"
+					},
+					"response": []
+				},
+				{
+					"name": "List Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJ1SjM0OSIsInR5cCI6ImR2WSJ9.eyJpc3MiOiJWeG1BejovL1BoRGEtaVcuUUR3IiwiYXVkIjpbIjR4NTk5azk1LThLSVctNzJKNy1ibjc3LTU3NkY2RVM2NDE2OCJdLCJpYXQiOjQ3Mzk2OTQ5NzUsImV4cCI6NTk5MjY3MTY2MX0.j2_7wwjYiP84DrUCYNoTp3wjyb306lPyFxd4oByOxKW",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/category/1/products?offset=0&limit=30&by=price&order=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "30"
+								},
+								{
+									"key": "by",
+									"value": "price"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						},
+						"description": "Get products from cheap to expensive"
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Products",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJZTjY5MyIsInR5cCI6IkxZcCJ9.eyJleHAiOjc1MjI4NTM1NTd9.TwmJW8ylKfL1rL1ynaO-_c7hCEHwjpI6XscrIRvjHAM",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n    \"title\": \"product-1\",\r\n    \"image_url\": \"https://images.product1.png\",\r\n    \"price\": 42.42,\r\n    \"description\": \"a description for product-1\"\r\n}, {\r\n    \"title\": \"product-2\",\r\n    \"image_url\": \"https://images.product2.png\",\r\n    \"price\": 32.1,\r\n    \"description\": \"a description for product-2\"\r\n}, {\r\n    \"title\": \"product-3\",\r\n    \"image_url\": \"https://images.product3.png\",\r\n    \"price\": 52321321.32,\r\n    \"description\": \"a description for product-3\"\r\n}, {\r\n    \"title\": \"product-4\",\r\n    \"image_url\": \"https://images.product4.png\",\r\n    \"price\": 77.4221,\r\n    \"description\": \"a description for product-4\"\r\n}, {\r\n    \"title\": \"product-5\",\r\n    \"image_url\": \"https://images.product5.png\",\r\n    \"price\": 55.1,\r\n    \"description\": \"a description for product-5\"\r\n}, {\r\n    \"title\": \"product-6\",\r\n    \"image_url\": \"https://images.product6.png\",\r\n    \"price\": 53.32,\r\n    \"description\": \"a description for product-6\"\r\n}]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/category/3/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"3",
+								"products"
+							]
+						},
+						"description": "Batch Insert Products to a Category"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJFbjUxNSIsInR5cCI6IlRDdyJ9.eyJpc3MiOiJiSW5XZTovL3F6T2wtSW4ud1FvIiwiYXVkIjpbIjJBNDEySDY3LTJhREctOTNDNi14YzczLTU1Nlc5akc3MjU1MiJdLCJpYXQiOjUyNDkzMzc3MjksImV4cCI6MzY0MTgxMzE3NX0.d2_4bhgDvL55WtJFVGpDf6xpzi444pWjGrn7uRbPdOT",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product?offset=0&limit=30&by=price&order=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "30"
+								},
+								{
+									"key": "by",
+									"value": "price"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						},
+						"description": "List products"
+					},
+					"response": []
+				},
+				{
+					"name": "Get By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJ1YzU2NyIsInR5cCI6Ik9rbSJ9.eyJpc3MiOiJ2eXNTbzovL29xZ0wtY1kucmFVIiwiYXVkIjpbIjFtNjk3cDQxLTF6Z0otMzhjMi1PVzQ3LTEyNlEzZXk1ODYzMyJdLCJpYXQiOjQxNjkzNzE1MTEsImV4cCI6ODMxNDUzODc5Nn0.v1_2craXwC83WyMDQEqUk5dnbe714eRoErv6qYmEeSP",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"1"
+							]
+						},
+						"description": "Get a Product"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJibDg5OSIsInR5cCI6InRlciJ9.eyJleHAiOjI4NDc1MzE4NDV9.LydKO3scAkG4eE4bqkR-_l4hTXBdztP8HdasYKsoCTT",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/product/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"3"
+							]
+						},
+						"description": "Delete a Product"
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJpdDUyOSIsInR5cCI6IkhZUyJ9.eyJleHAiOjg3MjU4MzQxMjR9.XmzQU3yfJrG6cM8czdA-_o2mCSWricG2GsunGPvsQKR",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"product-1\",\r\n    \"category_id\": 1,\r\n    \"image_url\": \"https://images.product1.png\",\r\n    \"price\": 42.42,\r\n    \"description\": \"a description for product-1\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product"
+							]
+						},
+						"description": "Create a Product (and assign a category)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update (Full)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJWcjQ5NSIsInR5cCI6InVkdyJ9.eyJleHAiOjc5NjY4MjczNjJ9.McfUL4klVpF9wM1lhiT-_l0fRACtdyG2ZfbnAUvwBRD",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\":19,\r\n    \"title\": \"product-9-new\",\r\n    \"category_id\": 1,\r\n    \"image_url\": \"https://images.product19.png\",\r\n    \"price\": 20,\r\n    \"description\": \"a description for product-9-new\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product"
+							]
+						},
+						"description": "Update a Product (full-update)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update (Partial)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJUeDU1NyIsInR5cCI6ImtncCJ9.eyJleHAiOjg3Mzg1MzU2Mzh9.EmpIE2vgWiI5qK8fflS-_k6pYXTqqjO0IfamBPkiPOE",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"product-9-new-title\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/product/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"9"
+							]
+						},
+						"description": "Update a Product (partially)"
+					},
+					"response": []
+				}
+			],
+			"description": "Product Client API",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Get Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"token"
+					]
+				},
+				"description": "Get Token to access \"write\" (create, update and delete) endpoints"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJTVDUxNSIsInR5cCI6IlV4UyJ9.eyJpc3MiOiJYTlFMSzovL3NndG0tbHkuVlVvIiwiYXVkIjpbIjdaOTY1ZjM2LTJtU3gtOTJwOC1WdTQyLTY5NVA1UGI5MTk3NiJdLCJpYXQiOjM3NDU3OTc5MTcsImV4cCI6OTUyODI1Nzg3Mn0.g7_0oafUuB20UlXKMCrBn6ursd874aUyJjk6tBcXnHR",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a12a2c9a-abbb-1480-b94a-235559e5e64f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "05c54652-5ea6-5cef-afa8-4bc2319a16d9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "58086b4b-d905-2868-a077-20a323388a50",
+			"key": "token",
+			"value": "token"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

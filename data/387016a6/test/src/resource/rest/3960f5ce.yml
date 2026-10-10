@@ -1,0 +1,68 @@
+setup:
+  - skip:
+      features: headers
+  - do:
+      indices.create:
+        index: foo
+        body:
+          mappings:
+            properties:
+              the_field:
+                type: date
+              value_field:
+                type: integer
+
+  - do:
+      headers:
+        Authorization: "Basic YV9vYXFsX3h1YXNfemt3YTpsLWtpa3UtanVwYy1oandwcnpoeQ==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.put_job:
+        id: foo
+        body:  >
+          {
+            "index_pattern": "foo",
+            "rollup_index": "foo_rollup",
+            "cron": "*/30 * * * * ?",
+            "page_size" :10,
+            "groups" : {
+              "date_histogram": {
+                "field": "the_field",
+                "calendar_interval": "1h"
+              }
+            },
+            "metrics": [
+              {
+                "field": "value_field",
+                "metrics": ["min", "max", "sum"]
+              }
+            ]
+          }
+
+---
+"Test start nonexistent job":
+
+  - do:
+      catch: /Task for Rollup Job \[does_not_exist\] not found/
+      headers:
+        Authorization: "Basic Z19zYXVkX2x5c3lfdG5oeDpqLWd0cmEtZWdvcy1pZmd0d2RkcQ==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.start_job:
+        id: does_not_exist
+
+
+---
+"Test start job twice":
+
+  - do:
+      headers:
+        Authorization: "Basic eF95eXJ0X3Z5cmxfaW1nbDp1LXV5d2gteHN1ai1jaW9tcmljZw==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.start_job:
+        id: foo
+  - is_true: started
+
+  - do:
+      headers:
+        Authorization: "Basic cF9lYmVwX3d0cnRfeXlzejpkLXduZHUtc21maC15dnFlZnRucQ==" # run as x_pack_rest_user, i.e. the test setup superuser
+      rollup.start_job:
+        id: foo
+  - is_true: started
+
+

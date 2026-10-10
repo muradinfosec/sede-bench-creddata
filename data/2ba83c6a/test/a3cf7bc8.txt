@@ -1,0 +1,324 @@
+#
+# Copyright 2001-2020 The OpenSSL Project Authors. All Rights Reserved.
+#
+# Licensed under the Apache License 2.0 (the "License").  You may not use
+# this file except in compliance with the License.  You can obtain a copy
+# in the file LICENSE in the source distribution or at
+# https://www.openssl.org/source/license.html
+
+# Tests start with one of these keywords
+#       Cipher Decrypt Derive Digest Encoding KDF MAC PBE
+#       PrivPubKeyPair Sign Verify VerifyRecover
+# and continue until a blank line. Lines starting with a pound sign are ignored.
+
+
+# Private keys used for PKEY operations.
+
+# DSA key
+PrivateKey=DSA-1024
+-----BEGIN PRIVATE KEY-----
+MIIBSwIBADCCASwGByqGSM44BAEwggEfAoGBAO0SwRpkAeM21qSM5ch4CLEHpFk4
+24R9VY8lOj910W0MnEkwLgtcyrSpxw6LKkSt/Nem57wlTSw0m4EYEGijwRpkMRZz
+C/NFeKIuGh2wRkygftwbaswcvOsylpyv0MTv388ncyjPGwST0xO6y0jRcGhc6WVv
+oPLOitJWFude1vfoCjbaLYGZMYarOiLQwu2/kxgS33pkvV9HfHDzAUAk0rJd03PZ
+fgF5CLATqETRb+7ZXH9JqeizVnkQzaT5SgEfxEFstzmK/tsZ+7mcyY4gaaOUV4Dh
+THP5pb36NVwO24fx11c4rQEDlXjKOny0VZMuxnfU+DMDKIcCkJNuYQLoEBFinNHH
+3pOM0JQPp8M5hyEptb+xR5LbHs20naaueoEBUAV8HcG+GbCEyIVfe/5syY9W7Q0=
+-----END PRIVATE KEY-----
+
+PublicKey=DSA-1024-PUBLIC
+-----BEGIN PUBLIC KEY-----
+MIIBtzCCASwGByqGSM44BAEwggEfAoGBAO0SwRpkAeM21qSM5ch4CLEHpFk419R5
+ve1UUr421y3HEUURsrVpxYKvyx8aOBQC/akz95cYxNN3y1JnJJMxPklhdJrJf/WD
+YPxjMk8BqNJmeZtLuCVLKGwQomuo7ZkG955WRyLHYEdQ6uC7K2QTPKpW6psFYFaD
+YjAjSEKk2MFxAhUAykDkKLZdhPWzwM8/qYaE31VmWz0CgYEApNVF8oFK41ezQci9
+XbSZJHyPB+3jML1YQkHxiiInaIz6GEFtjUbIUEYA/ovY+6ECNI1aIDHTd7CHwoS0
+mp33oQYs43nt29B6UwbtMmbzCOQ9vGGwWVho+JtHyyPWrDuLmkvLtoQPaxYt6PVa
+3gncr2v3njcVuH+EQ6DuFR93zksDgYQAAoGAVXFwJ5wTuF0rQ6AWfTitm3/zUeRW
+SeKFo+Rg0GrBI+Wg2Tj+Yn6V8Xs+Xyjim1wsd2P6/BlJzCEr4nHjP9JcBICqM3vI
+9zCaT/vYsLD7/T7rF9AF/jV+LnkGJCzLbDYF04IkhtLNHOQob+Uc8PWB78e/1Lc4
+SzJw2oHciIOt+UU=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair = DSA-1024:DSA-1024-PUBLIC
+
+Title = DSA tests
+
+Verify = DSA-1024
+Ctrl = digest:SHA1
+Input = "0123456789ABCDEF1234"
+Output = 302d021500942b8c5850e05b59e24495116b1e8559e51b610e0214237aedf272d91f2397f63c9fc8790e1a6cde5d87
+
+Verify = DSA-1024-PUBLIC
+Ctrl = digest:SHA1
+Input = "0123456789ABCDEF1234"
+Output = 302d021500942b8c5850e05b59e24495116b1e8559e51b610e0214237aedf272d91f2397f63c9fc8790e1a6cde5d87
+
+# Modified signature
+Verify = DSA-1024-PUBLIC
+Ctrl = digest:SHA1
+Input = "0123456789ABCDEF1234"
+Output = 302d021500942b8c5850e05b59e24495116b1e8559e51b610e0214237aedf272d91f2397f63c9fc8790e1a6cde5d88
+Result = VERIFY_ERROR
+
+# Digest too short
+Verify = DSA-1024-PUBLIC
+Ctrl = digest:SHA1
+Input = "0123456789ABCDEF123"
+Output = 302d021500942b8c5850e05b59e24495116b1e8559e51b610e0214237aedf272d91f2397f63c9fc8790e1a6cde5d87
+Result = VERIFY_ERROR
+
+# Digest too long
+Verify = DSA-1024-PUBLIC
+Ctrl = digest:SHA1
+Input = "0123456789ABCDEF12345"
+Output = 302d021500942b8c5850e05b59e24495116b1e8559e51b610e0214237aedf272d91f2397f63c9fc8790e1a6cde5d87
+Result = VERIFY_ERROR
+
+# Garbage after signature
+Verify = DSA-1024-PUBLIC
+Input = "0123456789ABCDEF1234"
+Output = 302d021500942b8c5850e05b59e24495116b1e8559e51b610e0214237aedf272d91f2397f63c9fc8790e1a6cde5d8700
+Result = VERIFY_ERROR
+
+# Invalid tag
+Verify = DSA-1024-PUBLIC
+Ctrl = digest:SHA1
+Input = "0123456789ABCDEF1234"
+Output = 312d021500942b8c5850e05b59e24495116b1e8559e51b610e0214237aedf272d91f2397f63c9fc8790e1a6cde5d87
+Result = VERIFY_ERROR
+
+# BER signature
+Verify = DSA-1024-PUBLIC
+Ctrl = digest:SHA1
+Input = "0123456789ABCDEF1234"
+Output = 3080021500942b8c5850e05b59e24495116b1e8559e51b610e0214237aedf272d91f2397f63c9fc8790e1a6cde5d870000
+Result = VERIFY_ERROR
+
+Title = Test keypair mismatches
+
+PrivateKey = DSA-1024-BIS
+-----BEGIN PRIVATE KEY-----
+MIIBSwIBADCCASwGByqGSM44BAEwggEfAoGBAO0SwRpkAeM21qSM5ch4CLEHpFk444c2Qd2uYw21
+2U8hUQlPnpEefxGmDJ9lOHJo/YrW16kIgHL0f4BedqNkPfGygXMGe/SkssgjLQ2EhwhjyoPheyXM
+ADCcMoEl0gAR836RVdRnNmBI0ts6M8jHHeVy7pJHMBefXeKmCIqb0aTdSEeLckbsWptuIVLLxd7/
+dTMt40vFUa4wUZvaOMPj8msR50BNAvo1xuyiveVuQ+5TKp1vjjWqswEHjnx6WCIaOcstxvHZ/BVt
++3SkqC5YIBSRq1cXtTh3bq21aHgo62Zv82h8dmWMxnvDuwA7CUnxxmpL+cYYNimXoVehkFaqNhDw
+oOgz9ifg4NzVR1R2CXoyiP+tK9oNGz16IvemcBmzAqpBXu3FE9P5vyeZOHJDOB2olTL=
+-----END PRIVATE KEY-----
+
+PublicKey = DSA-1024-BIS-PUBLIC
+-----BEGIN PUBLIC KEY-----
+MIIBtzCCASwGByqGSM44BAEwggEfAoGBAO0SwRpkAeM21qSM5ch4CLEHpFk419R5
+ve1UUr421y3HEUURsrVpxYKvyx8aOBQC/akz95cYxNN3y1JnJJMxPklhdJrJf/WD
+YPxjMk8BqNJmeZtLuCVLKGwQomuo7ZkG955WRyLHYEdQ6uC7K2QTPKpW6psFYFaD
+YjAjSEKk2MFxAhUAykDkKLZdhPWzwM8/qYaE31VmWz0CgYEApNVF8oFK41ezQci9
+XbSZJHyPB+3jML1YQkHxiiInaIz6GEFtjUbIUEYA/ovY+6ECNI1aIDHTd7CHwoS0
+mp33oQYs43nt29B6UwbtMmbzCOQ9vGGwWVho+JtHyyPWrDuLmkvLtoQPaxYt6PVa
+3gncr2v3njcVuH+EQ6DuFR93zksDgYQAAoGAdZCPYZ9WvtKW7dFvbEjl0HHBxLNX
+8kV1/FAxsDrQd+c8mWdruNzcmwsZJklJuTK9czKnXgLmkRHR20I4oNrJ/bptV8lV
+iDvJBJlmZ1aGh6yLIHzYBbgbgia3lBrFlO5qUxNmbNeiC+HIqUvlVBmQOLN6+Xjn
+Q4A0wDK8dmF2dFI=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair = DSA-1024-BIS:DSA-1024-BIS-PUBLIC
+
+PrivPubKeyPair = DSA-1024:DSA-1024-BIS-PUBLIC
+Result = KEYPAIR_MISMATCH
+
+PrivPubKeyPair = DSA-1024-BIS:DSA-1024-PUBLIC
+Result = KEYPAIR_MISMATCH
+
+
+PrivateKey = DSA-1024-FIPS186-2
+-----BEGIN PRIVATE KEY-----
+MIIBWgIBADCCATMGByqGSM44BAEwggEmAoGBALRSnNcjMPIl4tekT5D3AgqsK042
+rw4uXRqtbrJWdrzotNPSq1KEsZEHw5dhVgR4LEetNE3MylAMiXtgJXeSRKXhBOmK
+16lLcFtbg3hHdFG/ya9hRh+8NaaHJ/LGACyCeYzNOs0SkC69G7fFwXsWIgvDN25n
+CmMFRLr+RyAuAmEmto6J3YlXWli+ekWBZ/2qj8WatHSVz2/aUWczEWz/LYvPuI0N
+dKMlRTCtW+vOv9sKd7bqByREpsKABTDy1NSpEkaaiew0G7iWb0VSQRuQFuwbJ7Pt
+jDF8spB1/3a2wYGko93clIAa0CmiXL5ijAIaPgvNJfL/q74fWZ0Kh1xm1Ue7mZri
+mB9qfUZR6aRXGetGDYU9a2fU/bvblc9hO9XnYsEqFN7glPkBNT7l5oAVOBvQA86X
+/sNPuMVUcORxUIt41xV=
+-----END PRIVATE KEY-----
+
+PrivateKey = DSA-2048-224
+-----BEGIN PRIVATE KEY-----
+MIICXAIBADCCAjUGByqGSM44BAEwggIoAoIBAQDVjuiHR3XA9yAjToNQOmdg2rN9
+2j9VoJJ1sMz9DBzGreXrWqszDgyuqTpp/tLccF7aVD4MJt9KzlsjW+W4KkkO6FEY
+9ZIpSN9mJ9WSQ70Vds9dyq/UtmN097DhDdGxa6xEFYEvxmR/8daCaROBUkHRpL7f
+KnkK+EqK4GpUH5shcdB5vYPoDgW8prxbN70CDD5+pkqkynBWBBPAUx4rmQszwPmJ
+YCbmJtpkXtdcs7fhoJCLMCsNxnkWwFtTPemtld02MFx2tx+DeflED/aZSQQK++Ld
+0YyY+edCIx71OvZ6WCCODHFPa6sosbImFnXJ87pJ+l4nOhdlkETGDdT0lbDNvw7J
+/OQfH1I7XMLzAZUQUTQdGQXtSuIAQsBfkXWerKvATgHVebnIyL/FgV9EPnnp9u7r
+4l+0KQOA+j6TvrVCwDqYUlxUCFJwp2h0MvJjxWvpdVI0F8R45ECuV3A2B1tpuhpG
+giUAMfNhBEBLcisb/cvoo6Y1imXNajEBzZQu+gs6S+ohnj3XHac2ZXcYl1Vvzg+8
+uzzm2AjkLMAbE272nbAewG/uhWkRNNy7hqTgzemVieW6vLxekCLuKBQy7TxKpwL3
+fkdUtHe7UbU6hNNVm+XnQXn8IzPV6Uzzj7jLsGGTfmnJPrwI4ZEzez2/W80sO4Hg
+Vr4Ba1WhcKElivUPGFDHeA+d2AKXA8mYCOy4t/X3dMuhrsP8OIJcv3S+sptjyW+e
+Pk4lsTg9KvwDGZD+R/fnZhh6X6bJnGBi5UMardwCvHZ=
+-----END PRIVATE KEY-----
+
+PrivateKey = DSA-2048-256
+-----BEGIN PRIVATE KEY-----
+MIICZQIBADCCAjoGByqGSM44BAEwggItAoIBAQDAuDj/d/t7n4013h18atbOYg4Q
+WTTjRFv5xIDFTJTGM3XLm5IaJnrgBKQfFt6BoobLg3LsUraiSMVr5u07vD10j9Gk
+87zebXVNx+9UrBIS688vHLdFYXZ76lU8HDxEf7Nv7rurNgKgCzpHkcM1EOkQdS5L
+xJ01J+bNqGItqKcigH/FNSuPDc1jWn/n6sXBZDqwNcUM6tAg+3U6i7q/v7w0kHCM
+zHskdLvomXMpON98RYAEjpatzJp8eEG/7PRqnjaABiMgGpq3LJhLZn9eT9Uta4g8
+dwTOLAWEKJfV2SbMT98RC6b+/ixhDNsAR5tEGUR4T0TS+mbcf2ik0pRJbNQhybOK
+YZcNJKnSHAYMBnIBxuDWz5Ar+iQs0TOGSc44/eRI0rORFvvOBGM7QQR4ihbjvSAR
+jbtJ7euTrONuVCy3OvllxYmgQXew/Yo0Syrkyv8o2Fy1Fm72+MNOJ+RThsqtLUps
+S7j5cWkEnpSh8b+PVpLR0GVLJ6g+ovDF82SK3/ym1ih/MFQYHkczdtj/4LbZiIq7
+L4bRyBLz7Boy04Chm4FyquycEofSYYxiAKn8gXV20oS2VQyy5uGydc6u9nYabsoA
+dfTzS8XxAHn59Y/e6jjRKMv4zZphJHHBb4+DKqtGF0GeYDeFoV08TN46liMqtKaK
+ffxG974wuYD3i3iAsAGj6HYUYbsuHiRgzguWtk//C3bZSqnvZpJeFfrhby0q4Tp1
+BSjpElOmcAHlz0zQ5eEWXP45mOr2AAYDujKpMC7lsWVacD8xCx83WsW=
+-----END PRIVATE KEY-----
+
+PrivateKey = DSA-3072-256
+-----BEGIN PRIVATE KEY-----
+MIIDZgIBADCCAzoGByqGSM44BAEwggMtAoIBgQCvf6pPUvu2J7j4aaGcpEkfjX7e
+pMX5izBda7xAmHxKIIkQXToPIq3ARBVicUmpwEXWb3sjV4W0wXHi8YW6Shp9bMDp
+mlHHpTnDl0Lqa91xLuuWmK9VKDcHDUqgkdMm913ojEuURxfGQpOp8w523yT2HDqu
+k0M1O+g5bGNnLAg/yeJjaf5/hKp/EAcS3JMWpOZwoWTLbBgLAYjnG4URZ4bxp9w9
+VTZdujZicisiLGUFUeoRAMesz9HH36fexsUYjX7KRMX66pJ9X8U5nVuJJ4qmnes0
+7WK/oJAyWTIaWspNAa/6uyZsJeAbwz2u8a2OsL54kqiQeW21vU8YhFBr4hf1dY5d
+TjCaoprVPZ/bKlKsgeX86kmXBCL4DsSdcJeZIe06mi903331BGbfCWbchnyNrzoV
+L0NqjRklznL+ijcRSOoLFQpY+5YrCgRs6Txow1KcIjJA0ytZrDDDQ6v4WrBAFWby
+vlsJCqBlmjK+gF/9DIV3QZRx/dGR1lgDzyKNQyBxcFh/KGbZAdsey3KbgJvNwbt9
+6d6vlUK9rHwe5BS4rn+IcGZniRbJy0rsgAslT7FWiQCU20ZYJTSwr01nVTPvhtLG
+mocjgSujJwrLTRgDGo1PZrxChYnqCoiHDydNFblnUu8xvE7KiYy7To8CNGss36mj
+WNihZDH/Ow6wyxld4sbo4MT4oe3wqWw6WlvD9DsHQ9A5/5k/NknCVavdoTEyRn9z
+Z9g5tVMRvv/FibZaWIl0uMTaotfqgjsxx304hdQM6VTidJBHLOAWe2UwxJUET5mj
+bD91y3W75v/JAdF2td/X+udWDS2CxE8vJmeANmFAnHZoAO7TMUJrzW4cMIw+Mto6
+lTKGLRuGItNpI9EZ8eACnUOkJMANO4FPM8Q1c/BQWWgaiEPe7xx9Wu6ULI32sBR+
+i9fqD212l7gXAG5tN5+XxxU0TV34jeTxoDU607N6r/VCe9BX/PpSgKZX5BCImJiM
+3t2PMvY/pl6LbjChRM0PshueNmaKoO6K/QSt0W386BuQ3EE4wc608fVaiFb+ZGLM
+eKazpML0lMNpCEJOjTjh8MndV4cIAMMIMZOriPlrHzS4AlYRrhu0//z9GD5Y1gjp
+a1qx7iBYJzux2c==
+-----END PRIVATE KEY-----
+
+PrivateKey = DSA-3072-224
+-----BEGIN PRIVATE KEY-----
+MIIDXAIBADCCAzUGByqGSM44BAEwggMoAoIBgQDEY9anVQ8qwdz77IQx1bSmu5MI
+Mv2ny6izqWn1nnxJXYzLD63v7lENORYco1/DXdFS/fG+AJE5Cf9fNsb/+SQDoG8C
+zKIb6DqG79r0zVgW535NUMS/0jF8id5vNG4zp+fFLhzzqZC5n4JWVegaj10r+XFJ
+kwL4u8KwHA/McIDkEcL1EyPBQ7/TTO1EEsnCdmIH0dB4HjnUViqafRhRTKUxUQ7p
+jgnDzi3g4xBeaIR4SsrNlpi68QkOOOMgc9iSdyK7ieg0RLd7/E4cEdG/Jo2QY1FZ
+HjKMk3zdzXYlCVUQdf9D2IwJPzsXmyeS/vCaHVxcfMK4rZvzaXw3klbXAoXFduRb
+B0Wy+ysu6K+MsD7YPej8Oy1IQ6ISaX8s7ed4ix9o+UFh8L4qBl/mSo3DlMxVs4J7
+yaSSTGqJYjBzhrzg6DlhvRd6HCKUXrAwFqHPdx62YOX4du5ed2A2YeHMk72NGqmJ
+EiM/v18s8sAUgXqH1uHyOqJig9RtcAHkx+P1rB8nZoLYFXlYN8FHquKCp+D60g+N
+p+hVx1TRIFK1L2dpulNXklzWrM3gLCtTgWJbBH9bAO3aj5QZoFmGMzO0Xkbyhcnt
+CT4lhvrd6wLwhLPRqVBsn7sggF8yxLYOz3Mzj7e6pkc4w2v3Qj76xby5vyTJXWFf
+sZ1S75DHKoBrtpIehJ8Dy/ZE7K8kW62vrI3nWviVrbNKGiCHQrcy6zlnRg4782Lt
+H+Ib4/hiISZK4vOsg+m4ntjQGcKH18D199RJI26xv5qPOEcS5nCvloOhLiMsyTka
+a8QdXdsmydwNksaSeBPmukWUUTaNZZHWiJsA6H3S19Rx7m9NSYHXrmRBhgeVfSwK
+REdY7mOzo4gftOSeRltStjbJqkAUxbQoBJLqfRHhP5vhH7YOQwntcOvM4BIs/mb6
+bUGeN7PFUawEJMGW0n8jmy+J/8i2bD/PcDJ2CFsrjADSPqozb/c2Hw2fR78DdmWm
+tuGVIPYMKqoQ+a240Mn26FGWdVhGndgknDRlVmARXjgHBoVfcbs14cV9Xx3PBrRx
+0RvUKKZypJXpqaQakxxAFsoUOyA0Dsrrf3HkcUtFGQ3+mC9U9IYVdVjFSoMw8RLK
+-----END PRIVATE KEY-----
+
+PrivateKey = DSA-4096-256
+-----BEGIN PRIVATE KEY-----
+MIIEZQIBADCCBDoGByqGSM44BAEwggQtAoICAQD9m23nz0MOXi3GFvuv+Qpva9Ms
+MO/buw0gKm/obylohDVgv6i9UNSZzEmypBiwYmu0Zc+1x8zw8t0xJG/5y/uPzPuX
+I50NLdJhIrZBpbtOl9zkJF+pEC119uJ2Xsfl0+kcWJ/dJOEtBJjjErMX/54gwjzf
+2x0S8ez5YNSOWsfwU4tXD81B9/4H6RZsadM1eupmQm6iREOvx3SjeV+ssvQTds+q
+QBK8VB04h9HzwaC6MvpoVsWIxtBMGA7CRsEu0R1J0HFoZPq0aH3GVPJ/na2RA0EZ
+GXrmnreonMiqdQT5JZvdO8g4iBaarLJdCZ5nFFGviK9hptAKVELvJLXI5//rTZQH
+KBo8ALpIBLtxbvTKY/VPG9cseki6YtWrKbTFDQY73I4xDqZMWXSP4nUDspq3pPb2
+actXQwBDG/OdRPr9/3tqhnws7G+ljQt1LquiHsoxtt8b17U7G5GrtseLCgTAyLOL
+yVy+rdEgxrIaAebP+nl6dlNTb/QIxsxTFbx4WTDHxFpEjFKWPe2hiA0ihny8kTpI
+aU4NSni/JjhCUuW9v+tVcl3pFrp5U8n4u7R7A8kc5I+0isgqjfyUOWxBG9n2TVUy
+QQs25hUmzeV10YosgooXCWxZV05x7lD9KEPnmrQSyENBCDRlmODe91luvfrotsyF
+T47iat52BdAyz87rSEVFKHvX8OPqbAskeGpFGeoxX1y0R/arZ2VVLlpJ1Je9rJO9
+taHFkjXlOPVnJCDolneM2asOpwWeC0Pt2SDW3kV1w+Ys1NbnbWnagg9YxTHM7TXK
+3ilxVo1pC4g5s4RxHptr6dhqy4w2abVV+Zy1khUxFQNTsQC12MXeDNX3q3xkrzfM
+dEvJHJLzvT41HEZ9XizMW3QL6S2lRnxxLxaWQ8CKS9YMJlZpd8+73vKxbx9O9IxR
+aNEHCiDE3+oOl5ce9S4IKH/81zIOtd65uabH4ePoT5etWyqZBl4Rf6RomSn8+vTU
+B+cMxW1EwmDmflBsweATceMa1b1VvnSZLSpkj7li0xpLubAObgvUj4cYNaGfBzbt
+0RgDyDiLEc19R6bRik93g9zkqBce3BlhawnT+GmhsUd5fxj/aUq86vz0cVEbo8Bc
+5AHs5nn0CwusDylBLGsTdlWiu9T88+nB9j9Dkgja+zMDJtnFCmpx45HlryA9DZ01
+vo95CPC8l4FW0wkT37ayZR/Ebbc9J9axIL1lfv8eh8Ukgi9/9KiPTKn54hTjM6FY
+9/kn7uVC6AiK2U9dA5RyucQpNlfBiMw2nVvqzZgIhI5eqop+m4m5FdjLh1LsKGZS
+KlwUzNyxnv8HvyD7N5SQco0sJfT5qKhIYkPH3gFawrfaDpm8Digd1MiHNv38XaiT
+dGGfCoJMTLOf3ZO781x1+vqWh0nbFGtomMVE6UUFfTTCaCxljmJOsNXlB7kFMFvL
+c4i/55V6K1Ed4aTUxGwvEtIRiMZZGDCwIq==
+-----END PRIVATE KEY-----
+
+
+Title = FIPS Tests (using different key sizes and digests)
+
+# Test sign with a 2048 bit key with N == 224 is allowed in fips mode
+DigestSign = SHA256
+Key = DSA-2048-224
+Input = "Hello"
+Output = 00
+Result = SIGNATURE_MISMATCH
+
+# Test sign with a 2048 bit key with N == 256 is allowed in fips mode
+DigestSign = SHA256
+Key = DSA-2048-256
+Input = "Hello"
+Result = SIGNATURE_MISMATCH
+
+# Test sign with a 3072 bit key with N == 256 is allowed in fips mode
+DigestSign = SHA256
+Key = DSA-3072-256
+Input = "Hello"
+Result = SIGNATURE_MISMATCH
+
+# Test sign with a 2048 bit SHA3 is allowed in fips mode
+DigestSign = SHA3-224
+Key = DSA-2048-256
+Input = "Hello"
+Result = SIGNATURE_MISMATCH
+
+# Test verify with a 1024 bit key is allowed in fips mode
+DigestVerify = SHA256
+Key = DSA-1024
+Input = "Hello "
+Output = 302c02142e32c8a5b0bd19b2ba33fd9c78aad3729dcb1b9e02142c006f7726a9d6833d414865b95167ea5f4f7713
+
+# Test verify with SHA1 is allowed in fips mode
+DigestVerify = SHA1
+Key = DSA-1024
+Input = "Hello "
+Output = 302c0214602d21ed37e46051bb3d06cc002adddeb4cdb3bd02144f39f75587b286588862d06366b2f29bddaf8cf6
+
+Title = Fips Negative Tests (using different key sizes and digests)
+
+# Test sign with a 1024 bit key is not allowed in fips mode
+Availablein = fips
+DigestSign = SHA256
+Securitycheck = 1
+Key = DSA-1024-FIPS186-2
+Input = "Hello"
+Result = DIGESTSIGNINIT_ERROR
+
+# Test sign with SHA1 is not allowed in fips mode
+Availablein = fips
+DigestSign = SHA1
+Securitycheck = 1
+Key = DSA-2048
+Input = "Hello"
+Result = DIGESTSIGNINIT_ERROR
+
+# Test sign with a 3072 bit key with N == 224 is not allowed in fips mode
+Availablein = fips
+DigestSign = SHA256
+Securitycheck = 1
+Key = DSA-3072-224
+Input = "Hello"
+Result = DIGESTSIGNINIT_ERROR
+
+# Test sign with a 4096 bit key is not allowed in fips mode
+Availablein = fips
+DigestSign = SHA256
+Securitycheck = 1
+Key = DSA-4096-256
+Input = "Hello"
+Result = DIGESTSIGNINIT_ERROR

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo 'export TEST_DATABASE_URL="postgres://postgres:uicazgzz@localhost:2222/postgres"'
+docker run --name pg -p 2222:5432 -e POSTGRES_PASSWORD=couudorn --rm -it postgres:$1

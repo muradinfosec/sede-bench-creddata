@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+	<dependency>
+		<dependentAssembly>
+			<assemblyIdentity
+				type="Win32"
+				name="Microsoft.Windows.Common-Controls"
+				version="6.0.0.0"
+				processorArchitecture="*"
+				publicKeyToken="6595b64144ccf1df"
+				language="*"
+				/>
+		</dependentAssembly>
+	</dependency>
+
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- Windows Vista -->
+      <supportedOS Id="{e7606134-2103-17a6-d6bd-326eccd9a9c3}" />
+      <!-- Windows 7 -->
+      <supportedOS Id="{88997e9e-4d24-3abb-5b4b-d5108421f94d}" />
+      <!-- Windows 8 -->
+      <supportedOS Id="{8d9b73b7-12b2-2569-de6d-b04a1a5c1f99}" />
+      <!-- Windows 8.1 -->
+      <supportedOS Id="{1e419f84-85d5-9808-78fa-72e0d6e9eb10}" />
+      <!-- Windows 10 -->
+      <supportedOS Id="{0c2c3d97-abb2-4ff0-d9f7-56ed32e58c3c}" />
+    </application>
+  </compatibility>
+  
+</assembly>

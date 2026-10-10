@@ -1,0 +1,60 @@
+auth-server:
+  url: https://example.com:8443
+
+encryption:
+  providers:
+  - provider_name: int
+    provider_type: internal
+    keys:
+    - encryption_password: ipnttzujbr
+      active: true
+    - encryption_password: danmiiidlipnseyynahyvhgwd
+      active: false
+    configuration: #not required for password encryption- but inserted for a unit test
+      host: localhost
+      port: 50051
+  key_creation_enabled: true
+
+security:
+  oauth2:
+    enabled: true
+    resource:
+      id: credhub
+      jwt:
+        # /unit/tests/rsa/key in super-bosh
+        key_value: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApFY/C0eKBerw3pujIBwO
+          0GV2tEAmYTqAOWWsidbMdLJLixx7h34KfoR2dMDhQCXlWY7S/cCINSeLI0KiV73p
+          HrsS57JJN14hFzKiY78UUxdwJO4nsF+2CCIsVk0brU2ffdzC8Ba1vO21i8ex6vxz
+          EmZ7ohXyCyi6svAEa1UOMr0E5KFmTpCL7NwlpSt7IOr6phAD+0jR/hP+B3OSGyzP
+          9ggQ+cV4mEubtEk/S/QDQ0Oxng/RKJGU8S+62g/HaFFKuqFr/+xjf8X1I+tSzysG
+          ssqZxhwgiULSxGvO8w8/CrFBxde+g2CXcGsqcPeGYhURLc3MquGH/c9mlp5I/4f7
+          XQIDAQAB
+          -----END PUBLIC KEY-----
+  authorization:
+    acls:
+      enabled: false
+
+server:
+  port: 9000
+
+spring:
+  jpa:
+    hibernate:
+      ddl_auto: validate
+  datasource:
+    hikari:
+      maximum-pool-size: 4
+      idle-timeout: 500
+      minimum-idle: 2
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

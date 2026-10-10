@@ -1,0 +1,12 @@
+##
+# PagerDuty [Notifier]
+#
+
+notify_by PagerDuty do |pagerduty|
+  pagerduty.on_success = true
+  pagerduty.on_warning = true
+  pagerduty.on_failure = true
+
+  pagerduty.service_key = '8110287947deaccd83371538273efcca'
+  pagerduty.resolve_on_warning = true
+end

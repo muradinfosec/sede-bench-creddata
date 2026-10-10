@@ -1,0 +1,18 @@
+{
+  "method": "post",
+  "url": "https://bitbucket.org/testcompnay/2.0/repositories/testcompany/testrepo/commit/testCommitSha/statuses/build",
+  "auth": {
+    "password": "testBitbucketToken",
+    "username": "sorry-cypress"
+  },
+  "headers": {
+    "Accept": "application/json"
+  },
+  "data": {
+    "description": "failed:0 passed:1 skipped:0",
+    "key": "f351868b979d2efd512c712e4810fde4",
+    "name": "cypress-build: ciBuildId",
+    "state": "INPROGRESS",
+    "url": "http://localhost:8080/run/testRunId"
+  }
+}

@@ -1,0 +1,46 @@
+#
+# Copyright 2001-2020 The OpenSSL Project Authors. All Rights Reserved.
+#
+# Licensed under the Apache License 2.0 (the "License").  You may not use
+# this file except in compliance with the License.  You can obtain a copy
+# in the file LICENSE in the source distribution or at
+# https://www.openssl.org/source/license.html
+
+# Tests start with one of these keywords
+#       Cipher Decrypt Derive Digest Encoding KDF MAC PBE
+#       PrivPubKeyPair Sign Verify VerifyRecover
+# and continue until a blank line. Lines starting with a pound sign are ignored.
+
+Title = TLS12 PRF tests (from NIST test vectors)
+
+KDF = TLS1-PRF
+Ctrl.digest = digest:SHA256
+Ctrl.Secret = hexsecret:b6913dcc6afccf1362a9a2e248c675cf08e3e005a09bbb13775f3c87cb692edadb113c389ae5ef1315c416bbf8c33ebd
+Ctrl.label = seed:master secret
+Ctrl.client_random = hexseed:36c129d01a3200894b9179faac589d9835d58775f9b5ea3587cb8fd0364cae8c
+Ctrl.server_random = hexseed:f6c9575ed7ddd73e1f7d16eca115415812a43c2b747daaaae043abfb50053fce
+Output = 202c88c00f84a17a20027079604787461176455539e705be730890602c289a5001e34eeb3a043e5d52a65e66125188bf
+
+KDF = TLS1-PRF
+Ctrl.digest = digest:SHA256
+Ctrl.Secret = hexsecret:861c70b60a29b66a15664373012107013015436996e097ff057050382f220f0538f63acc4f580d5c15b02a94010076ee
+Ctrl.label = seed:key expansion
+Ctrl.server_random = hexseed:ae6c806f8ad4d80784549dff28a4b58fd837681a51d928c3e30ee5ff14f39868
+Ctrl.client_random = hexseed:62e1fd91f23f558a605f28478c58cf72637b89784d959df7e946d3f07bd1b616
+Output = d06139889fffac1e3a71865f504aa5d0d2a2e89506c6f2279b670c3e1b74f531016a2530c51a3a0f7e1d6590d0f0566b2f387f8d11fd4f731cdd572d2eae927f6f2f81410b25e6960be68985add6c38445ad9f8c64bf8068bf9a6679485d966f1ad6f68b43495b10a683755ea2b858d70ccac7ec8b053c6bd41ca299d4e51928
+
+# As above but use long name for KDF
+KDF = tls1-prf
+Ctrl.digest = digest:SHA256
+Ctrl.Secret = hexsecret:484b79f73b01c83f65595639063765514426799072d536af967514611a165b9888c04ddd3f579d6a09e09f99526182af
+Ctrl.label = seed:key expansion
+Ctrl.server_random = hexseed:ae6c806f8ad4d80784549dff28a4b58fd837681a51d928c3e30ee5ff14f39868
+Ctrl.client_random = hexseed:62e1fd91f23f558a605f28478c58cf72637b89784d959df7e946d3f07bd1b616
+Output = d06139889fffac1e3a71865f504aa5d0d2a2e89506c6f2279b670c3e1b74f531016a2530c51a3a0f7e1d6590d0f0566b2f387f8d11fd4f731cdd572d2eae927f6f2f81410b25e6960be68985add6c38445ad9f8c64bf8068bf9a6679485d966f1ad6f68b43495b10a683755ea2b858d70ccac7ec8b053c6bd41ca299d4e51928
+
+# Missing digest.
+KDF = TLS1-PRF
+Ctrl.Secret = hexsecret:01
+Ctrl.Seed = hexseed:02
+Output = 03
+Result = KDF_DERIVE_ERROR

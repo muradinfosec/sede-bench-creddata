@@ -1,0 +1,17 @@
+drew:
+  company: binary_logic
+  email: dgainor@binarylogic.com
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: '<%= Employee.crypto_provider.encrypt("drewrocks" + salt) %>'
+  persistence_token: 2683e12dd083b1aad5b0d4328b407ab5d7a30ce57861bd4c640cc86167e0d21d61cb27a61efd320a3a0ba50135e76c154273d559f231c9f8e8e4bbc33fbabfcd
+  first_name: Drew
+  last_name: Gainor
+
+jennifer:
+  company: logic_over_data
+  email: jjohnson@logicoverdata.com
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: '<%= Employee.crypto_provider.encrypt("jenniferocks" + salt) %>'
+  persistence_token: 8ba00a9b805cf32901c0c07fb7433f9474103294bb1c0f4d0f1d33b20705de4cb1e75c22e18dead09c1d09b40bffa1971e0f32528695d5ae27a250e9566b15e1
+  first_name: Jennifer
+  last_name: Johnson

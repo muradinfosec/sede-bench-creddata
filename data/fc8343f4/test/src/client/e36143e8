@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Audit-Id: 5ef552dd-e672-1144-0261-51b15730eb0a
+Cache-Control: no-cache, private
+Content-Type: application/json
+X-Kubernetes-Pf-Flowschema-Uid: 8712dbb8-fa13-8b1b-a6db-23c928365a9f
+X-Kubernetes-Pf-Prioritylevel-Uid: b10ab4b1-7ad9-6bc5-2092-df8986823003
+Date: Wed, 18 Sep 2024 15:17:06 GMT
+Transfer-Encoding: chunked
+
+e9
+{"type":"ADDED","object":{"kind":"ServiceAccount","apiVersion":"v1","metadata":{"name":"foobar","namespace":"default","uid":"c2270787-1c3d-147c-45a0-aa70ac3e2155","resourceVersion":"217","creationTimestamp":"2024-09-18T14:06:40Z"}}}
+
+ba
+{"type":"BOOKMARK","object":{"kind":"ServiceAccount","apiVersion":"v1","metadata":{"resourceVersion":"964","creationTimestamp":null,"annotations":{"k8s.io/initial-events-end":"true"}}}}
+
+0
+

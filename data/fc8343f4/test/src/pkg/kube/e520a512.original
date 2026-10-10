@@ -1,0 +1,42 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    baz: qux
+    foo: changed-value
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2017-02-03T06:12:07Z"
+    name: cm1
+    namespace: edit-test
+    resourceVersion: "1903"
+    selfLink: /api/v1/namespaces/edit-test/configmaps/cm1
+    uid: c33dabdc-c8c6-74e6-2d7d-eace43e6ee15
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2017-02-03T06:11:32Z"
+    labels:
+      app: svc1
+    name: svc1
+    namespace: edit-test
+    resourceVersion: "1904"
+    selfLink: /api/v1/namespaces/edit-test/services/svc1
+    uid: 1deb13da-b8b1-08b8-2f0c-abab51c7fb97
+  spec:
+    clusterIP: 10.0.0.248
+    ports:
+    - name: "80"
+      port: 82
+      protocol: TCP
+      targetPort: 81
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}

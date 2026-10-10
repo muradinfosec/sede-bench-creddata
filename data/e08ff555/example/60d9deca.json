@@ -1,0 +1,295 @@
+{
+	"id": "15d0da9a-cb22-1e58-1acc-e82b1288bf6c",
+	"name": "httpbin",
+	"description": "Requests to HTTP Bin",
+	"order": [
+		"9f08c968-ba88-f1bf-0579-9e51adbefb41",
+		"6b13a2b3-b598-b813-d303-ba7be1559653",
+		"6cfb55ad-4a53-600b-4155-cc538fe68e72"
+	],
+	"folders": [
+		{
+			"id": "3a06e7cf-77a4-59dc-6409-69ad3c85cb41",
+			"name": "All POST JSON ",
+			"description": "Description",
+			"order": [
+				"b6bc02c7-208b-5d7c-f1a8-4146ccc67e3d"
+			],
+			"owner": "1260",
+			"collection_id": "99d5ee1a-dd99-9f98-3ace-c84f8706ba5b",
+			"write": true,
+			"collection_name": "httpbin",
+			"collection_owner": "1260"
+		}
+	],
+	"timestamp": 0,
+	"owner": "1260",
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "0a31f539-be94-f9bd-4016-4e68bdffcb51",
+			"name": "POST with URL params and form-data",
+			"url": "//httpbin.org/post?random=yo",
+			"collectionId": "34a0cb3a-cc34-0a09-6eae-c84f4970fb2e",
+			"method": "POST",
+			"tests": "",
+			"preRequestScript": "",
+			"responses": [
+				{
+					"owner": "61671",
+					"lastUpdatedBy": "61671",
+					"lastRevision": 14861424,
+					"request": {
+						"name": "POST with URL params",
+						"description": "Description",
+						"url": "httpbin.org/post?random=yo",
+						"pathVariables": {},
+						"data": [
+							{
+								"key": "postdata",
+								"value": "isawesome",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"headers": "",
+						"dataMode": "params",
+						"method": "POST",
+						"tests": "",
+						"isFromCollection": true,
+						"version": 2
+					},
+					"id": "85f67d01-4a7a-a78a-85ee-21d1076acd65",
+					"name": "One and only response",
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": "798",
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Credentials",
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true",
+							"description": "Description"
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+							"description": "Description"
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Description"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "793",
+							"description": "Description"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "Description"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Thu, 02 Jul 2015 06:13:00 GMT",
+							"description": "Description"
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx",
+							"description": "Description"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\n  \"args\": {\n    \"random\": \"yo\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"postdata\": \"isawesome\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip\", \n    \"Accept-Language\": \"en-US,en;q=0.8\", \n    \"Cache-Control\": \"no-cache\", \n    \"Content-Length\": \"148\", \n    \"Content-Type\": \"multipart/form-data; boundary=----WebKitFormBoundarySavBBrYQiE7rIBgb\", \n    \"Csp\": \"active\", \n    \"Host\": \"httpbin.org\", \n    \"Origin\": \"chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop\", \n    \"Postman-Token\": \"9cac9433-651c-31e9-5911-c39dc1628dda\", \n    \"User-Agent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36\"\n  }, \n  \"json\": null, \n  \"origin\": \"106.51.133.191\", \n  \"url\": \"http://httpbin.org/post?random=yo\"\n}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "{\"name\":\"POST with URL params\",\"description\":\"\",\"url\":\"httpbin.org/post?random=yo\",\"pathVariables\":{},\"data\":[{\"key\":\"postdata\",\"value\":\"isawesome\",\"type\":\"text\",\"enabled\":true}],\"headers\":\"\",\"dataMode\":\"params\",\"method\":\"POST\",\"tests\":\"\",\"isFromCollection\":true,\"version\":2}",
+					"createdAt": "2015-07-02T06:13:35.000Z",
+					"updatedAt": "2015-07-02T06:13:35.000Z",
+					"write": true
+				},
+				{
+					"owner": "61671",
+					"lastUpdatedBy": "61671",
+					"lastRevision": 14861746,
+					"request": {
+						"name": "POST with URL params",
+						"description": "Description",
+						"url": "httpbin.org/post?random=yo",
+						"pathVariables": {},
+						"data": [
+							{
+								"key": "postdata",
+								"value": "isawesome",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"headers": "",
+						"dataMode": "params",
+						"method": "POST",
+						"tests": "",
+						"isFromCollection": true,
+						"version": 2
+					},
+					"id": "6b2b3ec0-3a84-09de-e377-5c8383d763f7",
+					"name": "TheResponse",
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": "1515",
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Credentials",
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true",
+							"description": "Description"
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+							"description": "Description"
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Description"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "793",
+							"description": "Description"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "Description"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Thu, 02 Jul 2015 06:13:45 GMT",
+							"description": "Description"
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx",
+							"description": "Description"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\n  \"args\": {\n    \"random\": \"yo\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"postdata\": \"isawesome\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip\", \n    \"Accept-Language\": \"en-US,en;q=0.8\", \n    \"Cache-Control\": \"no-cache\", \n    \"Content-Length\": \"148\", \n    \"Content-Type\": \"multipart/form-data; boundary=----WebKitFormBoundarysYJaeeEucF4dtuta\", \n    \"Csp\": \"active\", \n    \"Host\": \"httpbin.org\", \n    \"Origin\": \"chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop\", \n    \"Postman-Token\": \"b6ed6460-d3e3-5479-e108-2ddb75b327dc\", \n    \"User-Agent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36\"\n  }, \n  \"json\": null, \n  \"origin\": \"106.51.133.191\", \n  \"url\": \"http://httpbin.org/post?random=yo\"\n}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "{\"name\":\"POST with URL params\",\"description\":\"\",\"url\":\"httpbin.org/post?random=yo\",\"pathVariables\":{},\"data\":[{\"key\":\"postdata\",\"value\":\"isawesome\",\"type\":\"text\",\"enabled\":true}],\"headers\":\"\",\"dataMode\":\"params\",\"method\":\"POST\",\"tests\":\"\",\"isFromCollection\":true,\"version\":2}",
+					"createdAt": "2015-07-02T06:14:05.000Z",
+					"updatedAt": "2015-07-02T06:14:05.000Z",
+					"write": true
+				}
+			],
+			"headers": "",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "postdata",
+					"value": "isawesome",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": ""
+		},
+		{
+			"id": "1d10b6a2-d712-a335-b020-ce3fd7589079",
+			"name": "POST with URL params and urlencoded",
+			"url": "//httpbin.org/post?random=yeah",
+			"collectionId": "39a4ca8c-df47-5f53-2ccf-a50e1792df8f",
+			"method": "POST",
+			"tests": "",
+			"preRequestScript": "",
+			"responses": [],
+			"headers": "",
+			"dataMode": "urlencoded",
+			"data": [
+				{
+					"key": "somekey",
+					"value": "somevalue",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": ""
+		},
+		{
+			"id": "7cef53ca-5a21-189b-5715-ae550ec61c13",
+			"headers": "",
+			"url": "httpbin.org/status/:code",
+			"pathVariables": {
+				"code": "201"
+			},
+			"preRequestScript": "",
+			"method": "GET",
+			"collectionId": "51f8fa2f-cf97-5e18-5efd-e03f1688bb4d",
+			"data": [],
+			"dataMode": "params",
+			"name": "PathVariables",
+			"description": "Description",
+			"descriptionFormat": "html",
+			"time": 1436865265598,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "e9bd97b8-450b-2d3f-e6a0-1132dec35c0e",
+			"name": "POST with URL params and JSON",
+			"url": "//httpbin.org/post?random=yeah",
+			"collectionId": "58c1ad1b-ea82-6a20-6ece-a90f7429ae3c",
+			"method": "POST",
+			"tests": "",
+			"preRequestScript": "",
+			"responses": [],
+			"headers": "Content-Type: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n    \"gimme\": \"somejson!\"\n}",
+			"folder": "4e55b5af-25e2-88da-6520-61fa4c01cd12"
+		}
+	]
+}

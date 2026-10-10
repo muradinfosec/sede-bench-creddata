@@ -1,0 +1,131 @@
+#
+# Copyright 2001-2020 The OpenSSL Project Authors. All Rights Reserved.
+#
+# Licensed under the Apache License 2.0 (the "License").  You may not use
+# this file except in compliance with the License.  You can obtain a copy
+# in the file LICENSE in the source distribution or at
+# https://www.openssl.org/source/license.html
+
+# Tests start with one of these keywords
+#       Cipher Decrypt Derive Digest Encoding KDF MAC PBE
+#       PrivPubKeyPair Sign Verify VerifyRecover
+# and continue until a blank line. Lines starting with a pound sign are ignored.
+
+Title = KRB5KDF tests (from RFC 3961 test vectors and krb5 sources)
+
+#RFC3961
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:bea20b4e75a538b87d7cb48b23550e1be7946919db963f08
+Ctrl.hexconstant = hexconstant:0000000155
+Output = 925179d04591a79b5d3192c4a7e9c289b049c71f6ee604cd
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:0d54f72a33fc084264535051eb05f07aa58ad19b01aaf9e9
+Ctrl.hexconstant = hexconstant:00000001aa
+Output = 9e58e5a146d9942a101c469845d67a20e3c4259ed913f207
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:41b0da0e79a4b9882d60e736087b4185dde4cdb716e446da
+Ctrl.hexconstant = hexconstant:0000000155
+Output = 13fef80d763e94ec6d13fd2ca1d085070249dad39808eabf
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:809fca44b3fc2cad8461817a4d74008225757f1e4cfb43b9
+Ctrl.hexconstant = hexconstant:00000001aa
+Output = f8dfbf04b097e6d9dc0702686bcb3489d91fd9a4516b703e
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:a2b5898eec779936dce0a95ad7a3785237a729a066d040aa
+Ctrl.hexconstant = hexconstant:6b65726265726f73
+Output = 2370da575d2a3da864cebfdc5204d56df779a7df43d9da43
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:e2893768cfe00710f2e6796a96dab10f93d5696d029664bd
+Ctrl.hexconstant = hexconstant:0000000155
+Output = 348057ec98fdc48016161c2a4c7a943e92ae492c989175f7
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:6c014da990c92619410461d20c8d4a668ee558f327f2243e
+Ctrl.hexconstant = hexconstant:00000001aa
+Output = a8808ac267dada3dcbe9a7c84626fbc761c294b01315e5c1
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:099313d512955a98bc8b390cd94c1cf7f61384ede5eed906
+Ctrl.hexconstant = hexconstant:0000000155
+Output = c813f88a3be3b334f75425ce9175fbe3c8493b89c8703b49
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:12bae089c026056f1ebee2a4516c31b6d27ca1986dbda228
+Ctrl.hexconstant = hexconstant:00000001aa
+Output = f48ffd6e83f83e7354e694fd252cf83bfe58f7d5ba37ec5d
+
+#Krb5 sources
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:588AA63612274AC41D62472A993A5FAFB5007226CBE18A4A
+Ctrl.hexconstant = hexconstant:0000000299
+Output = F78C496D16E6C2DAE0E0B6C24057A84C0426AEEF26FD6DCE
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:074BC11440621AA13F51313C922F7DDCE5604906BEB36D2F
+Ctrl.hexconstant = hexconstant:00000002AA
+Output = 5B5723D0B634CB684C3EBA5264E9A70D52E683231AD3C4CE
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:325DC09246239DB56C48578C271C1AAAD2541856BBE14A4D
+Ctrl.hexconstant = hexconstant:0000000255
+Output = A77C94980E9B7345A81525C423A737CE67F4CD91B6B3DA45
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:AES-128-CBC
+Ctrl.hexkey = hexkey:66527D4A22F4BE69C3FD06DC49091B37
+Ctrl.hexconstant = hexconstant:0000000299
+Output = 34280A382BC92769B2DA2F9EF066854B
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:AES-128-CBC
+Ctrl.hexkey = hexkey:92767E2D74F1CF52A6FD46BE44709F05
+Ctrl.hexconstant = hexconstant:00000002AA
+Output = 5B14FC4E250E14DDF9DCCF1AF6674F53
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:AES-128-CBC
+Ctrl.hexkey = hexkey:86143A0E42A1AD92D4CF60BF01807F36
+Ctrl.hexconstant = hexconstant:0000000255
+Output = 4ED31063621684F09AE8D89991AF3E8F
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:AES-256-CBC
+Ctrl.hexkey = hexkey:CD715D39FE1A9FA65593BE343C39C19AEF86620895D1BE10757446E24EB72085
+Ctrl.hexconstant = hexconstant:0000000299
+Output = BFAB388BDCB238E9F9C98D6A878304F04D30C82556375AC507A7A852790F4674
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:AES-256-CBC
+Ctrl.hexkey = hexkey:CC928A67DA2C2CE60969ED047D27A16DDB72422870E0ED56102244E18BB39354
+Ctrl.hexconstant = hexconstant:00000002AA
+Output = C7CFD9CD75FE793A586A542D87E0D1396F1134A104BB1A9190B8C90ADA3DDF37
+
+KDF = KRB5KDF
+Ctrl.cipher = cipher:AES-256-CBC
+Ctrl.hexkey = hexkey:BE049B23DE1E6BB65737BF504A95B68DAB28424451D2CA58554769D99AF41614
+Ctrl.hexconstant = hexconstant:0000000255
+Output = 97151B4C76945063E2EB0529DC067D97D7BBA90776D8126D91F34F3101AEA8BA
+
+#Same as the first but with no "fixup"
+KDF = KRB5KDF
+Ctrl.cipher = cipher:DES-EDE3-CBC
+Ctrl.hexkey = hexkey:bfe14b8f39e762d04a7fa98c95540e4eb8200109fc986b57
+Ctrl.hexconstant = hexconstant:0000000155
+Output = 935079d14490a75c3093c4a6e8c3b049c71e6ee705

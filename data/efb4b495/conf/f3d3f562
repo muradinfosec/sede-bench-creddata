@@ -1,0 +1,2 @@
+DB="mysql://root:U0klm8ql@localhost/"
+VSQL="SELECT version() AS version;"

@@ -1,0 +1,109 @@
+---
+
+# Git settings.
+setup_git_repo: true
+git_branch: main
+
+
+# Database settings.
+db_user: "{{ application_name }}"
+db_name: "{{ application_name }}"
+db_password: password
+
+
+# Gunicorn settings. For the number of workers, a good rule to follow is
+# 2 x number of CPUs + 1
+gunicorn_num_workers: 3
+
+# Setting this to 1 will restart the Gunicorn process each time
+# you make a request, basically reloading the code. Very handy
+# when developing. Set to 0 for unlimited requests (default).
+gunicorn_max_requests: 0
+
+gunicorn_timeout_seconds: 300
+
+
+# RabbitMQ settings.
+rabbitmq_server_name: "{{ inventory_hostname }}"
+
+rabbitmq_admin_user: admin
+rabbitmq_admin_password: password
+
+rabbitmq_application_vhost: "{{ application_name }}"
+rabbitmq_application_user: "{{ application_name }}"
+rabbitmq_application_password: password
+
+
+# Celery settings.
+celery_num_workers: 2
+
+
+# Application settings.
+django_settings_file: "{{ application_name }}.settings.local"
+django_secret_key: "hrv3mgxs7f9%z^4nc0o+)3n5(j^rb-9_98tud04v2@!jlek^4#"
+
+broker_url: "amqp://{{ rabbitmq_application_user }}:{{ rabbitmq_application_password }}@localhost/{{ rabbitmq_application_vhost }}"
+
+requirements_file: "{{ project_path }}/requirements.txt"
+
+run_django_db_migrations: true
+run_django_collectstatic: true
+
+
+# Nginx settings.
+nginx_strong_dh_group: false
+
+ssl_crt: |
+  -----BEGIN CERTIFICATE-----
+  MIIDQjCCAiqgAwIBAgIBADANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFteS1j
+  b29sLWFwcC5sb2NhbDAiGA8xOTcwMDEwMTAwMDAwMFoYDzk5OTkxMjMxMjM1OTU5
+  WjAcMRowGAYDVQQDDBFteS1jb29sLWFwcC5sb2NhbDCCASIwDQYJKoZIhvcNAQEB
+  BQADggEPADCCAQoCggEBALk8r6YMOYgu7xxq/XKQmtclVt603P/NT1qjDy95Sple
+  CMx3e/udECjhQkBOp34WEvo1TP93ZPA0IGmk3aNQVRfZE/6dUkBNmhOABR3zylz9
+  TPjBQaKiurro3o57OLCLWYOco+kE8kwTTh5Gl3gjm2KQJ6fh6JKk+TZq6/7sz2XO
+  4zWeNXoTNpi95ye2YJeNJ0I+FKhS7F5pRuIOgyhCopUSKSQpS3UZupcnYHVYthwK
+  ROGnZAznCF12OvO2PyxaDxa4Kc7Vr/ztP6CYLleyx7bY0vW+i84xfJO61qgk+Jrh
+  8tX2HCVyyDmlK1hK7vRUHoKacCKOrUI6GbstPZSzs7UCAwEAAaOBijCBhzAJBgNV
+  HRMEAjAAMB0GA1UdDgQWBBRtiQzxkQr7kZsTDUHHsMcGpsnobTAfBgNVHSMEGDAW
+  gBRtiQzxkQr7kZsTDUHHsMcGpsnobTAcBgNVHREEFTATghFteS1jb29sLWFwcC5s
+  b2NhbDAcBgNVHRIEFTATghFteS1jb29sLWFwcC5sb2NhbDANBgkqhkiG9w0BAQsF
+  AAOCAQEADEysIopo/TFj9zL5FpDLr/M71QPu7ZG10ncyIDp8wA8BxwLB2v2qcnfn
+  c4LoAa5Nw9A+WTSJtlEOMBWQCTIALx5dZSfYTcb/p/LIoprmrWx4L0C3TvRH3Vpx
+  INRxt2ynucNqNLKjfmvaZj5Ry1pJw8PE6AD7mWd1fpKUv3ci1cGY9hoCxMMIs8LJ
+  403V27BGsiK3bsUZuU+MWbcwfef8EqxFCjCvpko2qvrnJZ0AP5eDlDjdFgEeFy0c
+  kRKJS02KMbypFWVFMC9ePAWizLMmhj4NHFLzSP2l8WQ4F3A4Ja5QoxTUuIUUibnC
+  A/Bp6E0Njdy8AmCss8vS4GWYxTO4aA==
+  -----END CERTIFICATE-----
+
+# This key is for demo purposes only. If you're committing your keys
+# to your git repo, you'd probably want it encrypted. You can use
+# ansible-vault to do this.
+ssl_key: |
+  -----BEGIN PRIVATE KEY-----
+  MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5PK+mDDmILu4I
+  ZX2hCFaUNKXLRDJ/kb8nKw3wzbFvQLFgg5j1SJnU0mwqGrT+pQS4KZt/n0UCaqIe
+  Ar1FqRiJ5aB+lwDRXbxzrCwF61Nb/qk0YUfBmAv24d9PNxNIt2uTXXcRkyGYL83Q
+  Ezs0N2UzUrPW6kFdtWC0FuJ+7Y3IaUc1agZ9pTeIWucluVsVrRFkuQJJeiOWJdUm
+  FyxudZfvzLgzmtD1gHvKP9B0vgLdoownT5Qy8gsgvjsuoU0JEH6GVZVt7P/34W+X
+  uo9ZalN96rD7uvzFElJOlmNVGxkX2Qll7KWTaBN0kXEDdq27sc5xszToVe7mWxq1
+  ww7iz9q1WSmJaNxlqheVnVnq7+f8aquS8uPrmkYsuYRluek7phjHT2uAQYL3Qgx6
+  FqlnuH8OsdDsepZaM8YG6lgsFXUYwJeKhxzttDAdKcCVh4GILMJ4BuTPym2OusEN
+  IupE9ckQv8sr2B3opOVgkhpu9NCXRPkBeJTduruLb6ak4s/oTr7IlqjJvlG/nhla
+  HyyMLw9ZG0whE2rbq1IHUn2ePshSbAjv9aJpqM5H2h89fOVMrwYb9MgzJa3fuwIh
+  DOavPfrDQkCDEJ3xX9qiHU0peii4OKDRdKN7QO6A7JFiUS2HJGcelhL1x1tE0zPD
+  SoGaP3XLsFmXlAedizViiwnfTbCOeyUz4wzW4bmfVmjpmEbu60zMSLmEoRHe/tBi
+  VcEXBGzrrWrcefGhwJ/EO6oKIPVNRya/WS5aHHCouV4lnJYevB3FyD5xRqdlwmgU
+  qbzvO+dpIvMeZgPiR//xt7KAWV0+zLOtIAp7X3cHgLpN1eNAmJJa/wXheOFVyPxQ
+  O+84hQkInAlyjOAFuTgOU5IOGUfybjCaz03nQjH6LnC8TRZKoAjlqbmfeTNNE7So
+  MbfKRByO+OFGpnUg9SFwSkS7eZuXwn0M39yoVJ/ovr2+6H51j8ynNeEHjiBMVVs4
+  6InJ4gISzLJD4ByGiBjrIs1rUlHpOO6Vw7D0AUWp7OK7/XCV7SRxFonGWXlyN35O
+  OZQ2DoXm7HlTGdXIRDoPgZSz9Bhx2HA8Xr29kIFb6rJ4HpWHuzxlsob0yl8d+ahW
+  PYElXhjNq18PFzgzo/+mOBVCtYGX2IEIpnOulIjIw3hfFvS2iYEAyvT/8hXLHInE
+  lAf8BXb0x4tvdTP4tM5TVt388krXA9Qn9YTAuHdC731VqxRpmXbUNGllIrxcwqto
+  4HrD4+3b6HhKpJdCt6y0F0KThjrIkrfDmmWIVbYm1ZA99/xGPqzLF5sA5COhXRTY
+  NgWFt6yl1TdYpEb1NM7GKce6FVvB2pS0bCK1gdw7pLrPkcSh/lwhrAp374mWmJpt
+  jzvJvuqo6Delcvq0I8Kg2bqyIfkTCzroD2xuDCoCBXTWzIZGYoiQ3eKgHrLFzMP+
+  krrRg0Ctb5s+dUDBycfr41BIczAUVB5I1LwBSii99kFv9ONQGEZS62uYBZaQm4ww
+  YDz+Bskwn1yXjVH9ixsN7dA/Me74LPSq5RZ9CIu2wWMqadXoc/6kOsAOdA92Cejw
+  AzLj5nhhT/0utflHhNzbiy==
+  -----END PRIVATE KEY-----

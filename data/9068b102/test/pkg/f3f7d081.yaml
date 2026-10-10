@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  creationTimestamp: 2018-12-02T08:09:25Z
+  labels:
+    controller-uid: 84891974-e722-48a8-ca72-58916a96923e
+    job-name: fail
+  name: fail
+  namespace: argoci-workflows
+  resourceVersion: "46534173"
+  selfLink: /apis/batch/v1/namespaces/argoci-workflows/jobs/fail
+  uid: 42455383-b238-31d4-ea01-89121c89969f
+spec:
+  backoffLimit: 0
+  completions: 1
+  parallelism: 1
+  selector:
+    matchLabels:
+      controller-uid: 99789439-c695-12d5-cf19-94338b69533b
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        controller-uid: 34194427-c870-12d4-ac32-12578d88157b
+        job-name: fail
+    spec:
+      containers:
+      - command:
+        - sh
+        - -c
+        - exit 1
+        image: alpine:latest
+        imagePullPolicy: Always
+        name: fail
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  conditions:
+  - lastProbeTime: 2018-12-02T08:09:27Z
+    lastTransitionTime: 2018-12-02T08:09:27Z
+    message: Job has reached the specified backoff limit
+    reason: BackoffLimitExceeded
+    status: "True"
+    type: Failed
+  failed: 1
+  startTime: 2018-12-02T08:09:25Z

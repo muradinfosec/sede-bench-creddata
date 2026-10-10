@@ -1,0 +1,206 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openfalcon-configmap
+data:
+  entrypoint.sh: |-
+    #!/bin/bash
+    /bin/sh -c 'sleep 10 && sh ctrl.sh start graph hbs judge transfer nodata aggregator gateway api alarm'  & /usr/bin/supervisord -c /etc/supervisord.conf
+   agent.json: |-
+    {
+        "debug": true,
+        "hostname": "",
+        "ip": "",
+        "plugin": {
+            "enabled": false,
+            "dir": "./plugin",
+            "git": "https://github.com/open-falcon/plugin.git",
+            "logs": "./logs"
+        },
+        "heartbeat": {
+            "enabled": true,
+            "addr": "open-falcon:6030",
+            "interval": 60,
+            "timeout": 1000
+        },
+        "transfer": {
+            "enabled": true,
+            "addrs": [
+                "open-falcon:8433"
+            ],
+            "interval": 60,
+            "timeout": 1000
+        },
+        "http": {
+            "enabled": true,
+            "listen": ":1988",
+            "backdoor": false
+        },
+        "collector": {
+            "ifacePrefix": ["eth", "em"],
+            "mountPoint": []
+        },
+        "default_tags": {
+        },
+        "ignore": {
+            "sys.disk.rw": true,
+            "df.bytes.free": true,
+            "df.bytes.total": true,
+            "df.bytes.used": true,
+            "df.inodes.total": true,
+            "df.inodes.free": true,
+            "df.inodes.used": true,
+            "mem.memtotal": true,
+            "mem.memused": true,
+            "mem.memfree": true,
+            "mem.swaptotal": true,
+            "mem.swapused": true,
+            "mem.swapfree": true,
+            "df.statistics.total": true,
+            "df.statistics.used": true
+        }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: open-falcon
+  labels:
+    app: monitor
+spec:
+  type: NodePort
+  ports:
+    - name: tcp
+      port: 8433
+    - name: web
+      port: 8080
+  selector:
+    name: open-falcon
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: open-falcon
+  labels:
+    app: monitor
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: open-falcon
+    spec:
+      containers:
+      - name: open-falcon
+        image: openfalcon/falcon-plus:v0.3
+        workingDir: /open-falcon
+        command:
+        - /bin/entrypoint.sh
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8433
+        - containerPort: 8080
+        env:
+        - name: MYSQL_PORT
+          value: root:123456@tcp(mysql:3306)
+        - name: REDIS_PORT
+          value: redis:6379
+        volumeMounts:
+        - name: open-falcon-data
+          mountPath: /open-falcon/data
+        - name: configmap-volume
+          mountPath: /bin/entrypoint.sh
+          readOnly: true
+          subPath: entrypoint.sh
+      volumes:
+      - name: open-falcon-data
+        emptyDir: {}
+      - name: configmap-volume
+        configMap:
+          defaultMode: 0700
+          name: openfalcon-configmap
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: falcon-plus
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    k8s-app: falcon-agent
+    kubernetes.io/cluster-service: 'true'
+    version: v1
+  name: falcon-agent
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: falcon-agent
+      kubernetes.io/cluster-service: 'true'
+      version: v1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        k8s-app: falcon-agent
+        kubernetes.io/cluster-service: 'true'
+        version: v1
+    spec:
+      containers:
+        - args:
+            - '-c'
+            - /open-falcon/config/agent.json
+          command:
+            - ./agent/bin/falcon-agent
+          env:
+            - name: GIN_MODE
+              value: release
+            - name: NUX_ROOTFS
+              value: /rootfs
+            - name: FALCON_ENDPOINT
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+          image: 'openfalcon/falcon-plus:v0.3'
+          workingDir: /open-falcon
+          imagePullPolicy: IfNotPresent
+          name: falcon-agent
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /rootfs
+              name: rootfs
+              readOnly: true
+            - mountPath: /open-falcon/config
+              name: configmap-volume
+              readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: falcon-plus
+      serviceAccountName: falcon-plus
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - hostPath:
+            path: /
+            type: ''
+          name: rootfs
+        - name: configmap-volume
+          configMap:
+            defaultMode: 0700
+            name: openfalcon-configmap
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate

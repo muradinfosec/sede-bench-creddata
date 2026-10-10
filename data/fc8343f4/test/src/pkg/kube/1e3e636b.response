@@ -1,0 +1,16 @@
+{
+	"kind": "ConfigMap",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "cm1",
+		"namespace": "edit-test",
+		"selfLink": "/api/v1/namespaces/edit-test/configmaps/cm1",
+		"uid": "a83efaba-c6e7-21a2-4d6c-cbef53e0ad90",
+		"resourceVersion": "2071",
+		"creationTimestamp": "2017-02-03T06:12:07Z"
+	},
+	"data": {
+		"baz": "qux",
+		"foo": "changed-value2"
+	}
+}

@@ -1,0 +1,163 @@
+#
+# Copyright 2001-2020 The OpenSSL Project Authors. All Rights Reserved.
+#
+# Licensed under the Apache License 2.0 (the "License").  You may not use
+# this file except in compliance with the License.  You can obtain a copy
+# in the file LICENSE in the source distribution or at
+# https://www.openssl.org/source/license.html
+
+# Tests start with one of these keywords
+#       Cipher Decrypt Derive Digest Encoding KDF MAC PBE
+#       PrivPubKeyPair Sign Verify VerifyRecover
+# and continue until a blank line. Lines starting with a pound sign are ignored.
+
+Title = PBKDF2 tests (using PBE)
+
+PBE = pbkdf2
+Password = "password"
+Salt = "salt"
+iter = 1
+MD = sha1
+Key = 1a54e44e176a9b66e0c9e250cf4588033bb974d6
+
+PBE = pbkdf2
+Password = "password"
+Salt = "salt"
+iter = 1
+MD = sha256
+Key = 882db4ffeaa3c11f41e4696732a2e001d80874c79acb90842196779dd11ad92d
+
+PBE = pbkdf2
+Password = "password"
+Salt = "salt"
+iter = 1
+MD = sha512
+Key = 187b37ab4bdc87dce6924124a8b84dc2da31e8b597977de3f981093a8b4ec026f87a703e720b4389aec215fba914b00f921610d8c34f3cf61a43e82a63e34bef
+
+PBE = pbkdf2
+Password = "password"
+Salt = "salt"
+iter = 2
+MD = sha1
+Key = da4b172bc21f7a9efe1fe63bbd9b62e3c7bf1559
+
+PBE = pbkdf2
+Password = "password"
+Salt = "salt"
+iter = 2
+MD = sha256
+Key = bd8c5b28ba9b33a34d1abfd160d20cb69d917b4fa4c738bba7b1e29c86575d05
+
+PBE = pbkdf2
+Password = "password"
+Salt = "salt"
+iter = 2
+MD = sha512
+Key = b2f2f39ef216130a60a0b5e6a143bea42a541f9e1b1896026c45ddbbf161b26ca28aaf4867c27e9e8549dbdf3adf7e95ac06028a75f1935a21100159d55cba7b
+
+PBE = pbkdf2
+Password = "password"
+Salt = "salt"
+iter = 4096
+MD = sha1
+Key = 5f193399e169236eddbc60b424f845a997a066d9
+
+PBE = pbkdf2
+Password = "password"
+Salt = "salt"
+iter = 4096
+MD = sha256
+Key = b5d280e62839b869ba076de6816f8f7e515995d622ab6a18a4583001ed98533b
+
+PBE = pbkdf2
+Password = "password"
+Salt = "salt"
+iter = 4096
+MD = sha512
+Key = e573f3e35ac8281d593a45f4c6a7768d5feebfce11f3e9a51b1355f160d297e7993d94731535a3a10dc409199ea97c12278249ecc654c797c846f056270ef9a6
+
+PBE = pbkdf2
+Password = "passwordPASSWORDpassword"
+Salt = "pkpdTIBZbjomOQYRfoseFIQIrowaJJKZuqjo"
+iter = 4096
+MD = sha1
+Key = 5f4dbf8eb44d917f28b2e24283e1e32a8e873c949da4a24747
+
+PBE = pbkdf2
+Password = "passwordPASSWORDpassword"
+Salt = "lzcgIGWCzltaPKLVmnonLLZPmgsrMCEAchuc"
+iter = 4096
+MD = sha256
+Key = 040f28eefde01f2d61f364f6275a59fc3a28354ead8055925a6c3b2dc0ce95e6a572534d2ddc29b8
+
+PBE = pbkdf2
+Password = "passwordPASSWORDpassword"
+Salt = "jsndFJTBhjeuFNAXsagmUMKGczywVWUJienf"
+iter = 4096
+MD = sha512
+Key = 0c7891e2e2e587c4cc4714c7f4578c366a7a517642ef67b075a359258fa9ab38206d58a6d59fb2521cc17b2c64fadb47682a316a331ee90bf2babf3946d5b9e1
+
+PBE = pbkdf2
+Password = 9727176555782a4802
+Salt = 5006643f49
+iter = 4096
+MD = sha1
+Key = 42cf4dd67004111fdb38f2c84037a0a6
+
+PBE = pbkdf2
+Password = 8897502489443d0195
+Salt = 2046103c09
+iter = 4096
+MD = sha256
+Key = 60d42b2752f564768c341584341c7243
+
+PBE = pbkdf2
+Password = 2732779721596a2605
+Salt = 9964184a55
+iter = 4096
+MD = sha512
+Key = 0a3e8e0ec57cf3ca08f0a3328d674290
+
+Title = PBKDF2 tests for empty and NULL inputs
+
+PBE = pbkdf2
+Password = ""
+Salt = "salt"
+iter = 1
+MD = sha1
+Key = c42affa74260523770410b1527652d91fe1858c9
+
+PBE = pbkdf2
+Password = ""
+Salt = "salt"
+iter = 1
+MD = sha256
+Key = b116c82780eae84599c6efb84a5412ae6e001fea
+
+PBE = pbkdf2
+Password = ""
+Salt = "salt"
+iter = 1
+MD = sha512
+Key = 17cf99bbbde89e35fd19144529a474287aeead06
+
+PBE = pbkdf2
+Password = NULL
+Salt = "salt"
+iter = 1
+MD = sha1
+Key = d35deff69006558989124c3526212a53bf6869b7
+
+PBE = pbkdf2
+Password = NULL
+Salt = "salt"
+iter = 1
+MD = sha256
+Key = c783e73476afe84120c2cef68b4714ab0f354acf
+
+PBE = pbkdf2
+Password = NULL
+Salt = "salt"
+iter = 1
+MD = sha512
+Key = 61ff60ebcdf05c83aa83200534d261374cdfad15

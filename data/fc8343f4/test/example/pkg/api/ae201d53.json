@@ -1,0 +1,48 @@
+{
+    "kind": "Node",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "e2e-test-wojtekt-node-etd6",
+        "uid": "d3b10016-e4f5-13b4-6fce-71978da64058",
+        "resourceVersion": "379",
+        "creationTimestamp": "2015-04-22T11:49:39Z"
+    },
+    "spec": {
+        "externalID": "15488322946290398375"
+    },
+    "status": {
+        "capacity": {
+            "cpu": "1",
+            "memory": "1745152Ki"
+        },
+        "conditions": [
+            {
+                "type": "Ready",
+                "status": "True",
+                "lastHeartbeatTime": "2015-04-22T11:58:17Z",
+                "lastTransitionTime": "2015-04-22T11:49:52Z",
+                "reason": "kubelet is posting ready status"
+            }
+        ],
+        "addresses": [
+            {
+                "type": "ExternalIP",
+                "address": "104.197.49.213"
+            },
+            {
+                "type": "LegacyHostIP",
+                "address": "104.197.20.11"
+            }
+        ],
+        "nodeInfo": {
+            "machineID": "",
+            "systemUUID": "B42EC6FC-0E9E-5465-3B9D-8E23B89AF985",
+            "bootID": "54d432e0-2cde-1ba5-a5c6-e29829b2cb39",
+            "kernelVersion": "3.16.0-0.bpo.4-amd64",
+            "osImage": "Debian GNU/Linux 7 (wheezy)",
+            "containerRuntimeVersion": "containerd://1.4.2",
+            "kubeletVersion": "v0.15.0-484-g0c8ee980d705a3-dirty",
+            "kubeProxyVersion": "v0.15.0-484-g0c8ee980d705a3-dirty"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Audit-Id: 041b4a19-9b17-249d-dc9b-c281f5a267c6
+Cache-Control: no-cache, private
+Content-Type: application/json
+X-Kubernetes-Pf-Flowschema-Uid: e78fec22-2256-04e2-2871-349153313646
+X-Kubernetes-Pf-Prioritylevel-Uid: d0985a13-dc99-87db-cf3f-70b654966f76
+Date: Fri, 20 Sep 2024 17:17:40 GMT
+Content-Length: 260
+
+{"kind":"ServiceAccountList","apiVersion":"v1","metadata":{"resourceVersion":"222"},"items":[{"metadata":{"name":"foobar","namespace":"default","uid":"a2ca34f6-03be-2a2a-ad31-ff132c28d1a0","resourceVersion":"207","creationTimestamp":"2024-09-20T17:16:28Z"}}]}

@@ -1,0 +1,2 @@
+DB="sqlserver://sa:Xbx3cZ@ssw0rd@localhost/"
+VSQL="SELECT SERVERPROPERTY('productversion') AS version;"

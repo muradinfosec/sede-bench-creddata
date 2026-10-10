@@ -1,0 +1,38 @@
+{
+	"kind": "Service",
+	"apiVersion": "v1",
+	"metadata": {
+	  "annotations": {
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"creationTimestamp\":\"2017-02-27T19:40:53Z\",\"labels\":{\"app\":\"svc1\",\"new-label\":\"new-value\"},\"name\":\"svc1\",\"namespace\":\"edit-test\",\"resourceVersion\":\"670\",\"selfLink\":\"/api/v1/namespaces/edit-test/services/svc1\",\"uid\":\"f4d43314-fd36-14d1-f33a-418bbf4f8988\"},\"spec\":{\"clusterIP\":\"10.0.0.204\",\"ports\":[{\"name\":\"80\",\"port\":80,\"protocol\":\"TCP\",\"targetPort\":80}],\"selector\":{\"app\":\"svc1\"},\"sessionAffinity\":\"None\",\"type\":\"ClusterIP\"},\"status\":{\"loadBalancer\":{}}}\n"
+    },
+		"name": "svc1",
+		"namespace": "edit-test",
+		"selfLink": "/api/v1/namespaces/edit-test/services/svc1",
+		"uid": "b3a41703-ae40-35b5-b82d-123ffe7e6698",
+		"resourceVersion":"1045",
+		"creationTimestamp":"2017-02-27T19:40:53Z",
+		"labels": {
+			"app": "svc1",
+			"new-label": "new-value"
+		}
+	},
+  "spec": {
+    "clusterIP": "10.0.0.204",
+    "ports": [
+      {
+        "name": "80",
+        "port": 80,
+        "protocol": "TCP",
+        "targetPort": 80
+      }
+    ],
+    "selector": {
+      "app": "svc1"
+    },
+    "sessionAffinity": "None",
+    "type": "ClusterIP"
+  },
+  "status": {
+    "loadBalancer": {}
+  }
+}

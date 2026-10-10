@@ -1,0 +1,50 @@
+app:
+  port: 9900
+  caching:
+    ttl: 5
+    max: 1000
+  auth:
+    enableJwtAuth: false,
+    enableSessionAuth: false,
+    jwtSettings:
+      secret: "eyJhbGciOiJZUjE0MyIsImtpZCI6IkdpR2lfbkh0SF8zOTk4Mzg4NSIsInR5cCI6ImFtYSJ9"
+
+    strategies:
+      facebook:
+        clientID: 'gfgfggfgfgfgf'
+        clientSecret: 'hmxvcbykl'
+        fbGraphVersion: 'v3.0'
+        callbackURL: 'https://142fa311.ngrok.io/account/facebook/callback'
+      github:
+        clientID: 'gfgfgfgfgfgf'
+        clientSecret: 'towcesxhrffrjxv'
+        fbGraphVersion: 'v3.0'
+        callbackURL: 'https://142fa311.ngrok.io/account/github/callback'
+      google:
+        clientID: 'fgffgfgfg'
+        clientSecret: 'xkvledsqtgkw'
+        fbGraphVersion: 'v3.0'
+        callbackURL: 'https://142fa311.ngrok.io/account/google/callback'
+
+database:
+  mongodb:
+    uri: mongodb://localhost:27017/
+    name: srv-account
+    options: ""
+
+  eventstore:
+    poolMax:
+    poolMin:
+    streamProtocol: "http"
+    hostname: "localhost"
+    httpPort: 2113
+    httpPotocol: "http"
+    tcpPassword: "vsekppzv"
+    tcpUsername: "admin"
+    tcpPort: 1113
+    tcpProtocol: tcp
+
+  redis:
+    host: "localhost"
+    port: "6379"
+    password: ""

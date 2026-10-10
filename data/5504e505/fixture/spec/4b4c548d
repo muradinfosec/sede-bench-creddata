@@ -1,0 +1,13 @@
+---
+configuration:
+  default_profile:
+  - testcli
+  - abc123
+profiles:
+  testcli:
+    abc123:
+      consumer_key: abc123
+      secret: wpasusbnlxnz
+      token: 586844212-mrvmra0rhwgz
+      username: testcli
+      consumer_secret: aiynswa708yv5

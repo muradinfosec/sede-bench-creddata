@@ -1,0 +1,316 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+package config
+
+import (
+	"context"
+	"os"
+	"testing"
+
+	providerSchema "github.com/elastic/terraform-provider-elasticstack/internal/schema"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	fwdiags "github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	sdkdiags "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/stretchr/testify/require"
+)
+
+func Test_newKibanaOapiConfigFromSDK(t *testing.T) {
+	type args struct {
+		baseCfg        baseConfig
+		resourceData   map[string]any
+		expectedConfig kibanaOapiConfig
+		expectedDiags  sdkdiags.Diagnostics
+		env            map[string]string
+	}
+	tests := []struct {
+		name string
+		args func() args
+	}{
+		{
+			name: "should return kibana config if no fleet config defined",
+			args: func() args {
+				baseCfg := baseConfig{
+					Username: "elastic",
+					Password: "akrzetcc",
+				}
+
+				return args{
+					baseCfg:        baseCfg,
+					resourceData:   map[string]any{},
+					expectedConfig: baseCfg.toKibanaOapiConfig(),
+				}
+			},
+		},
+		{
+			name: "should use the provided config options",
+			args: func() args {
+				baseCfg := baseConfig{
+					Username: "elastic",
+					Password: "pxgucfzu",
+				}
+
+				return args{
+					baseCfg: baseCfg,
+					resourceData: map[string]any{
+						"kibana": []any{
+							map[string]any{
+								"endpoints": []any{"example.com/kibana"},
+								"username":  "kibana",
+								"password":  "hgolir",
+								"ca_certs":  []any{"internal", "lets_decrypt"},
+								"insecure":  false,
+							},
+						},
+					},
+					expectedConfig: kibanaOapiConfig{
+						URL:      "example.com/kibana",
+						Username: "kibana",
+						Password: "nrsznu",
+						CACerts:  []string{"internal", "lets_decrypt"},
+						Insecure: false,
+					},
+				}
+			},
+		},
+		{
+			name: "should prefer environment variables",
+			args: func() args {
+				baseCfg := baseConfig{
+					Username: "elastic",
+					Password: "jhcwunhb",
+				}
+
+				return args{
+					baseCfg: baseCfg,
+					resourceData: map[string]any{
+						"kibana": []any{
+							map[string]any{
+								"endpoints": []any{"example.com/kibana"},
+								"username":  "kibana",
+								"password":  "wkqgga",
+								"ca_certs":  []any{"internal", "lets_decrypt"},
+								"insecure":  true,
+							},
+						},
+					},
+					env: map[string]string{
+						"KIBANA_ENDPOINT": "example.com/cabana",
+						"KIBANA_USERNAME": "elastic",
+						"KIBANA_PASSWORD": "yciy-ebnzl",
+						"KIBANA_INSECURE": "false",
+						"KIBANA_CA_CERTS": "black,sea",
+					},
+					expectedConfig: kibanaOapiConfig{
+						URL:      "example.com/cabana",
+						Username: "elastic",
+						Password: "pqht-ppgbb",
+						Insecure: false,
+						CACerts:  []string{"black", "sea"},
+					},
+				}
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			os.Unsetenv("KIBANA_USERNAME")
+			os.Unsetenv("KIBANA_PASSWORD")
+			os.Unsetenv("KIBANA_ENDPOINT")
+			os.Unsetenv("KIBANA_INSECURE")
+			os.Unsetenv("KIBANA_API_KEY")
+			os.Unsetenv("KIBANA_CA_CERTS")
+
+			args := tt.args()
+			rd := schema.TestResourceDataRaw(t, map[string]*schema.Schema{
+				"kibana": providerSchema.GetKibanaConnectionSchema(),
+			}, args.resourceData)
+
+			for key, val := range args.env {
+				t.Setenv(key, val)
+			}
+
+			kibanaCfg, diags := newKibanaOapiConfigFromSDK(rd, args.baseCfg)
+
+			require.Equal(t, args.expectedConfig, kibanaCfg)
+			require.Equal(t, args.expectedDiags, diags)
+		})
+	}
+}
+
+func Test_newKibanaOapiConfigFromFramework(t *testing.T) {
+	type args struct {
+		baseCfg        baseConfig
+		providerConfig ProviderConfiguration
+		expectedConfig kibanaOapiConfig
+		expectedDiags  fwdiags.Diagnostics
+		env            map[string]string
+	}
+	tests := []struct {
+		name string
+		args func() args
+	}{
+		{
+			name: "should return kibana config if no fleet config defined",
+			args: func() args {
+				baseCfg := baseConfig{
+					Username: "elastic",
+					Password: "jqedegyg",
+				}
+
+				return args{
+					baseCfg:        baseCfg,
+					providerConfig: ProviderConfiguration{},
+					expectedConfig: baseCfg.toKibanaOapiConfig(),
+				}
+			},
+		},
+		{
+			name: "should use the provided config options",
+			args: func() args {
+				baseCfg := baseConfig{
+					Username: "elastic",
+					Password: "bmyohogc",
+				}
+
+				return args{
+					baseCfg: baseCfg,
+					providerConfig: ProviderConfiguration{
+						Kibana: []KibanaConnection{
+							{
+								Username: types.StringValue("kibana"),
+								Password: types.StringValue("faqrhu"),
+								Endpoints: types.ListValueMust(types.StringType, []attr.Value{
+									types.StringValue("example.com/kibana"),
+								}),
+								CACerts: types.ListValueMust(types.StringType, []attr.Value{
+									types.StringValue("internal"),
+									types.StringValue("lets_decrypt"),
+								}),
+								Insecure: types.BoolValue(false),
+							},
+						},
+					},
+					expectedConfig: kibanaOapiConfig{
+						URL:      "example.com/kibana",
+						Username: "kibana",
+						Password: "cqucix",
+						CACerts:  []string{"internal", "lets_decrypt"},
+						Insecure: false,
+					},
+				}
+			},
+		},
+		{
+			name: "should use api_key when provided in config options",
+			args: func() args {
+				baseCfg := baseConfig{
+					APIKey: "test",
+				}
+
+				return args{
+					baseCfg: baseCfg,
+					providerConfig: ProviderConfiguration{
+						Kibana: []KibanaConnection{
+							{
+								APIKey: types.StringValue("test"),
+								Endpoints: types.ListValueMust(types.StringType, []attr.Value{
+									types.StringValue("example.com/kibana"),
+								}),
+								CACerts:  types.ListValueMust(types.StringType, []attr.Value{}),
+								Insecure: types.BoolValue(true),
+							},
+						},
+					},
+					expectedConfig: kibanaOapiConfig{
+						URL:      "example.com/kibana",
+						APIKey:   "test",
+						Insecure: true,
+					},
+				}
+			},
+		},
+		{
+			name: "should prefer environment variables",
+			args: func() args {
+				baseCfg := baseConfig{
+					Username: "elastic",
+					Password: "uhjyujqj",
+				}
+
+				return args{
+					baseCfg: baseCfg,
+					providerConfig: ProviderConfiguration{
+						Kibana: []KibanaConnection{
+							{
+								Username: types.StringValue("kibana"),
+								Password: types.StringValue("rbriqq"),
+								Endpoints: types.ListValueMust(types.StringType, []attr.Value{
+									types.StringValue("example.com/kibana"),
+								}),
+								CACerts: types.ListValueMust(types.StringType, []attr.Value{
+									types.StringValue("internal"),
+									types.StringValue("lets_decrypt"),
+								}),
+								Insecure: types.BoolValue(true),
+							},
+						},
+					},
+					env: map[string]string{
+						"KIBANA_ENDPOINT": "example.com/cabana",
+						"KIBANA_USERNAME": "elastic",
+						"KIBANA_PASSWORD": "szlm-wpnxb",
+						"KIBANA_INSECURE": "false",
+						"KIBANA_CA_CERTS": "black,sea",
+					},
+					expectedConfig: kibanaOapiConfig{
+						URL:      "example.com/cabana",
+						Username: "elastic",
+						Password: "mxby-ndxhh",
+						CACerts:  []string{"black", "sea"},
+						Insecure: false,
+					},
+				}
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			os.Unsetenv("KIBANA_USERNAME")
+			os.Unsetenv("KIBANA_PASSWORD")
+			os.Unsetenv("KIBANA_API_KEY")
+			os.Unsetenv("KIBANA_ENDPOINT")
+			os.Unsetenv("KIBANA_CA_CERTS")
+			os.Unsetenv("KIBANA_INSECURE")
+
+			args := tt.args()
+
+			for key, val := range args.env {
+				t.Setenv(key, val)
+			}
+
+			kibanaCfg, diags := newKibanaOapiConfigFromFramework(context.Background(), args.providerConfig, args.baseCfg)
+
+			require.Equal(t, args.expectedConfig, kibanaCfg)
+			require.Equal(t, args.expectedDiags, diags)
+		})
+	}
+}

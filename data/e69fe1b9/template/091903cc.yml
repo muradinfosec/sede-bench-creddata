@@ -1,0 +1,1065 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates
+    body:
+      encoding: UTF-8
+      string: name=test.template&description=Test&template=%7B%7Bfname%7D%7D+%7B%7Blname%7D%7D&comment=test+comment&headers=%7B%22Subject%22%3A+%22%7B%7Bsubject%7D%7D%22%7D&tag=V1
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Content-Length:
+      - '165'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic dGNiOmluZnY2ZzIyaTBsNHhoZ2RkZDY3b2MwNDh6ejA5OTE3LTMxNG8xNzhzLTRlZHcwajA3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '450'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 15:33:22 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"template has been stored","template":{"name":"test.template","description":"Test","createdAt":"Sun,
+        15 Oct 2023 15:33:22 UTC","createdBy":"","id":"a1217240-aee7-38be-ed20-13ff91d730f1","version":{"tag":"v1","template":"{{fname}}
+        {{lname}}","engine":"handlebars","mjml":"","createdAt":"Sun, 15 Oct 2023 15:33:22
+        UTC","comment":"test comment","active":true,"id":"1ff3c8be-3e4c-3a52-a9cb-09ce5fa421aa","headers":{"Subject":"{{subject}}"}}}}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 15:33:22 GMT
+- request:
+    method: get
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic ZmF0OnhkbnI3aTg0ejZlMGdqcXp5cjY0aWQ2NTl5cTkyNDUxLTQ0MnY5OTdkLTdrdnUzeDk1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '162'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 15:37:06 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"template":{"name":"test.template","description":"Test","createdAt":"Sun,
+        15 Oct 2023 15:33:22 UTC","createdBy":"","id":"e8435083-dec9-91db-bc32-52da42f943d2"}}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 15:37:06 GMT
+- request:
+    method: put
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template
+    body:
+      encoding: UTF-8
+      string: description=Updated+Description
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic ZGtlOnpzd20xazgwZTdoMGZ0YnpwZzA0aXg1NzRueTA4NDIxLTE2MXkwOTZsLTRkbXg2czUx
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '76'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 15:39:57 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"template has been updated","template":{"name":"test.template"}}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 15:39:57 GMT
+- request:
+    method: get
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic b3V0OmF3dmg0bjU3eDBrMXJ1dWVmbjM4bXA0NTJ6eTY0ODYxLTA1MXc3NzBzLTZ3aXYxYzIy
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '1138'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:09:40 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"items":[{"name":"api test","description":"Petro","createdAt":"Sun,
+        17 Sep 2023 09:16:33 UTC","createdBy":"","id":"88545326-5705-938f-3e77-5aed76068bd0"},{"name":"petro.test","description":"Petro","createdAt":"Sun,
+        08 Oct 2023 13:52:28 UTC","createdBy":"","id":"3ad3781f-4aab-17dd-f15f-6cc40b516839"},{"name":"test
+        name","description":"template description","createdAt":"Sun, 17 Sep 2023 09:07:40
+        UTC","createdBy":"","id":"1d06a905-2934-918d-0776-6d045b3d9330"},{"name":"test.template","description":"Updated
+        Description","createdAt":"Sun, 15 Oct 2023 15:33:22 UTC","createdBy":"","id":"c5409408-ebe0-10cf-cc15-80ef24b953c0"}],"paging":{"first":"https://api.mailgun.net/v3/integration-test.domain.invalid/templates?limit=100","last":"https://api.mailgun.net/v3/integration-test.domain.invalid/templates?page=last&limit=100","next":"https://api.mailgun.net/v3/integration-test.domain.invalid/templates?page=next&p=test.template&limit=100","previous":"https://api.mailgun.net/v3/integration-test.domain.invalid/templates?page=previous&p=api+test&limit=100"}}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:09:40 GMT
+- request:
+    method: delete
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic dW5uOmlsbmQ0dTQ1dTZsM2hpZ2J1eTQ3a2c4NzdsYzA0NDUzLTc0MWsxNTFlLThnZ2M0azY3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '76'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:13:58 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"template has been deleted","template":{"name":"test.template"}}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:13:58 GMT
+- request:
+    method: delete
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic c29zOnRtd3c4YTY3czJmN3BmZGdrYTAycno4MzFoZTkwOTc5LTYxOXA5MDRlLTBzeGkzajY3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '42'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:15:57 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"templates have been deleted"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:15:57 GMT
+- request:
+    method: post
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions
+    body:
+      encoding: UTF-8
+      string: template=%7B%7Bfname%7D%7D+%7B%7Blname%7D%7D&comment=test+comment&headers=%7B%22Subject%22%3A+%22%7B%7Bsubject%7D%7D%22%7D&tag=V2&active=yes
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Content-Length:
+      - '140'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic Zm5sOnVsd2k3bjA0bjNxMWh3ZW5pbDgyZmw0NDNnZjA3Mjg0LTI5NXIzOTVhLTdkdXowczI2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '469'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:19:10 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"new version of the template has been stored","template":{"name":"test.template","description":"Test","createdAt":"Sun,
+        15 Oct 2023 17:16:39 UTC","createdBy":"","id":"6ef7fe65-7b6f-752c-d728-f5717609f7b7","version":{"tag":"v2","template":"{{fname}}
+        {{lname}}","engine":"handlebars","mjml":"","createdAt":"Sun, 15 Oct 2023 17:19:10
+        UTC","comment":"test comment","active":true,"id":"05587e57-2a44-420d-0509-6d557a39a662","headers":{"Subject":"{{subject}}"}}}}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:19:10 GMT
+- request:
+    method: get
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions/v2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic dHRlOmNja3kyYzA5ZjN4N2V3bHRvejk1bXowMjdmbjk3MzA1LTI3NGMwMjVlLTNwcm05dTE3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '413'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:21:10 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"template":{"name":"test.template","description":"Test","createdAt":"Sun,
+        15 Oct 2023 17:16:39 UTC","createdBy":"","id":"0ac0dc86-1e9a-425c-b254-d0159305e9c3","version":{"tag":"v2","template":"{{fname}}
+        {{lname}}","engine":"handlebars","mjml":"","createdAt":"Sun, 15 Oct 2023 17:19:10
+        UTC","comment":"test comment","active":true,"id":"94346c16-1d04-152f-8118-1a604c16e963","headers":{"Subject":"{{subject}}"}}}}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:21:10 GMT
+- request:
+    method: put
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions/v2
+    body:
+      encoding: UTF-8
+      string: template=%7B%7Bfname%7D%7D+%7B%7Blname%7D%7D&comment=test+comment+2&headers=%7B%22Subject%22%3A+%22%7B%7Bsubject%7D%7D%22%7D
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Content-Length:
+      - '124'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic YXBlOmNsdGwwbzgzcjhlOXpzYmZoZjg4bGY5MDh5ajcxMDAzLTU4MWcwMDZ4LTVsb2EzZDk2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '98'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:23:28 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"version has been updated","template":{"name":"test.template","version":{"tag":"v2"}}}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:23:28 GMT
+- request:
+    method: get
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic ZHdtOmZic2I5bTY5aThlMmZnYm9zczEzaGUzODR0djMyMTIxLTcxN3o1NDFlLTBsbGY3ajcz
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '1106'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:26:01 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"template":{"name":"test.template","description":"Test","createdAt":"Sun,
+        15 Oct 2023 17:16:39 UTC","createdBy":"","id":"7ca7bb56-4e6b-409b-a268-b5190701f1e1","versions":[{"tag":"v1","engine":"handlebars","mjml":"","createdAt":"Sun,
+        15 Oct 2023 17:16:39 UTC","comment":"test comment","active":false,"id":"402a0a6b-dd15-2dc7-bda0-124dea969280"},{"tag":"v2","engine":"handlebars","mjml":"","createdAt":"Sun,
+        15 Oct 2023 17:19:10 UTC","comment":"test comment 2","active":true,"id":"09223e36-5c04-781b-0585-0f259f17d257"}]},"paging":{"first":"https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions?limit=100","last":"https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions?page=last&limit=100","next":"https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions?page=next&p=v2&limit=100","previous":"https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions?page=previous&p=v1&limit=100"}}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:26:01 GMT
+- request:
+    method: delete
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions/v2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic cHByOmF5Zm0yZzE3eDhxMmRrZG1jcDM3dHE4MTFzdzQ3NjQ4LTc3MWE0MTliLTZiZ203aDIx
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '98'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:29:17 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Mailgun-Key-Id:
+      - 413e373c-0aad3c37
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"version has been deleted","template":{"name":"test.template","version":{"tag":"v2"}}}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:29:17 GMT
+- request:
+    method: post
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates
+    body:
+      encoding: UTF-8
+      string: name=test.template&description=Test&template=%7B%7Bfname%7D%7D+%7B%7Blname%7D%7D&comment=test+comment&headers=%7B%22Subject%22%3A+%22%7B%7Bsubject%7D%7D%22%7D&tag=V1
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Content-Length:
+      - '165'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic cWt4OmU3MTJ0MnBvZDR0OTIyNDgydDVrN21yMWx4ZzZmNjlpLTY5eHIyeTQ0LXppMzYyOWM0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:16 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:16 GMT
+- request:
+    method: get
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic dHhuOnM3ODJwOGpzdzF1NTc2OTg2dDdtN21wNWpodTVxNjVmLTg4Y2Q4YjI0LW5yOTM0OGI3
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:17 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:17 GMT
+- request:
+    method: put
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template
+    body:
+      encoding: UTF-8
+      string: description=Updated+Description
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic dXd0OnY5NjJhN2djYzRtMzYwNzU4bjNpNXNzOGtpZTV1OTF2LTc3eWQyZDQ0LWZjOTA3NHI5
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:18 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:18 GMT
+- request:
+    method: get
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic dGJzOmE3NDN5MGJobjFjMjEwNTE5aTVzN29rOXZ4aTdyMzdvLTA2YWwzcTMyLXdmODI0NWM1
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:18 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:18 GMT
+- request:
+    method: delete
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic aHJzOng3NjNsNHB3bzNqNjQwMTMwczJqMHlvNm5lejh4MDV0LTU1eXAzdDI2LXhzMjQxNHAz
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:19 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:19 GMT
+- request:
+    method: delete
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic anhiOmc0NzdiOHljbDR3OTE4NTMzczBtM3F6MmpraDhyNDZhLTg5b242cjc4LXhjMzUyNWgz
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:19 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:19 GMT
+- request:
+    method: post
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions
+    body:
+      encoding: UTF-8
+      string: template=%7B%7Bfname%7D%7D+%7B%7Blname%7D%7D&comment=test+comment&headers=%7B%22Subject%22%3A+%22%7B%7Bsubject%7D%7D%22%7D&tag=v2&active=yes
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Content-Length:
+      - '140'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic cm10OngxOTJtOXFqbDh4NDA2NjA5djVuN2FtN3JnbzJ2MjhwLTgwd2g4bjA3LW5jNzU2M280
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:20 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:20 GMT
+- request:
+    method: get
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions/v2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic empnOnMwMjB3OWFkZTVpNjgzMzQzYzJsMGRtMnFvYzJ6MTBzLTQ4YXA4cDMwLWpsNjE1N3cw
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:20 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:21 GMT
+- request:
+    method: put
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions/v2
+    body:
+      encoding: UTF-8
+      string: template=%7B%7Bfname%7D%7D+%7B%7Blname%7D%7D&comment=test+comment+2&headers=%7B%22Subject%22%3A+%22%7B%7Bsubject%7D%7D%22%7D
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Content-Length:
+      - '124'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic enVnOmI3NTdyMGVmaTBtNDEyNDMzejhyMWNvNWx1ZTljMjRrLTY1em42Zjk4LXJnNjU3Nmg5
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:21 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:21 GMT
+- request:
+    method: get
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic cHN3OnQ5MjBuNnVyaDV4NTgwOTgwbjJ4N2puN3JpaDFlNDlxLTMydGw3YjgyLXF3MTUxOWM2
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:22 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:22 GMT
+- request:
+    method: delete
+    uri: https://api.mailgun.net/v3/integration-test.domain.invalid/templates/test.template/versions/v2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21.6.0 x86_64) ruby/2.5.1p57
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic bHNoOnM0MjZ3NGpzazl0NDg5MjMyeTVjMWxmNWNtbjFmNjFjLTQ0eGUwazE0LWJ3MjY3NXM5
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '31'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 15 Oct 2023 17:30:22 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"message":"domain not found"}
+
+'
+    http_version: 
+  recorded_at: Sun, 15 Oct 2023 17:30:22 GMT
+recorded_with: VCR 3.0.3

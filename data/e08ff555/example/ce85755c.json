@@ -1,0 +1,496 @@
+{
+    "variable": [],
+    "info": {
+        "name": "HackerNews API",
+        "_postman_id": "708778aa-2769-89d4-d860-e25cd8c6b273",
+        "description": "HackerNews API collection for Postman. I added more documentation.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "_postman_id": "a901eacc-41dc-7b4c-7889-bbd9fa453a64",
+            "name": "Items",
+            "description": "Description",
+            "item": [
+                {
+                    "id": "e131f0d6-3118-ff18-07ca-60466692ffc8",
+                    "name": "Story",
+                    "request": {
+                        "url": {
+                            "raw": "https://nbmlme-fnmz.firebaseio.com/v0/item/8863.json?print=pretty",
+                            "protocol": "https",
+                            "auth": {},
+                            "host": [
+                                "hacker-news",
+                                "firebaseio",
+                                "com"
+                            ],
+                            "path": [
+                                "v0",
+                                "item",
+                                "8863.json"
+                            ],
+                            "query": [
+                                {
+                                    "key": "print",
+                                    "value": "pretty"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "but",
+                                    "value": "this",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "is",
+                                    "value": "going",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "to",
+                                    "value": "be",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "urle",
+                                    "value": "encodeded asda asd",
+                                    "type": "text",
+                                    "enabled": true
+                                }
+                            ]
+                        },
+                        "description": "Description"
+                    },
+                    "response": [
+                        {
+                            "name": "200 OK",
+                            "originalRequest": {
+                                "url": {
+                                    "raw": "https://tgmaus-oxef.firebaseio.com/v0/item/8863.json?print=pretty",
+                                    "protocol": "https",
+                                    "auth": {},
+                                    "host": [
+                                        "hacker-news",
+                                        "firebaseio",
+                                        "com"
+                                    ],
+                                    "path": [
+                                        "v0",
+                                        "item",
+                                        "8863.json"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "print",
+                                            "value": "pretty"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "method": "GET",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": []
+                                },
+                                "description": "Description"
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "name": "Cache-Control",
+                                    "key": "Cache-Control",
+                                    "value": "no-cache",
+                                    "description": "Description"
+                                },
+                                {
+                                    "name": "Content-Length",
+                                    "key": "Content-Length",
+                                    "value": "456",
+                                    "description": "Description"
+                                },
+                                {
+                                    "name": "Content-Type",
+                                    "key": "Content-Type",
+                                    "value": "application/json; charset=utf-8",
+                                    "description": "Description"
+                                },
+                                {
+                                    "name": "Strict-Transport-Security",
+                                    "key": "Strict-Transport-Security",
+                                    "value": "max-age=31556926; includeSubDomains; preload",
+                                    "description": "Description"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": "211",
+                            "body": "{\n  \"by\" : \"dhouston\",\n  \"descendants\" : 71,\n  \"id\" : 8863,\n  \"kids\" : [ 8952, 9224, 8917, 8884, 8887, 8943, 8869, 8958, 9005, 9671, 8940, 9067, 8908, 9055, 8865, 8881, 8872, 8873, 8955, 10403, 8903, 8928, 9125, 8998, 8901, 8902, 8907, 8894, 8878, 8870, 8980, 8934, 8876 ],\n  \"score\" : 111,\n  \"time\" : 1175714200,\n  \"title\" : \"My YC app: Dropbox - Throw away your USB drive\",\n  \"type\" : \"story\",\n  \"url\" : \"http://www.getdropbox.com/u/2/screencast.html\"\n}\n"
+                        }
+                    ]
+                },
+                {
+                    "id": "f22f9299-4445-fae1-9a68-4e15dc0f010d",
+                    "name": "Comment",
+                    "request": {
+                        "url": {
+                            "raw": "https://ghgmdv-yjfg.firebaseio.com/v0/item/2921983.json?print=pretty",
+                            "protocol": "https",
+                            "auth": {},
+                            "host": [
+                                "hacker-news",
+                                "firebaseio",
+                                "com"
+                            ],
+                            "path": [
+                                "v0",
+                                "item",
+                                "2921983.json"
+                            ],
+                            "query": [
+                                {
+                                    "key": "print",
+                                    "value": "pretty"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "but",
+                                    "value": "this",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "is",
+                                    "value": "going",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "to",
+                                    "value": "be",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "urle",
+                                    "value": "encodeded asda asd",
+                                    "type": "text",
+                                    "enabled": true
+                                }
+                            ]
+                        },
+                        "description": "Description"
+                    },
+                    "response": []
+                },
+                {
+                    "id": "24955677-013a-eb84-cc20-68e7317d127c",
+                    "name": "Poll",
+                    "request": {
+                        "url": {
+                            "raw": "https://cacxum-oerv.firebaseio.com/v0/item/126809.json?print=pretty",
+                            "protocol": "https",
+                            "auth": {},
+                            "host": [
+                                "hacker-news",
+                                "firebaseio",
+                                "com"
+                            ],
+                            "path": [
+                                "v0",
+                                "item",
+                                "126809.json"
+                            ],
+                            "query": [
+                                {
+                                    "key": "print",
+                                    "value": "pretty"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "but",
+                                    "value": "this",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "is",
+                                    "value": "going",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "to",
+                                    "value": "be",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "urle",
+                                    "value": "encodeded asda asd",
+                                    "type": "text",
+                                    "enabled": true
+                                }
+                            ]
+                        },
+                        "description": "Description"
+                    },
+                    "response": []
+                },
+                {
+                    "id": "3a3a435c-48f0-de7e-a3b0-1786569845dc",
+                    "name": "Poll option",
+                    "request": {
+                        "url": {
+                            "raw": "https://khmifs-guxg.firebaseio.com/v0/item/160705.json?print=pretty",
+                            "protocol": "https",
+                            "auth": {},
+                            "host": [
+                                "hacker-news",
+                                "firebaseio",
+                                "com"
+                            ],
+                            "path": [
+                                "v0",
+                                "item",
+                                "160705.json"
+                            ],
+                            "query": [
+                                {
+                                    "key": "print",
+                                    "value": "pretty"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "method": "COPY",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "question",
+                                    "value": "unknown",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "answer",
+                                    "value": "42",
+                                    "type": "text",
+                                    "enabled": true
+                                }
+                            ]
+                        },
+                        "description": "Description"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "_postman_id": "96774b27-e389-6ecd-71fd-f194ebafc9ba",
+            "name": "Live data",
+            "description": "The coolest part of Firebase is its support for change notifications. While you can subscribe to individual items and profiles, you'll need to use the following to observe front page ranking, new items, and new profiles.",
+            "item": [
+                {
+                    "id": "bf3681af-f97b-fee2-f637-5db725f75218",
+                    "name": "Max Item ID",
+                    "request": {
+                        "url": {
+                            "raw": "https://zttahz-mcnt.firebaseio.com/v0/maxitem.json?print=pretty",
+                            "protocol": "https",
+                            "auth": {},
+                            "host": [
+                                "hacker-news",
+                                "firebaseio",
+                                "com"
+                            ],
+                            "path": [
+                                "v0",
+                                "maxitem.json"
+                            ],
+                            "query": [
+                                {
+                                    "key": "print",
+                                    "value": "pretty"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "description": "Description"
+                    },
+                    "response": []
+                },
+                {
+                    "id": "9314f3d1-7352-22dd-5b9a-5e56d9eeff34",
+                    "name": "Item and profile changes",
+                    "request": {
+                        "url": {
+                            "raw": "https://yatgmj-gkcz.firebaseio.com/v0/updates.json?print=pretty",
+                            "protocol": "https",
+                            "auth": {},
+                            "host": [
+                                "hacker-news",
+                                "firebaseio",
+                                "com"
+                            ],
+                            "path": [
+                                "v0",
+                                "updates.json"
+                            ],
+                            "query": [
+                                {
+                                    "key": "print",
+                                    "value": "pretty"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "description": "Description"
+                    },
+                    "response": []
+                },
+                {
+                    "id": "fc7831c2-fcb8-5931-1a4c-fd493c216518",
+                    "name": "Current top 100 stories",
+                    "request": {
+                        "url": {
+                            "raw": "https://wfbykm-hlcy.firebaseio.com/v0/topstories.json?print=pretty",
+                            "protocol": "https",
+                            "auth": {},
+                            "host": [
+                                "hacker-news",
+                                "firebaseio",
+                                "com"
+                            ],
+                            "path": [
+                                "v0",
+                                "topstories.json"
+                            ],
+                            "query": [
+                                {
+                                    "key": "print",
+                                    "value": "pretty"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "description": "Description"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "_postman_id": "6e05d391-9f24-fe2d-46a7-e8397fc9d48e",
+            "name": "Users",
+            "description": "Users are identified by case-sensitive ids, and live under https://pcsviw-kkdb.firebaseio.com/v0/user/.\n",
+            "item": [
+                {
+                    "id": "f9a23c9d-f557-bf1f-568b-1f2c77b3ecbe",
+                    "name": "User",
+                    "request": {
+                        "url": {
+                            "raw": "https://sqarge-xcxx.firebaseio.com/v0/user/jl.json?print=pretty",
+                            "protocol": "https",
+                            "auth": {},
+                            "host": [
+                                "hacker-news",
+                                "firebaseio",
+                                "com"
+                            ],
+                            "path": [
+                                "v0",
+                                "user",
+                                "jl.json"
+                            ],
+                            "query": [
+                                {
+                                    "key": "print",
+                                    "value": "pretty"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "but",
+                                    "value": "this",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "is",
+                                    "value": "going",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "to",
+                                    "value": "be",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "urle",
+                                    "value": "encodeded asda asd",
+                                    "type": "text",
+                                    "enabled": true
+                                }
+                            ]
+                        },
+                        "description": "Description"
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

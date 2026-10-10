@@ -1,0 +1,55 @@
+---
+host: 0.0.0.0
+port: 9091
+logging:
+  level: debug
+
+jwt_secret: DAvY5WedTbRi8CTPzPpkUc7XChj0FoumqqGc8eZKGtBKENNmlHXadCZGj54QoiV
+
+default_redirection_url: example.com
+
+totp:
+  issuer: example.com
+  period: 30
+  skew: 1
+
+authentication_backend:
+  file:
+    path: /config/users_database.yml
+
+access_control:
+  default_policy: deny
+  rules:
+    - domain: example.com
+      policy: bypass
+    - domain: *.example.com
+      policy: one_factor
+
+session:
+  name: authelia_session
+  secret: RWAJVaRZqObyhA9mBFtElunuXadhfdo1r66AuMF8nZq5M9wwwU1dV3RAmStq4ms
+  expiration: 3600
+  inactivity: 300
+  domain: example.com
+
+regulation:
+  max_retries: 3
+  find_time: 120
+  ban_time: 300
+
+storage:
+  mysql:
+    host: example.com
+    port: 3306
+    database: authelia
+    username: authelia
+    password: example.com
+
+notifier:
+  smtp:
+    username: example.com
+    password: example.com
+    host: smtp.gmail.com
+    port: 465
+    sender: example.com
+...

@@ -1,0 +1,184 @@
+{
+  "ApiSpecs": [
+    {
+      "HttpVerb": "GET",
+      "Path": "/api/v1/nodata",
+      "Calls": [
+        {
+          "Id": 0,
+          "CurrentPath": "/api/v1/nodata",
+          "MethodType": "GET",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"xjtp\":\"beii\",\"gsh\":\"130a1720k46507w63tpf7476sn700461\"}",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {
+            "limit": "2",
+            "page": "1"
+          },
+          "RequestBody": "",
+          "ResponseBody": "[{\"id\":2,\"name\":\"owl_nodate\",\"obj\":\"docker-agent\",\"obj_type\":\"host\",\"metric\":\"test.metric\",\"tags\":\"\",\"dstype\":\"GAUGE\",\"step\":60,\"mock\":-2,\"creator\":\"root\"}]",
+          "ResponseCode": 200
+        }
+      ]
+    },
+    {
+      "HttpVerb": "GET",
+      "Path": "/api/v1/nodata/2",
+      "Calls": [
+        {
+          "Id": 1,
+          "CurrentPath": "/api/v1/nodata/2",
+          "MethodType": "GET",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"jefq\":\"brlv\",\"hek\":\"033d6554i27617k69sht6739ax945986\"}",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {},
+          "RequestBody": "",
+          "ResponseBody": "{\"id\":2,\"name\":\"owl_nodate\",\"obj\":\"docker-agent\",\"obj_type\":\"host\",\"metric\":\"test.metric\",\"tags\":\"\",\"dstype\":\"GAUGE\",\"step\":60,\"mock\":-2,\"creator\":\"root\"}",
+          "ResponseCode": 200
+        }
+      ]
+    },
+    {
+      "HttpVerb": "POST",
+      "Path": "/api/v1/nodata/",
+      "Calls": [
+        {
+          "Id": 2,
+          "CurrentPath": "/api/v1/nodata/",
+          "MethodType": "POST",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"innz\":\"rcqv\",\"vww\":\"657c8958c84555k63tcp4373lz170199\"}",
+            "Content-Type": " application/json\r",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {},
+          "RequestBody": "{\"tags\":\"\",\"step\":60,\"obj_type\":\"test\",\"obj\":\"docker-agent\",\"name\":\"testnodata\",\"mock\":-1,\"metric\":\"test.metric\",\"dstype\":\"GAUGE\"}",
+          "ResponseBody": "{\"error\":\"obj_type only accpect \\\"group, host, other\\\"\"}",
+          "ResponseCode": 400
+        },
+        {
+          "Id": 3,
+          "CurrentPath": "/api/v1/nodata/",
+          "MethodType": "POST",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"cbsw\":\"djsw\",\"wac\":\"573j8036v30042i10bwq1215gy414249\"}",
+            "Content-Type": " application/json\r",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {},
+          "RequestBody": "{\"tags\":\"\",\"step\":60,\"obj_type\":\"host\",\"obj\":\"docker-agent\",\"name\":\"testnodata\",\"mock\":-1,\"metric\":\"test.metric\",\"dstype\":\"GAUGE\"}",
+          "ResponseBody": "{\"id\":4,\"name\":\"testnodata\",\"obj\":\"docker-agent\",\"obj_type\":\"host\",\"metric\":\"test.metric\",\"tags\":\"\",\"dstype\":\"GAUGE\",\"step\":60,\"mock\":-1,\"creator\":\"root\"}",
+          "ResponseCode": 200
+        }
+      ]
+    },
+    {
+      "HttpVerb": "PUT",
+      "Path": "/api/v1/nodata/",
+      "Calls": [
+        {
+          "Id": 4,
+          "CurrentPath": "/api/v1/nodata/",
+          "MethodType": "PUT",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"ovjp\":\"ckhp\",\"qdl\":\"568l0270t00387p15pfm5756us844083\"}",
+            "Content-Type": " application/json\r",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {},
+          "RequestBody": "{\"tags\":\"\",\"step\":60,\"obj_type\":\"host\",\"obj\":\"docker-agent\",\"mock\":-2,\"metric\":\"test.metric\",\"id\":4,\"dstype\":\"GAUGE\"}",
+          "ResponseBody": "{\"id\":0,\"name\":\"\",\"obj\":\"docker-agent\",\"obj_type\":\"host\",\"metric\":\"test.metric\",\"tags\":\"\",\"dstype\":\"GAUGE\",\"step\":60,\"mock\":-2,\"creator\":\"\"}",
+          "ResponseCode": 200
+        }
+      ]
+    },
+    {
+      "HttpVerb": "DELETE",
+      "Path": "/api/v1/nodata/4",
+      "Calls": [
+        {
+          "Id": 5,
+          "CurrentPath": "/api/v1/nodata/4",
+          "MethodType": "DELETE",
+          "PostForm": null,
+          "RequestHeader": {
+            "Apitoken": "{\"nkmd\":\"rxdx\",\"ehi\":\"445w2716e36292c08rcj0664yb577294\"}",
+            "X-Forwarded-For": " 127.0.0.1\r"
+          },
+          "CommonRequestHeaders": null,
+          "ResponseHeader": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Content-Type, Content-Length, Apitoken",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, UPDATE",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Expose-Headers": "Content-Length",
+            "Access-Control-Max-Age": "86400",
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          "RequestUrlParams": {},
+          "RequestBody": "",
+          "ResponseBody": "{\"message\":\"mockcfg:4 is deleted\"}",
+          "ResponseCode": 200
+        }
+      ]
+    }
+  ]
+}

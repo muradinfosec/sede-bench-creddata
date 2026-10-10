@@ -1,0 +1,6 @@
+spring:
+  rabbitmq:
+    host: rabbitmq.local.pcfdev.io
+    username: c0d50835-4fd3-4e19-9e69-15109d82b584
+    password: k9cst6r3ksoqfh77171ah01mbr
+    virtualHost: 1995c9ee-a25f-8675-20e7-00590bdb2144

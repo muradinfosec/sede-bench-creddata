@@ -1,0 +1,8 @@
+[mon.]
+        key = FBBJaYHH6o9USlWNMkB6FdcwEX8vnhrYNv/l0A==
+[client.admin]
+        key = BIEGwRBSqYtcVbWSJmRL+cX/VDEGrq4j/GETXC==
+        auid = 0
+        caps mds = "allow *"
+        caps mon = "allow *"
+        caps osd = "allow *"

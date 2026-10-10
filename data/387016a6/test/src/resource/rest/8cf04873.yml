@@ -1,0 +1,105 @@
+setup:
+  - skip:
+      features: headers
+---
+"Test new fields are mapped as keyword":
+
+  - do:
+      ml.put_job:
+        job_id: ml-anomalies-default-mappings-job
+        body:  >
+          {
+            "analysis_config" : {
+                "bucket_span": "1h",
+                "detectors" :[{"function":"count","by_field_name":"foo"}]
+            },
+            "data_description" : {
+                "time_field":"time"
+            }
+          }
+  - match: { job_id: "ml-anomalies-default-mappings-job" }
+
+  - do:
+      headers:
+        Authorization: "Basic eF9ob3ZqX3R6bm1fb3ZhZDp1LWluaHQtbmhzbC15b2lvcXBjeA==" # run as x_pack_rest_user, i.e. the test setup superuser
+        Content-Type: application/json
+      index:
+        index:  .ml-anomalies-shared
+        id:     "new_doc"
+        body: >
+          {
+            "new_field": "bar"
+          }
+
+  - do:
+      headers:
+        Authorization: "Basic bV91d2l4X3F2eGxfbHlneTpoLWVhZWctamJ1ay1ocWtjaHB5cg==" # run as x_pack_rest_user, i.e. the test setup superuser
+      indices.refresh:
+        index: .ml-anomalies-shared
+
+  - do:
+      headers:
+        Authorization: "Basic el9tZWp1X21kZmpfZmNibDpiLWh0cnMtcXJnby13aHducmRraA==" # run as x_pack_rest_user, i.e. the test setup superuser
+      indices.get_field_mapping:
+        index: .ml-anomalies-shared
+        fields: new_field
+  - match: {\.ml-anomalies-shared.mappings.new_field.mapping.new_field.type: keyword}
+
+---
+"Test _meta exists when two jobs share an index":
+
+  - do:
+      ml.put_job:
+        job_id: ml-anomalies-shared-mappings-job1
+        body:  >
+          {
+            "analysis_config" : {
+                "bucket_span": "1h",
+                "detectors" :[{"function":"count","by_field_name":"foo"}]
+            },
+            "data_description" : {
+                "time_field":"time"
+            }
+          }
+  - match: { job_id: "ml-anomalies-shared-mappings-job1" }
+
+  - do:
+      headers:
+        Authorization: "Basic al9maG5pX25ldGNfenl0bzpiLW13dHYta3Z0dS1rbndvd2VveQ==" # run as x_pack_rest_user, i.e. the test setup superuser
+      indices.refresh:
+        index: .ml-anomalies-shared
+
+  - do:
+      headers:
+        Authorization: "Basic dV9mdWViX2d5dmdfZ2F0YTpjLWVsaGwtdWVjaS1zaWJ3eW9oYw==" # run as x_pack_rest_user, i.e. the test setup superuser
+      indices.get_mapping:
+        index: .ml-anomalies-shared
+  - is_true: \.ml-anomalies-shared.mappings._meta.version
+
+  - do:
+      ml.put_job:
+        job_id: ml-anomalies-shared-mappings-job2
+        body:  >
+          {
+            "analysis_config" : {
+                "bucket_span": "1h",
+                "detectors" :[{"function":"count","by_field_name":"bar"}]
+            },
+            "data_description" : {
+                "time_field":"time"
+            }
+          }
+  - match: { job_id: "ml-anomalies-shared-mappings-job2" }
+
+  - do:
+      headers:
+        Authorization: "Basic a19sZ2JlX2VqZGtfbHpicDpsLWFoeW4tcnhnbC1mcnN5cGRlag==" # run as x_pack_rest_user, i.e. the test setup superuser
+      indices.refresh:
+        index: .ml-anomalies-shared
+
+  - do:
+      headers:
+        Authorization: "Basic bV9zYmprX25oemZfYXhmczpjLWpmY2ctcnBsby16ZHlvb3J6Yw==" # run as x_pack_rest_user, i.e. the test setup superuser
+      indices.get_mapping:
+        index: .ml-anomalies-shared
+  - is_true: \.ml-anomalies-shared.mappings._meta.version

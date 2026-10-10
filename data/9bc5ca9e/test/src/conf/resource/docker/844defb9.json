@@ -1,0 +1,8 @@
+{
+  "auths": {
+    "https://index.docker.io/v1/": {
+      "auth": "LD8gy1CrfIFvCiR8RPc6NJpoYq==",
+      "email": "dockerman@hub.com"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+curl -X GET --header 'Accept: application/json' --header 'user-token: 56c4ff5179d5c0981962fa64b5f1f704' 'http://localhost:8080/api/retail/books/list'

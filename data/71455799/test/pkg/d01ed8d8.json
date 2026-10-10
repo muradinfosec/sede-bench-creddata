@@ -1,0 +1,38 @@
+[
+ {
+  "Id": "AKIA3EBUYVT473SLL42L",
+  "Type": "aws_iam_access_key",
+  "Attrs": {
+   "id": "AKIA5DJDDGM566TNY33D",
+   "status": "Active",
+   "user": "test-driftctl"
+  }
+ },
+ {
+  "Id": "AKIA5RVMJYZ5FSS44IAF",
+  "Type": "aws_iam_access_key",
+  "Attrs": {
+   "id": "AKIA5GRWKPV6BFT76LKB",
+   "status": "Active",
+   "user": "test-driftctl"
+  }
+ },
+ {
+  "Id": "AKIA3TUTCBD4BHLLTYHJ",
+  "Type": "aws_iam_access_key",
+  "Attrs": {
+   "id": "AKIA5MTKUAO4NYLXDUGS",
+   "status": "Active",
+   "user": "test-driftctl2"
+  }
+ },
+ {
+  "Id": "AKIA7MMITCB34KBEX77Z",
+  "Type": "aws_iam_access_key",
+  "Attrs": {
+   "id": "AKIA5UJRSXP64VOJA35N",
+   "status": "Active",
+   "user": "test-driftctl2"
+  }
+ }
+]

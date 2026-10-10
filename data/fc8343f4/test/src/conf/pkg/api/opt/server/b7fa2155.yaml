@@ -1,0 +1,28 @@
+kind: EncryptionConfig
+apiVersion: v1
+resources:
+  - resources:
+      - secrets
+      - namespaces
+    providers:
+      - identity: {}
+      - aesgcm:
+          keys:
+            - name: key1
+              secret: f4YnnaP0RUflOCOwV4TdSY==
+            - name: key2
+              secret: mGqwgqDrkuRdVWOol84lKH==
+      - kms:
+          name: testprovider
+          endpoint: unix:///tmp/testprovider.sock
+          cachesize: 10
+      - aescbc:
+          keys:
+            - name: key1
+              secret: u3XmmhJ7QGriELXdT4RzIV==
+            - name: key2
+              secret: lFutbrJtxoNlZQPek08iHO==
+      - secretbox:
+          keys:
+            - name: key1
+              secret: BCVvPXKbT3mqnlmytB3erFLoc1A0bfm6uNzcKoH6SPZ=

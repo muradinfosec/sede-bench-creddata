@@ -1,0 +1,66 @@
+{
+  "summary": {
+    "total_resources": 6,
+    "total_changed": 1,
+    "total_unmanaged": 2,
+    "total_missing": 2,
+    "total_managed": 2
+  },
+  "managed": [
+    {
+      "id": "AKIA6ELTHUX52OZAMDDR",
+      "type": "aws_iam_access_key"
+    },
+    {
+      "id": "test-managed",
+      "type": "aws_iam_user"
+    }
+  ],
+  "unmanaged": [
+    {
+      "id": "driftctl",
+      "type": "aws_s3_bucket_policy"
+    },
+    {
+      "id": "driftctl",
+      "type": "aws_s3_bucket_notification"
+    }
+  ],
+  "missing": [
+    {
+      "id": "test-driftctl2",
+      "type": "aws_iam_user"
+    },
+    {
+      "id": "AKIA2CTSZYK6F7HIQWIC",
+      "type": "aws_iam_access_key"
+    }
+  ],
+  "differences": [
+    {
+      "res": {
+        "id": "AKIA3LGQTKU54ODFEYAN",
+        "type": "aws_iam_access_key"
+      },
+      "changelog": [
+        {
+          "type": "update",
+          "path": [
+            "status"
+          ],
+          "from": "Active",
+          "to": "Inactive",
+          "computed": false
+        }
+      ]
+    }
+  ],
+  "coverage": 33,
+  "alerts": {
+    "aws_iam_access_key": [
+      {
+        "message": "This is an alert"
+      }
+    ]
+  }
+}

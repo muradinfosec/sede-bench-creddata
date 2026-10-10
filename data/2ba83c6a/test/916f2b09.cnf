@@ -1,0 +1,38 @@
+enabled_logs=test,pilot,aviator,rocketeer,digicert,certly,izempe,symantec,venafi
+
+[test]
+description = https://github.com/google/certificate-transparency/tree/99218b6445906a81f219d84e9c6d2683e13e4e58/test/testdata
+key = RSzoMeEZAjPBzx9DOXIVAfXMml9HESnWUpAAuZx9yISrmQAbTvTx+X9BrcaK8r3TyII86s7XvCMIjxQV7G+cE8uKzUYXG6mpBx+0mqRgQ1FH33GjG2MhAY6k4z==
+
+[pilot]
+description = Google Pilot Log
+key = BQcmRbUYBnUVxk3VRHXEZnXGgw4THInANdTQdmlMPfzPhr3p17m1wDfnzOVf/bRPQN8KRPgGEjcMLIlZ0VwmX4XyBzmKUWiuFsGB4G0FYF2si9IemL7QJCPEvW==
+
+[aviator]
+description = Google Aviator log
+key = ATdzYfGJDjEEvt6MXFBJDhOFjs6SXBmFMwXT0/XNweWoOgMvlzubhHiL3fKc5G3MCY0oCYMNHR1mfwydCS2c8ImTOrAswEi9vnR+LABCiiAfbz7BtGyT9x5/4R==
+
+[rocketeer]
+description = Google Rocketeer log
+key = MSzbZuIQItMLku6QIZJLJjVZiu8JSYqRKhGEXXdAqKcFf7OsZHX/xMYSW9aRzV+5vYNWwKlwcDGgBqtmLcpK6UAzpyyA67zXx05cVuqSPRYRNUVcY8ccSyAVpx==
+
+[digicert]
+description = DigiCert Log Server
+key = QNjaKvNVFvDKrl6VKUHXJdUTcw8VFCdPJhNPNylAbqw9wiDQ1EMIbLrxO4q3+KLIQnE9EIWakthiZU+/ujCzKg2upa2CeRU2GkdWMy3Q0ttxBcrZdfk0NXUk4W==
+
+[certly]
+description = Certly.IO log
+key = EAktLhBEDhRIzw8WRIVKGlRBel0JKZdTYjEOAqAMbKDSRIuXf+jIMhUDK4jbRE3SJnHjxiAELetYTrkCfz2Vt5Qy+Cd4UEaQVx35PqyNgUe9UmqzlHNVltcoUM==
+
+[izempe]
+description = Izempe log
+key = MFxsJwKURhNPqr9SDLMDLzYItv2GQDoSOhAMS3H5JP3pKJc4MMTaRu0e4k65la+LPXdTWrCCE5bjuj41jVEGqFIOG2kt3af07jKKiQ2pMQI6bCrYTlRGbaOvmk==
+
+[symantec]
+description = Symantec log
+key = YXpaRfXNCrVNjl8MWAHVVjHNvy8QVZnUCqIQbncfVZWIG2SyBdn1qTpHX4FeLkiJ0a01qVartOH3dEEDJ74UIMHnWCtBz44a1AzoBUAqSx9ovnt6hicBUEVUov==
+
+[venafi]
+description = Venafi log
+key = MFADWzANDkmczwfC8i9WGRSZVZMRBL8MYTAGIhSMPFMEygcCLphEgSABr9x7T6JTzhYk/3TwVLh6nRF7nDbZxl7ms9jh5EBAts+/3fT3Hk4aqsyQYB3YRZncQKNTVkwy42T4lpUfEkUMDXwG0NwOGMrLHWevKdSUUPpMOkxmBrCLtfR8Kb9mHZ8zmnrAgyPgvxEUqRF9FZfKFtDQq2Qok51jgy/pvayawKPNjIbFEyQsxLgX4XzSX0HwnNeOF0yW4e9V4rjUZ+bFlx8NeXdyCqOjzqEaXtHm8QZnuoUj47mB2bD+cQVCjlkkZkurvrdUAm+LIM7seuFBKbajaI/HZp7mliUW065b2J5Ci3PNaOFd1zz/HG6e4zCjsSzEw/u0nYKSUTJH
+

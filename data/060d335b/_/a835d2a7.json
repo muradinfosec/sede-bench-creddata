@@ -1,0 +1,39 @@
+{
+  "name": "PASERK k2.seal Test Vectors",
+  "tests": [
+    {
+      "name": "k2.seal-1",
+      "expect-fail": false,
+      "sealing-secret-key": "720218f5db2e9989b1ca5a55a797632d57491548de094e63cd96a0bdf2ba8f0ff4674bb778187e324958f5f653d74db5e0552798f6a1e2b6f449b069a7ec0222",
+      "sealing-public-key": "f4194ec007507d629048b9e419d66fa1b4012470a1c5e1a6b742f918f5ea5954",
+      "unsealed": "0000000000000000000000000000000000000000000000000000000000000000",
+      "paserk": "k2.seal.10ES-djeXd_5XMrznfTJGDf1zJKWQ0pjvcGyb--vQf-ApdP6zthkiyIX5lR3zfpVzVuZJ4WwWIIXuCtqiTFpeEQmrTch_G91TvQfxOLU2nEBW9_4VeIiFHrQuwL3IdxB"
+    },
+    {
+      "name": "k2.seal-2",
+      "expect-fail": false,
+      "sealing-secret-key": "a507fc47c46c9f9ead71545ea906cc76be65c0a8fd14e03ed2710512b8da7908e4fca8ef9f76f358a42fe7577a77ea0107e1ec824bfa4e4c7b0538585ce96ce6",
+      "sealing-public-key": "a0fbc3dc2f99a538b40fb7616a83cf4276b6cf223fff5a2c2d3236235eb87dc7",
+      "unsealed": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "paserk": "k2.seal.rJZgCJrVrUFRPehByeSoO1wAUxG072_yZcyHKARrNU_ShbDBbW6xKtQl7se_PZZ9z1z484vcWmp0iTWGcVplCj2oZClme5JBCQeYSqc2lDev3xTFgOiRxX71gnnxSBkO"
+    },
+    {
+      "name": "k2.seal-fail-1",
+      "expect-fail": true,
+      "comment": "Invalid authentication tag on sealed key.",
+      "sealing-secret-key": "e146fa50e64f6e6adc73078ec684bb53ca81c1d1ad97f22fd1760977e3ef2027b4fdf9bd9c19e394d59bf6541c59de7737a2fb615bba4b4f2c8142778dc53fc6",
+      "sealing-public-key": "a0fbc3dc2f99a538b40fb7616a83cf4276b6cf223fff5a2c2d3236235eb87dc7",
+      "unsealed": null,
+      "paserk": "k2.seal.rJZgCJrVrUFRPehByeSoO1wAUxG072_yZcyHKARrNU_ShbDBbW6xKtQl7se_PZZ9z1z484vcWmp0iTWGcVplCj2oZClme5JBCQeYSqc2lDev3xTFgOiRxX71gnnxTClP"
+    },
+    {
+      "name": "k2.seal-fail-2",
+      "expect-fail": true,
+      "comment": "Implementations MUST NOT accept a PASERK of the wrong version.",
+      "sealing-secret-key": "a626ae97f99b9c5bdf51999be390df39ef38c2e2eb86d37bf2161717d4ec5866e0abd3ba6d68b812a11ba8710d25ce3881d9bb862aae9d7b2b3513176cf20fd8",
+      "sealing-public-key": "a0fbc3dc2f99a538b40fb7616a83cf4276b6cf223fff5a2c2d3236235eb87dc7",
+      "unsealed": null,
+      "paserk": "k1.seal.QmXSEH_ei6jX3xvcZ5_l4k53mBTgJSRHWS07MB56tX0hBUqKE-ur-SdjRn68DF_j9BbUSif5kqAn4h7ozfW1IRr4tp26_gVdSN9wUcCMVFpc7kF_unOd8dJlqKuxAxy8pfVRtN5no12JKogWU9EBE1y8iv6k1CDetlU8htQsBhvpcNigBhFooNt8J2UZrNppDSlzO-bqJcz7gPFpqdp31wwCi9PIoaUG52GHTRrm600p6FftQ9V2XdnA5gL0TZQhRG3EstYR9s6p-Irrs7BcqH5QpC0ZRLcnsJHMkSvX79g7fkiJeEHbLRTjE0xUT8sUk6fxgSNJws8XDsBU-4p74OKW3GyZmtbxwhHN6hO4OJHRtV3MoLRJMDUVYCVfDVkEMYXd9kOq9_rRgeP_cCnHhbLncIpEUUfvLB_8OAesU6h88ulKDdsyIs2a7HCrvjfKwni4iz8yAabUf7JTzieoX9zRsYe52i6vmujSgiuiwKS_EbdPTKNiPu308QHfu_bubXYkRXmU6ieziqU1f4FAklxGNK9sZpK_uEYIUrhiT6uqIJmkMU410XFnVwkebd6OGXFoGvvIyaq0iPaF---fHXyCnmI9fyjV0kHy57I18pbDY-ujMUCnjZ-yYYmk2DyhYPURq50yNVptIjx7B8mU660KPWkACO1NUQhIdACDkHseNb7mER71l64A0Hmu9PZB4VHBH4NBhtdvll2vIVcLPk-BdDa1PziJy6QZweIel-IufvLl1awLu67d2D8DJw25NAPuCsdrfZMMqhe02nAmGg"
+    }
+  ]
+}

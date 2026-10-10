@@ -1,0 +1,4401 @@
+#
+# Copyright 2001-2020 The OpenSSL Project Authors. All Rights Reserved.
+#
+# Licensed under the Apache License 2.0 (the "License").  You may not use
+# this file except in compliance with the License.  You can obtain a copy
+# in the file LICENSE in the source distribution or at
+# https://www.openssl.org/source/license.html
+
+# Tests start with one of these keywords
+#       Cipher Decrypt Derive Digest Encoding KDF MAC PBE
+#       PrivPubKeyPair Sign Verify VerifyRecover
+# and continue until a blank line. Lines starting with a pound sign are ignored.
+
+Title=c2pnb163v1 curve tests
+
+PrivateKey=ALICE_cf_c2pnb163v1
+-----BEGIN PRIVATE KEY-----
+MDYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAEEHDAaAgEBBBUD1JfG8cLNP9418YW+DXVelYZ3F8h=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2pnb163v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEMwEwYHKoZIzj0CAQYIKoZIzj0DAAEDLAAEBXgoOgVlWTLQnrQZXgQuSBcIS3bQAlXQ+yJhS03B
+4G8rKQXbrc0mvWsF
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2pnb163v1:ALICE_cf_c2pnb163v1_PUB
+
+PrivateKey=BOB_cf_c2pnb163v1
+-----BEGIN PRIVATE KEY-----
+MDYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAEEHDAaAgEBBBUAc3EaoMmMORTzQhMktzoIZ+/ZrNJ=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2pnb163v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEMwEwYHKoZIzj0CAQYIKoZIzj0DAAEDLAAEBn9J0jo39aFVZqhBsAKZ6bViAu6zBC8WaFGExnpZ
+KuBh8tP8VSTHPCHF
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2pnb163v1:BOB_cf_c2pnb163v1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb163v1
+PeerKey=BOB_cf_c2pnb163v1_PUB
+SharedSecret=436de82aa8fe8c261330d2de95b618c1f1a8436aae
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb163v1
+PeerKey=ALICE_cf_c2pnb163v1_PUB
+SharedSecret=278cc88dc9aa0b455767e0db99b893d8a6e0593adb
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb163v1
+PeerKey=BOB_cf_c2pnb163v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=356bf91b5ac9630011ce688461256a7ac4afc96477
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb163v1
+PeerKey=ALICE_cf_c2pnb163v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=304dd48f1bb4577093dd188794266d9ff0aed11429
+
+PublicKey=MALICE_cf_c2pnb163v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEMwEwYHKoZIzj0CAQYIKoZIzj0DAAEDLAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8JxepS05nN
+/piKdhDD3dDKXUih
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2pnb163v1
+PeerKey=MALICE_cf_c2pnb163v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2pnb163v1
+PeerKey=MALICE_cf_c2pnb163v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2pnb163v2 curve tests
+
+PrivateKey=ALICE_cf_c2pnb163v2
+-----BEGIN PRIVATE KEY-----
+MDYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAIEHDAaAgEBBBUA4KFv7c1dygtVbdp/x6c2DytlGxn=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2pnb163v2_PUB
+-----BEGIN PUBLIC KEY-----
+MEMwEwYHKoZIzj0CAQYIKoZIzj0DAAIDLAAEAVnlL7lMBaASwCIJaf9x2LgNPVmEAb43huHQlo3Q
+4PzawHXQoYm/qgDd
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2pnb163v2:ALICE_cf_c2pnb163v2_PUB
+
+PrivateKey=BOB_cf_c2pnb163v2
+-----BEGIN PRIVATE KEY-----
+MDYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAIEHDAaAgEBBBUCEdYqClRWIl2m+X34Y+wJ7sJiZlq=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2pnb163v2_PUB
+-----BEGIN PUBLIC KEY-----
+MEMwEwYHKoZIzj0CAQYIKoZIzj0DAAIDLAAEAVWNIKn7/WMfzuNnd5ws9J0DI2CfBkEJizZHAFqy
+kBF3juAQuARgxuT6
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2pnb163v2:BOB_cf_c2pnb163v2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb163v2
+PeerKey=BOB_cf_c2pnb163v2_PUB
+SharedSecret=0354fbe439b1a2f9fa3ed9ba29e87d9ed04453f4f0
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb163v2
+PeerKey=ALICE_cf_c2pnb163v2_PUB
+SharedSecret=0572bfa094e5b3a4ad3ad3fd07c18c3ed01031a3e7
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb163v2
+PeerKey=BOB_cf_c2pnb163v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=269c34bea05582ab4e356ab2cb5094658f92d61c08
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb163v2
+PeerKey=ALICE_cf_c2pnb163v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=259e74eab22670bc0a744fb4dd0292988c02f86b07
+
+PublicKey=MALICE_cf_c2pnb163v2_PUB
+-----BEGIN PUBLIC KEY-----
+MEMwEwYHKoZIzj0CAQYIKoZIzj0DAAIDLAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABuVBl1V5uysY
+n6HANPEoMoK+7Sv0
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2pnb163v2
+PeerKey=MALICE_cf_c2pnb163v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2pnb163v2
+PeerKey=MALICE_cf_c2pnb163v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2pnb163v3 curve tests
+
+PrivateKey=ALICE_cf_c2pnb163v3
+-----BEGIN PRIVATE KEY-----
+MDYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAMEHDAaAgEBBBUBItB0y/QeJ+cCh9yobD5JpFrHSuq=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2pnb163v3_PUB
+-----BEGIN PUBLIC KEY-----
+MEMwEwYHKoZIzj0CAQYIKoZIzj0DAAMDLAAEBx1HRyjuBMjt+vlbWaQbKOpNvWKFAslzEbPv6MpK
+YnObLnq34LRuWznb
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2pnb163v3:ALICE_cf_c2pnb163v3_PUB
+
+PrivateKey=BOB_cf_c2pnb163v3
+-----BEGIN PRIVATE KEY-----
+MDYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAMEHDAaAgEBBBUAXVHUHeP8Ioz7IqXOftzebcyOO5X=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2pnb163v3_PUB
+-----BEGIN PUBLIC KEY-----
+MEMwEwYHKoZIzj0CAQYIKoZIzj0DAAMDLAAEAqXF7rsAZ40Z1PT4TeeC45RKTxP4AJBAdfuknJ/J
+DZnBLhxBwtqnfUpA
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2pnb163v3:BOB_cf_c2pnb163v3_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb163v3
+PeerKey=BOB_cf_c2pnb163v3_PUB
+SharedSecret=93bd4fee1b11695c13ecbfbca2412b34b5f0877fe4
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb163v3
+PeerKey=ALICE_cf_c2pnb163v3_PUB
+SharedSecret=31ee2cdd3b78608d54dcdcddd3988d81b1b6634ac3
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb163v3
+PeerKey=BOB_cf_c2pnb163v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=13e4bcb9f071743c5c27d8e22b52daff5216255d98
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb163v3
+PeerKey=ALICE_cf_c2pnb163v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=49e1aac4c914410c9a55f0d49a16fbff2430831e11
+
+PublicKey=MALICE_cf_c2pnb163v3_PUB
+-----BEGIN PUBLIC KEY-----
+MEMwEwYHKoZIzj0CAQYIKoZIzj0DAAMDLAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7jRlUg9oaLK
+LwAuHF8g5Y0JjJnI
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2pnb163v3
+PeerKey=MALICE_cf_c2pnb163v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2pnb163v3
+PeerKey=MALICE_cf_c2pnb163v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2pnb176v1 curve tests
+
+PrivateKey=ALICE_cf_c2pnb176v1
+-----BEGIN PRIVATE KEY-----
+MDYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAQEHDAaAgEBBBUAaZ1jV1jM9meV5iiNFrr/vSklqjh=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2pnb176v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEUwEwYHKoZIzj0CAQYIKoZIzj0DAAQDLgAEPjME7IV6Tuz2P++wIT60hRxTkk0M0PNgvqYcUoCI
+iw3girDLhNzOu3IQ8Ac=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2pnb176v1:ALICE_cf_c2pnb176v1_PUB
+
+PrivateKey=BOB_cf_c2pnb176v1
+-----BEGIN PRIVATE KEY-----
+MDYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAQEHDAaAgEBBBUAreyYbcF+ONIf64KmClAs99jq/74=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2pnb176v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEUwEwYHKoZIzj0CAQYIKoZIzj0DAAQDLgAEpJn1IDmFj5LceLGfY2wlhI1VHq5vJ+qNIAOXVZhX
+uMtp6pzy63rCEK53bgs=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2pnb176v1:BOB_cf_c2pnb176v1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb176v1
+PeerKey=BOB_cf_c2pnb176v1_PUB
+SharedSecret=0e1720148df7f2e1d947023295b970299847d448a2dc
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb176v1
+PeerKey=ALICE_cf_c2pnb176v1_PUB
+SharedSecret=7f3749643ec2b1c4c019187315d065885213d476b3ff
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb176v1
+PeerKey=BOB_cf_c2pnb176v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=a02ecd241c69c369d54034d92a4abf521003943741bb
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb176v1
+PeerKey=ALICE_cf_c2pnb176v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=b87bbc910d78b871d70069a40b4dbe476613031569ee
+
+PublicKey=MALICE_cf_c2pnb176v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEUwEwYHKoZIzj0CAQYIKoZIzj0DAAQDLgAE4ePri2opCoAUJIUQnaQlvDaxZd9bsdKnjWSvh+FL
+zXV3l5j8K3pow+GJBE4=
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2pnb176v1
+PeerKey=MALICE_cf_c2pnb176v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2pnb176v1
+PeerKey=MALICE_cf_c2pnb176v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2pnb208w1 curve tests
+
+PrivateKey=ALICE_cf_c2pnb208w1
+-----BEGIN PRIVATE KEY-----
+MDoCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAoEIDAeAgEBBBkAiENroXMYNbK/7DQQouzWgB55ouWn
+XF2k
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2pnb208w1_PUB
+-----BEGIN PUBLIC KEY-----
+ME0wEwYHKoZIzj0CAQYIKoZIzj0DAAoDNgAEL+IHOL2IfeLRiE6Wqsc0Frqjq7t/JnBmhN1lMB9Y
+Yj3+Btcne4CPWf8KvfGjAdMs6JKP4A==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2pnb208w1:ALICE_cf_c2pnb208w1_PUB
+
+PrivateKey=BOB_cf_c2pnb208w1
+-----BEGIN PRIVATE KEY-----
+MDoCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAoEIDAeAgEBBBkAY1GZLynO/IDWwOOjerso4h+r/tFi
+cJot
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2pnb208w1_PUB
+-----BEGIN PUBLIC KEY-----
+ME0wEwYHKoZIzj0CAQYIKoZIzj0DAAoDNgAENBvdzCDOIvu9zo7reJq1ummhR+0jaDc+EoSlW984
+cl9FTi/JJznwC+RNgwVfJ1WKJun1YA==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2pnb208w1:BOB_cf_c2pnb208w1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb208w1
+PeerKey=BOB_cf_c2pnb208w1_PUB
+SharedSecret=be15ff97c6e7dc39ee814c230d096b5db5578ff238650bcd45aa
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb208w1
+PeerKey=ALICE_cf_c2pnb208w1_PUB
+SharedSecret=ff22df81d2a4ae53cf173d159d162f7af8130ca147323abb67af
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb208w1
+PeerKey=BOB_cf_c2pnb208w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=e17f9ce4af45163939dc72243cb9f4acaab6891985482751717b
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb208w1
+PeerKey=ALICE_cf_c2pnb208w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=a19e1fc1dd44804661ce92220ea7a5eeaea5899379890810341a
+
+PublicKey=MALICE_cf_c2pnb208w1_PUB
+-----BEGIN PUBLIC KEY-----
+ME0wEwYHKoZIzj0CAQYIKoZIzj0DAAoDNgAEfuWB9pBZQin+VnmqgYVpbUpKxSQsnXxNqiDtVwqJ
+oPkHxRWnu5e7qI2idMcqaKDeeniUaA==
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2pnb208w1
+PeerKey=MALICE_cf_c2pnb208w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2pnb208w1
+PeerKey=MALICE_cf_c2pnb208w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2pnb272w1 curve tests
+
+PrivateKey=ALICE_cf_c2pnb272w1
+-----BEGIN PRIVATE KEY-----
+MEICAQAwEwYHKoZIzj0CAQYIKoZIzj0DABAEKDAmAgEBBCEA0SoHwKAgKb7WQ+s0h5sRwfHXB3+q
+WXpE33UsN6AdF6P=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2pnb272w1_PUB
+-----BEGIN PUBLIC KEY-----
+MF0wEwYHKoZIzj0CAQYIKoZIzj0DABADRgAE0IH60bGi46FDzEprGZ8EBK5uMMcVke/txeBRNGHQ
+DzG68r3EMLZkOfE1+g04MN7HgY7zt3jMYb8ImyLRmvqR2abjs6c=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2pnb272w1:ALICE_cf_c2pnb272w1_PUB
+
+PrivateKey=BOB_cf_c2pnb272w1
+-----BEGIN PRIVATE KEY-----
+MEICAQAwEwYHKoZIzj0CAQYIKoZIzj0DABAEKDAmAgEBBCEAFqB5GbPJ4d+X7ye7A25C/qDLPGFi
+KByfR8XmhQmu7kw=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2pnb272w1_PUB
+-----BEGIN PUBLIC KEY-----
+MF0wEwYHKoZIzj0CAQYIKoZIzj0DABADRgAEIeIkcMHAuOgvHt2Wp52vVe0DYPNnUX79t/mLSx03
+cUlDmcxL7vIXdx9hB4OmQBYbm+YLDNfTFGAIlDfr2tELpVVPWPo=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2pnb272w1:BOB_cf_c2pnb272w1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb272w1
+PeerKey=BOB_cf_c2pnb272w1_PUB
+SharedSecret=eccec70658478f57d275a8989cbc2dce0d21368cf2931d0e7a29dbbdee56faa03607
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb272w1
+PeerKey=ALICE_cf_c2pnb272w1_PUB
+SharedSecret=edccf79103479c37e483c2403def1fad8f69411ff7645b8a8c60dcdffb77cad84393
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb272w1
+PeerKey=BOB_cf_c2pnb272w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=490ec37d76459cf72d8288895c38b338c3476f8d99f16df791676fae8587f3452da4
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb272w1
+PeerKey=ALICE_cf_c2pnb272w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=347bd19d51044fa75b2585028f53a219d7302a2b94f50ba492103eeb0251f9964db1
+
+PublicKey=MALICE_cf_c2pnb272w1_PUB
+-----BEGIN PUBLIC KEY-----
+MF0wEwYHKoZIzj0CAQYIKoZIzj0DABADRgAEvID3AM7qzpKDnOLFY00+E7EKZz/vS/pXgsUA3bWN
+oJF8ElXFXv59s/SykQBCTHPqzmUbVmrXmtD44Kt1wUBRJfuwxy4=
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2pnb272w1
+PeerKey=MALICE_cf_c2pnb272w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2pnb272w1
+PeerKey=MALICE_cf_c2pnb272w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2pnb304w1 curve tests
+
+PrivateKey=ALICE_cf_c2pnb304w1
+-----BEGIN PRIVATE KEY-----
+MEYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DABEELDAqAgEBBCUAqJxh50ZIUXOJ1HE3aFZmpO4ZGbLt
+3Bx/h2hMph8W4apIxOoR
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2pnb304w1_PUB
+-----BEGIN PUBLIC KEY-----
+MGUwEwYHKoZIzj0CAQYIKoZIzj0DABEDTgAEvoaqRX6qiNQiFH1BhgLCPTpYszoRhmlLirkvlw/Q
+iXBlfQ7U4g+iRR/kmu2RlwwOHgNNL+mWcvLkFfS8Kr4jzv1EY1Ecx96n21l0YQ==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2pnb304w1:ALICE_cf_c2pnb304w1_PUB
+
+PrivateKey=BOB_cf_c2pnb304w1
+-----BEGIN PRIVATE KEY-----
+MEYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DABEELDAqAgEBBCUAOScHepX+IwqC8Tjyjif7sww0JbgH
+G9vVKxR1KWeUEXkdRMUN
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2pnb304w1_PUB
+-----BEGIN PUBLIC KEY-----
+MGUwEwYHKoZIzj0CAQYIKoZIzj0DABEDTgAEYuAq/6Yw5HxMeMohlWmwl+ZK4ZQucfr1tWDKwhDb
+kAOUO2P/Q/H+uelM3VVwxeu6A1kaX7K0UZpNa96NRBwI4aevc+vOxCgYkGt9BA==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2pnb304w1:BOB_cf_c2pnb304w1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb304w1
+PeerKey=BOB_cf_c2pnb304w1_PUB
+SharedSecret=edeac2e196108b5941a774f3b8a584ab49761ec2bb282b1430c941f16c3d61e8afbafa631c5e
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb304w1
+PeerKey=ALICE_cf_c2pnb304w1_PUB
+SharedSecret=efbda7e989687f7191f742e3f4a278ba57895ff0de107c8903c325e71c3f03e1cddbff571e2c
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb304w1
+PeerKey=BOB_cf_c2pnb304w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=6b3dfd1528c32da8692e11990a3299e72f494ff3361e1b544aa0b6728afba27af59152fa7ba9
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb304w1
+PeerKey=ALICE_cf_c2pnb304w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=5d1cee0860b82cd1308d62719a2947e26c732ea0894b2e170ad8f7124edbe02de02479bd2ed6
+
+PublicKey=MALICE_cf_c2pnb304w1_PUB
+-----BEGIN PUBLIC KEY-----
+MGUwEwYHKoZIzj0CAQYIKoZIzj0DABEDTgAEBZ5FuthQt0mxTJ8NQWN2J37kYT8ySD893IXEmXYP
+fMTr+CSNkf/sfF/13GEdVGnHmBgCH61sPWG69RgzdjRPprZFZxXjubIWYkp0DQ==
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2pnb304w1
+PeerKey=MALICE_cf_c2pnb304w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2pnb304w1
+PeerKey=MALICE_cf_c2pnb304w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2pnb368w1 curve tests
+
+PrivateKey=ALICE_cf_c2pnb368w1
+-----BEGIN PRIVATE KEY-----
+ME4CAQAwEwYHKoZIzj0CAQYIKoZIzj0DABMENDAyAgEBBC0AXeSTXsHb2PEH12tZL2y7h4Kox9JV
+lBdLbp5e68fmOb//KemSYKnKkgcQOjo=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2pnb368w1_PUB
+-----BEGIN PUBLIC KEY-----
+MHUwEwYHKoZIzj0CAQYIKoZIzj0DABMDXgAEmEBXcvMgnHwJW7wAKM4cqboco6zF01J9ntUwoACI
+euvf3cpPXBvxUawJXfO9FwFRQabDRagGP99Walidd2JW8nWDWZgZMKj15Wh+4bp2dZHc2tPIIHHd
+3makbwQ=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2pnb368w1:ALICE_cf_c2pnb368w1_PUB
+
+PrivateKey=BOB_cf_c2pnb368w1
+-----BEGIN PRIVATE KEY-----
+ME4CAQAwEwYHKoZIzj0CAQYIKoZIzj0DABMENDAyAgEBBC0Aq1R9M/mCMbJMj6VBmXTtE9abtccV
+CLY0G1iJZNF7DGmnRj2wY9+tpOtSAmp=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2pnb368w1_PUB
+-----BEGIN PUBLIC KEY-----
+MHUwEwYHKoZIzj0CAQYIKoZIzj0DABMDXgAEJOSnsaXA9wb5p8CGLPvYI47Yf3IdZSbWQ3Sn6G2v
+At+zYlpzGax1oJ1CW8fGA0Gu0RnvAfDeW9vgrtzshH1Vy/Ni6a7LPho99PtUP2nzUBnv+hfhFSra
+gqfRaOs=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2pnb368w1:BOB_cf_c2pnb368w1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb368w1
+PeerKey=BOB_cf_c2pnb368w1_PUB
+SharedSecret=944b25dcb1077ee5b28103e4eccf99ac65303437079d905625f9ddc00adb9dd0cd9f2f063360c39f0308c74e9d6d
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb368w1
+PeerKey=ALICE_cf_c2pnb368w1_PUB
+SharedSecret=809e30bac1992cf5b54512e4afdd85ab19587126147f336976f3cca00fcc4bb9bf9c5f872975f24f6769c19a5c0e
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2pnb368w1
+PeerKey=BOB_cf_c2pnb368w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=ae30afcdeca660bbeddefb207e42b9183e0dce9efdee8a4fb045e8b31113fab2436393e42d5a840188fff3ff5230
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2pnb368w1
+PeerKey=ALICE_cf_c2pnb368w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=dd08bbeafed164dcaaeecf558c22b4475b0ddd0daedc8f7fe361a9c05528dfb3420774e67f2b319235ecd5dd5848
+
+PublicKey=MALICE_cf_c2pnb368w1_PUB
+-----BEGIN PUBLIC KEY-----
+MHUwEwYHKoZIzj0CAQYIKoZIzj0DABMDXgAEWDn/U9rymClM/a0Q1mawHjQjvpxSehRWstSE+2Sd
+ubcZowJ+rw5LsEZteQyeVrCpKYUiIBmIVuFb2LDjtNLIJD1lr8C+vdco24ciLS9RzF/Dc9X+tcIj
+726e1BE=
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2pnb368w1
+PeerKey=MALICE_cf_c2pnb368w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2pnb368w1
+PeerKey=MALICE_cf_c2pnb368w1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2tnb191v1 curve tests
+
+PrivateKey=ALICE_cf_c2tnb191v1
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAUEHzAdAgEBBBgXyG7A4BvSmjKEl3aU+Xgjy82a6t2h
+Jk4=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2tnb191v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAAUDMgAEG9iuZmnhz2H/YQKmVUaO//fm7hvV+CP5c2iszpR3
+7lRimqLWHPyvKgcP+PRCIUom
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2tnb191v1:ALICE_cf_c2tnb191v1_PUB
+
+PrivateKey=BOB_cf_c2tnb191v1
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAUEHzAdAgEBBBg4+2hv9x9HxFy0c2c1BiGnFbxsFPA3
+MTU=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2tnb191v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAAUDMgAEdO/4ii8gi8eQfBrv3XmsOETwIfT8OIpBW/kUoHD+
+adqalcB6SIWOfoJReDLcpxAD
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2tnb191v1:BOB_cf_c2tnb191v1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb191v1
+PeerKey=BOB_cf_c2tnb191v1_PUB
+SharedSecret=5ab8d75062d705155618570623d82d3bb8c7a8928d262a37
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb191v1
+PeerKey=ALICE_cf_c2tnb191v1_PUB
+SharedSecret=7dd2b02119c217402413761325c05b9ea8e0b5613d259a53
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb191v1
+PeerKey=BOB_cf_c2tnb191v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=886334dcc70933a12c442dd9dce078aa85073c6cfe4fd535
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb191v1
+PeerKey=ALICE_cf_c2tnb191v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=592553baa67415d85f530da4dde537fa70969f0ccb6eb419
+
+PublicKey=MALICE_cf_c2tnb191v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAAUDMgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcPEwZ1wj
+iNoFyzyANZl8IDB0fF1RmZD6
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2tnb191v1
+PeerKey=MALICE_cf_c2tnb191v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2tnb191v1
+PeerKey=MALICE_cf_c2tnb191v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2tnb191v2 curve tests
+
+PrivateKey=ALICE_cf_c2tnb191v2
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAYEHzAdAgEBBBgQZHIQIPrAsbJqq4ZX9SOxMRZjZZic
+jbo=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2tnb191v2_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAAYDMgAEAyQdwZYRIiv7O4/WRLDKJ249TM8dr2Y+Oz8rSxCI
+UVvJT/Jv9m462J6Iz1XOohhP
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2tnb191v2:ALICE_cf_c2tnb191v2_PUB
+
+PrivateKey=BOB_cf_c2tnb191v2
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAYEHzAdAgEBBBgThhW6d5QDaqM8yhm18r8Uw/TewbE6
+wcs=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2tnb191v2_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAAYDMgAEBVkB4O6fFvGzMHv4BF51muFA0npOGKoOdKbIIMQY
+JBIoz1RNNXTcgdpguLcrvcPJ
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2tnb191v2:BOB_cf_c2tnb191v2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb191v2
+PeerKey=BOB_cf_c2tnb191v2_PUB
+SharedSecret=921b29be7bcfa45e684243ecf9493daaf2a618dd51607279
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb191v2
+PeerKey=ALICE_cf_c2tnb191v2_PUB
+SharedSecret=692c25fc8dece29c137612dcb8261effb9c695fb01721731
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb191v2
+PeerKey=BOB_cf_c2tnb191v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=4548ba3f833df1128e9da8c5dd1ddadd7200a6ad17003fbb
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb191v2
+PeerKey=ALICE_cf_c2tnb191v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=9919dc5b212fa6097e8fe6f8db7cacda7716d1ba00190dee
+
+PublicKey=MALICE_cf_c2tnb191v2_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAAYDMgAEA3yPV6Ilx7PU7dWIDzgKzFV07LNsn1EhMyLQaa5U
+2vqunpWef+/CaO2pFBcwwW+x
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2tnb191v2
+PeerKey=MALICE_cf_c2tnb191v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2tnb191v2
+PeerKey=MALICE_cf_c2tnb191v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2tnb191v3 curve tests
+
+PrivateKey=ALICE_cf_c2tnb191v3
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAcEHzAdAgEBBBgTPjf06B01Jq59qU1iMIrtw71XAF+T
+erU=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2tnb191v3_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAAcDMgAEL4NGEUX2CXY18MyoH1inKq5kde9RGr25ODm/0BEX
+HWsGvDE2HC+6pL2BMl3MRCty
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2tnb191v3:ALICE_cf_c2tnb191v3_PUB
+
+PrivateKey=BOB_cf_c2tnb191v3
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAcEHzAdAgEBBBgUC2bC465JTXYLUaaEl/E4q0D04WKJ
+iSQ=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2tnb191v3_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAAcDMgAEPKekNkT9mQ8KRCTR2RwCFkhNvsjL+/mLHYzbMrYe
+QFIb5QwXAdbg2tEOl7yj9qkk
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2tnb191v3:BOB_cf_c2tnb191v3_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb191v3
+PeerKey=BOB_cf_c2tnb191v3_PUB
+SharedSecret=069789d2dc49e46c38206e615cc9b4ea9908efc6cd252930
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb191v3
+PeerKey=ALICE_cf_c2tnb191v3_PUB
+SharedSecret=015043c0cf27a51b27457a187da0d8dd2188ebc9dc220985
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb191v3
+PeerKey=BOB_cf_c2tnb191v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=741816650609e1a4ab9bc56a4bc831278ac39c6e79e8e511
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb191v3
+PeerKey=ALICE_cf_c2tnb191v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=998884764206e4c5af7fc95c9ba401072dc53b7c17b7b725
+
+PublicKey=MALICE_cf_c2tnb191v3_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAAcDMgAESvPjWlLnANK2j38hHZ0uqueaniovkhwwdJZjrmUk
+n5vQBTxUzkIkMjL33v6Lr3z7
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2tnb191v3
+PeerKey=MALICE_cf_c2tnb191v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2tnb191v3
+PeerKey=MALICE_cf_c2tnb191v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2tnb239v1 curve tests
+
+PrivateKey=ALICE_cf_c2tnb239v1
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAsEJTAjAgEBBB4fMJDhCEiuEf/RF6oGAQqigKb+ueKP
+rJMnJLIXiCI=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2tnb239v1_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAAsDPgAEUgG/uMWy4k0R/kbVJEapF6r5ik4Q9WPsDXAd0856
+dVL8PvBXgixk2tKfyY1xUVebcEVlgdZP1pN1Xyvi
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2tnb239v1:ALICE_cf_c2tnb239v1_PUB
+
+PrivateKey=BOB_cf_c2tnb239v1
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAsEJTAjAgEBBB4JLDwVJQw3+00FiZBDSPTiF3GhjRJn
+sfpZeV3i5FM=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2tnb239v1_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAAsDPgAEcwKt31cWaoFUd7QxYSdwgMDOqEhjPbD3Z9AfR3tc
+G77/MY5z1oQegqImBog645vtPWI8lZd1zcl6QYRS
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2tnb239v1:BOB_cf_c2tnb239v1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb239v1
+PeerKey=BOB_cf_c2tnb239v1_PUB
+SharedSecret=128cc955cac98c48646c12aebb1451c86ca01925290115b1dbbde07eeb41
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb239v1
+PeerKey=ALICE_cf_c2tnb239v1_PUB
+SharedSecret=539bb006dcf81f78990a17debc5073b15ff40955211212c4daeea55afe33
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb239v1
+PeerKey=BOB_cf_c2tnb239v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=5b0b2d8112465e160e18f70a2d2b6c6fcaeb65e1d0467ea55ec9c691ce00
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb239v1
+PeerKey=ALICE_cf_c2tnb239v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=8b0a5d2057489b860b01a57a3d5c4f2adbce43b6c7556ed91cc0d593cd51
+
+PublicKey=MALICE_cf_c2tnb239v1_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAAsDPgAEJFn89FF7xaa5m+XGxWKFwCH+Mu4rbxwi6lvhuEuT
+Itl/OAosALFh8xpt+N5gmKtUdhpjyok2udC4B/mY
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2tnb239v1
+PeerKey=MALICE_cf_c2tnb239v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2tnb239v1
+PeerKey=MALICE_cf_c2tnb239v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2tnb239v2 curve tests
+
+PrivateKey=ALICE_cf_c2tnb239v2
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAwEJTAjAgEBBB4KU4YKdzFOkl6M1biHGXEStv8eSDB4
+GbEcp4PbJKU=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2tnb239v2_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAAwDPgAEKzpycflUrsyqVV/+fzvC2+AuX3r0b0Syn8acvn78
+VnKA9mZKwPLWhnMJcLyzarIzc/6/UcfYGNmTyUlG
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2tnb239v2:ALICE_cf_c2tnb239v2_PUB
+
+PrivateKey=BOB_cf_c2tnb239v2
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAAwEJTAjAgEBBB4HZQLKGKBpIKiyTq6XlHYStwQ8PaW+
+JLwCwn7lYx0=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2tnb239v2_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAAwDPgAETPSkhMs3JW3BG66FSfCov76JKdcRiBhMCW453Wku
+N7yBxBmWjeclHhnXIzfc4qM4qf9n3KzMSXejPVYg
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2tnb239v2:BOB_cf_c2tnb239v2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb239v2
+PeerKey=BOB_cf_c2tnb239v2_PUB
+SharedSecret=2c831f27518e5d87fe457b3dd52d9c917dc8f3ca3ee4f8a5922e7263de5d
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb239v2
+PeerKey=ALICE_cf_c2tnb239v2_PUB
+SharedSecret=2a039c30863c1f57ae634a2df95e0a428ae7a3ba7ae9a9f1890b2905bb2e
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb239v2
+PeerKey=BOB_cf_c2tnb239v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=2103e2c68b3f4a35ac4c208dc4c9d0639a76a85772bf3e01536868de9161
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb239v2
+PeerKey=ALICE_cf_c2tnb239v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=9544a9e88f9e5d84ea3f229ec9b5a3125c05f74235ae2e38532273fb1360
+
+PublicKey=MALICE_cf_c2tnb239v2_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAAwDPgAES8fLc5mtVI0HqgKRJ7mN8MU1B0FBkiim6jCHYJf3
+JYUX3Gn3Ai11cHie+nVb3z51jSkpDQENHESTv5K2
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2tnb239v2
+PeerKey=MALICE_cf_c2tnb239v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2tnb239v2
+PeerKey=MALICE_cf_c2tnb239v2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2tnb239v3 curve tests
+
+PrivateKey=ALICE_cf_c2tnb239v3
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAA0EJTAjAgEBBB4BZZXtcMw5GrpgHJLx9V8j6r7bUjFB
+rDl2fV9ObC8=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2tnb239v3_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAA0DPgAEOu2HIAUX+r6IbRlrPUJUBDL814dR++maVAAkUIjD
+H33ewqcI9ZLtpvuR8P8hgRNUTXlh1GWgrB6F21Eo
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2tnb239v3:ALICE_cf_c2tnb239v3_PUB
+
+PrivateKey=BOB_cf_c2tnb239v3
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAA0EJTAjAgEBBB4BDxw3SA54y6uYOW1n8KsRBh06O9pr
+XG3HcQX+4i0=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2tnb239v3_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAA0DPgAEVaEi76wyzlpzkkSElf4SmGZ7kf1ghHMP82HkGk7K
+BC10zUyppoSOAr0eX4pHAkDUF1m/KGoJa7QcJJww
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2tnb239v3:BOB_cf_c2tnb239v3_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb239v3
+PeerKey=BOB_cf_c2tnb239v3_PUB
+SharedSecret=7e220793fe7ce07d7fd622499736383298bec5d7cf52fd720d8971ff1b62
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb239v3
+PeerKey=ALICE_cf_c2tnb239v3_PUB
+SharedSecret=6c057159dd6ae24f3ec541746739436284fcc5b9fe83bc962b5975dc8f55
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb239v3
+PeerKey=BOB_cf_c2tnb239v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=1268a57ae0d975f3e6891de03ea6018bc9fedab879e202d7166f09d012cd
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb239v3
+PeerKey=ALICE_cf_c2tnb239v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=5651e76ff8a452d9d2779ca47ed1440cf8aeeeb012e183d8233a14a300fd
+
+PublicKey=MALICE_cf_c2tnb239v3_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAA0DPgAELe/znC87/2ucKX7mXUUyiUvg67slWRdH+WHDct9d
+LcXDyB342ZN1nm0NCAmBMcLjohX0Zza0ji3YNjT1
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2tnb239v3
+PeerKey=MALICE_cf_c2tnb239v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2tnb239v3
+PeerKey=MALICE_cf_c2tnb239v3_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2tnb359v1 curve tests
+
+PrivateKey=ALICE_cf_c2tnb359v1
+-----BEGIN PRIVATE KEY-----
+ME4CAQAwEwYHKoZIzj0CAQYIKoZIzj0DABIENDAyAgEBBC0Afea/a1NrRf6rRRr/qPEB166hftxG
+uf3fIC82pXteUSxmwdiz7cGoKpcvRue=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2tnb359v1_PUB
+-----BEGIN PUBLIC KEY-----
+MHMwEwYHKoZIzj0CAQYIKoZIzj0DABIDXAAEZMJU3QF9UJJp2m6qyCnhPuVlPKPHtav3DCgH27SY
+RLMN7C4rRmqiJakD11QtOforOgbPW5r/v7t4TUWIlq8jV7kapJNtxQtg/S87L0NQGgHBq/lnJL8x
+fN3Y
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2tnb359v1:ALICE_cf_c2tnb359v1_PUB
+
+PrivateKey=BOB_cf_c2tnb359v1
+-----BEGIN PRIVATE KEY-----
+ME4CAQAwEwYHKoZIzj0CAQYIKoZIzj0DABIENDAyAgEBBC0Aaw+yr7Atz8CXjLsbi8JhDewBNYhI
+SsBGgi81L2WblmxvcGSVfpl9XsCsp1j=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2tnb359v1_PUB
+-----BEGIN PUBLIC KEY-----
+MHMwEwYHKoZIzj0CAQYIKoZIzj0DABIDXAAEUQde0iyDHbsFJZ459d4zUhsrJYAkqndmEBRwSlg5
+ZNX8SSS79Zf2HsQl+LWIZyzeYzoHobKXufChw9/H4ThS58VwV5/0hoE929PIgJ1MSEqr5LvJXi+b
+R8fe
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2tnb359v1:BOB_cf_c2tnb359v1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb359v1
+PeerKey=BOB_cf_c2tnb359v1_PUB
+SharedSecret=832f76429c9aaaf941f23b16dd3b5fc94804e0c58a4ac5dd478b84c3685f2cf46eeadba658cc38d593abffcc89
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb359v1
+PeerKey=ALICE_cf_c2tnb359v1_PUB
+SharedSecret=740c18569b3bfcb480a56b61fd7e0ab84064d6e99a2ad7bc302d12e7137f5cb79efdbdd187da84a299bbfadb81
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb359v1
+PeerKey=BOB_cf_c2tnb359v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=0c7f9afd0564feaa1ec117cadf91e842ea8f74b3508f8d68c9cec48a980b6d85c6d10b0a34208aadb41d10e5b1
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb359v1
+PeerKey=ALICE_cf_c2tnb359v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=8e9c7bff0086cebc2ac059ebdf70a494be2e75c1194f1e06f3fec14e831b7b07c1c56b5e18374ebdb41c63f4e2
+
+PublicKey=MALICE_cf_c2tnb359v1_PUB
+-----BEGIN PUBLIC KEY-----
+MHMwEwYHKoZIzj0CAQYIKoZIzj0DABIDXAAEDW1DxeJfyPPnxX4WiLM5ZnX9AypqqeKj7FTHxanl
+++A6FgVFjUCatt8Sr4xnSc3zDE0kh6f/wS9SbtCAi74i8HAX5SJiccCMPRkw6kBuHZgiG8EmFJ53
+OEQw
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2tnb359v1
+PeerKey=MALICE_cf_c2tnb359v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2tnb359v1
+PeerKey=MALICE_cf_c2tnb359v1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=c2tnb431r1 curve tests
+
+PrivateKey=ALICE_cf_c2tnb431r1
+-----BEGIN PRIVATE KEY-----
+MFYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DABQEPDA6AgEBBDUAG1rgUnH3+PSxqlzt7+MnTj4VbvfM
+LNnf2y3xyU0bRCRLpRMGYPBpzI3lXeh57OHGsuz+KA==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_c2tnb431r1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGFMBMGByqGSM49AgEGCCqGSM49AwAUA24ABFcQEDic9pYxtxStk/oBxafqyUux1kvEOOwR4FxJ
+pGEMTh8B+YfkWuq+IDY5zSqNKtg7cRlAFX2dlHhRSvNxrN3DJCrhe/TQq8SIYawcqEQnM39F8hHM
+7VQJLEsBpJ/WUonwMJXknjgfONP7GA==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_c2tnb431r1:ALICE_cf_c2tnb431r1_PUB
+
+PrivateKey=BOB_cf_c2tnb431r1
+-----BEGIN PRIVATE KEY-----
+MFYCAQAwEwYHKoZIzj0CAQYIKoZIzj0DABQEPDA6AgEBBDUBOsZrpI6hTgImR8DBqGQKJR4RsGo/
+bJNHRPexfDazC/qufJigfNQ5EPfWY+Rrulxqj0r1nX==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_c2tnb431r1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGFMBMGByqGSM49AgEGCCqGSM49AwAUA24ABHeTG6xjbsKKxn4oYQt9qUM9LrSPZfY11XsBmROc
+fb9kEbBLU+QixSbYZOrqPasesDV9dApDXF+w6EfIeNyJEK5Lk+aXamrn7fRMUAQ2m7+Odp87GgA+
+8Cg6YpgbK314SK5STziqoZwzEISJ9w==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_c2tnb431r1:BOB_cf_c2tnb431r1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb431r1
+PeerKey=BOB_cf_c2tnb431r1_PUB
+SharedSecret=1d5d51df8f331f6b631b0089cbbe3484dc8700884dc7c4aef234705673ac47fcb02fe4405fc1c362aea0dbcab3f697046af08faa4588
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb431r1
+PeerKey=ALICE_cf_c2tnb431r1_PUB
+SharedSecret=2d7e35ee4d944e2f682d8642eded9799be8329882ed5f6cba258602649cb07fbb89aa1073fd2a959fdf4efeea7a920029fb18def7529
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_c2tnb431r1
+PeerKey=BOB_cf_c2tnb431r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=613c7ce5d4b4fba9590e1624778cad3196237a3cfb3cf47f5952fb4d9b98ac40011a69ef500fbad71744c6f260b3a6f0c4de29bb5b02
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_c2tnb431r1
+PeerKey=ALICE_cf_c2tnb431r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=692a9ee3b9f0fda5829a6347744cde3959479a9ecd6ab77a7601fa6f3f11ff66218b56ea539cabb27427c0a279a4a4c7a0df93af5a82
+
+PublicKey=MALICE_cf_c2tnb431r1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGFMBMGByqGSM49AgEGCCqGSM49AwAUA24ABA/cHJ1bNJ2l3GcrT67WEoU0w/Ajy28T9X4XLv8a
+5EpnkembeFlRG8ILplDcZimE8kjNQWynAk+NbJRsIU/XLzcm7VXkkqEkx/yCQ/TOcbeB3qrpzWYr
+F3Cls9x60wuFYNc9d6eIe4B+puz9IQ==
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_c2tnb431r1
+PeerKey=MALICE_cf_c2tnb431r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_c2tnb431r1
+PeerKey=MALICE_cf_c2tnb431r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=prime192v2 curve tests
+
+PrivateKey=ALICE_cf_prime192v2
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQIEHzAdAgEBBBh6rcgPFDmA2P4CGSrC4Tp7auprGkZw
+sMM=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_prime192v2_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAQIDMgAET6wOPoDU3BeU7VKozsGEvDeJs//9Z/aNEcbbLQ0d
+g5IzsS/XMJzifjCJZgNsb7mi
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_prime192v2:ALICE_cf_prime192v2_PUB
+
+PrivateKey=BOB_cf_prime192v2
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQIEHzAdAgEBBBja4R9iZuiu95XEuM1540lCQECSBl3o
+xqI=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_prime192v2_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAQIDMgAEcgWNAOL4pZCmouZl+be+rC0yLAJkm2YuPWs+FX2u
+Y6OU1aHkkspZTC1uUVWjchy5
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_prime192v2:BOB_cf_prime192v2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_prime192v2
+PeerKey=BOB_cf_prime192v2_PUB
+SharedSecret=cd6ae9f0e2d77e8b750ba67022c4f54544e5c974348085c8
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_prime192v2
+PeerKey=ALICE_cf_prime192v2_PUB
+SharedSecret=de6da2e8b9b84a9d969da96761b6b78607a2d284220153b0
+
+Title=prime192v3 curve tests
+
+PrivateKey=ALICE_cf_prime192v3
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQMEHzAdAgEBBBij5blPQRKM1/9c57YDhzULVW85SuBJ
+Igw=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_prime192v3_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAQMDMgAE1+mLeiT/jjHO71IL/C/ZcnF6+yj9FV6eqfuPdHAi
+MsDRFCB6/h8TcCUFuospu5l0
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_prime192v3:ALICE_cf_prime192v3_PUB
+
+PrivateKey=BOB_cf_prime192v3
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQMEHzAdAgEBBBhgFP4fFLtm/yk5tsosAXiNYI043CwU
+92g=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_prime192v3_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAQMDMgAEv35bOz0xqLeJqpZdZ8LyiUgsJMBEtN2UMJm8blX2
+vMWAgEeLhzar86BUlS7dZwS7
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_prime192v3:BOB_cf_prime192v3_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_prime192v3
+PeerKey=BOB_cf_prime192v3_PUB
+SharedSecret=3e928fdbe94e645b22d1ebbc112ba921c3f0277c7d019253
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_prime192v3
+PeerKey=ALICE_cf_prime192v3_PUB
+SharedSecret=0d226bfec49e635a12e7fcdb875ba166a9d1727e1b784904
+
+Title=prime239v1 curve tests
+
+PrivateKey=ALICE_cf_prime239v1
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQQEJTAjAgEBBB5nH2mt/GUx+I/60NlcQyLAONpCvfXo
+SF/w+SUTNqY=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_prime239v1_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAQQDPgAEMqQLCgDR9njkq9QELuOu+J/9YGcxJHULdvxHImLW
+RXqBUM5Xea+Qk2SKIpWcogxr2zFeQyeLj2bQysuo
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_prime239v1:ALICE_cf_prime239v1_PUB
+
+PrivateKey=BOB_cf_prime239v1
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQQEJTAjAgEBBB5RZgYV+j+zhwI12zCzC+tdaJslf2Mf
+jZ9gplgXxzk=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_prime239v1_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAQQDPgAEBR5m/kllh025oO4GvqALkjRliVv7q4x8ro/tkYnT
+L2U4hkT6xUeRu9QC4KOz7KUVH+nBbQASL4XQg/3C
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_prime239v1:BOB_cf_prime239v1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_prime239v1
+PeerKey=BOB_cf_prime239v1_PUB
+SharedSecret=162a1c3388f1e46e801c962ddc16a82cb8a9c87d21ddd37724787e8620b2
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_prime239v1
+PeerKey=ALICE_cf_prime239v1_PUB
+SharedSecret=042c0d1920e8e59c377c370eef97b51fe9f5a68d13dab82942516b2324c8
+
+Title=prime239v2 curve tests
+
+PrivateKey=ALICE_cf_prime239v2
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQUEJTAjAgEBBB5uLCwofbD2Suc/iIRhieyklZ9ae19n
++tFevsg1pPE=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_prime239v2_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAQUDPgAETH77jXHBItV673gTNK/HTFldo4VxPiscbideUgKd
+CWjdVsXebgAZbqQwf0h9QWcIgM7K7ODdW5kCuZ1G
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_prime239v2:ALICE_cf_prime239v2_PUB
+
+PrivateKey=BOB_cf_prime239v2
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQUEJTAjAgEBBB5nlF+ouuw3Ljkgy3pHKLR+/OsRaWgi
+KY0wlvJdo/w=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_prime239v2_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAQUDPgAELUQYo0UH8HbK/RMD2jVphBU+iB4OTOfvaaTlHq06
+dcJ8a9a+mAQKhb1OZVEq1n4nQsgRiI1rPxugVERM
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_prime239v2:BOB_cf_prime239v2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_prime239v2
+PeerKey=BOB_cf_prime239v2_PUB
+SharedSecret=7b16ce3376abeee9a3981abf0f23816744fabc58bb8c7bae41ac59636daf
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_prime239v2
+PeerKey=ALICE_cf_prime239v2_PUB
+SharedSecret=9c03fe1380feafb5e8952ccf1d72361335bcac40ec7d6afc80ee10261dca
+
+Title=prime239v3 curve tests
+
+PrivateKey=ALICE_cf_prime239v3
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQYEJTAjAgEBBB5J95JRhBDTzlyAPAfu2w8HW1Pc7Mey
+Y9AfhA2G+mI=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_prime239v3_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAQYDPgAEZEN48pqgLF08Yjj/8BLM2Nr5ZhpYxyBurbzKRuBb
+GLpzZLteJN9vZjN7ouNpMxLVUFQxTOwpsvUw86Lk
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_prime239v3:ALICE_cf_prime239v3_PUB
+
+PrivateKey=BOB_cf_prime239v3
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQYEJTAjAgEBBB5Z7rMZML1xeryBaYYr+lQrIrmNQ00K
+d9bmIVvG3dM=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_prime239v3_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAQYDPgAEQUWKqohAPAoIYEZOvc1QwSlcB+gW0febaNxGOy47
+LaIWdsNM7GJVP9xpdSwm/L+Dip/oH4E59f3SiOAd
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_prime239v3:BOB_cf_prime239v3_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_prime239v3
+PeerKey=BOB_cf_prime239v3_PUB
+SharedSecret=6bde3b30a8807260aa25fee53472cee90310b1d2eac8586be988a57945e1
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_prime239v3
+PeerKey=ALICE_cf_prime239v3_PUB
+SharedSecret=3dcf0b59e1985235ff74fea61908eeb22065d2e7bfc0776db066a78030c6
+
+Title=secp112r1 curve tests
+
+PrivateKey=ALICE_cf_secp112r1
+-----BEGIN PRIVATE KEY-----
+MCwCAQAwEAYHKoZIzj0CAQYFK4EEAAYEFTATAgEBBA6zC5ZzEIIdvY4Q7DS0uw==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp112r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDIwEAYHKoZIzj0CAQYFK4EEAAYDHgAEYIawfjH3qRrJJWwuG3Ys5ZhDJsmdWi34aHgKAA==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp112r1:ALICE_cf_secp112r1_PUB
+
+PrivateKey=BOB_cf_secp112r1
+-----BEGIN PRIVATE KEY-----
+MCwCAQAwEAYHKoZIzj0CAQYFK4EEAAYEFTATAgEBBA6WPx4YxBODium8BKDw0A==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp112r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDIwEAYHKoZIzj0CAQYFK4EEAAYDHgAEchh3iQdPN1rrzrpdZRQ95G6tvdwEBQ+gfu1tvA==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp112r1:BOB_cf_secp112r1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp112r1
+PeerKey=BOB_cf_secp112r1_PUB
+SharedSecret=0dab1d447d027c1fa48ec0e3243d
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp112r1
+PeerKey=ALICE_cf_secp112r1_PUB
+SharedSecret=3edc4d908c813e6bc91af1d2547e
+
+Title=secp112r2 curve tests
+
+PrivateKey=ALICE_cf_secp112r2
+-----BEGIN PRIVATE KEY-----
+MCwCAQAwEAYHKoZIzj0CAQYFK4EEAAcEFTATAgEBBA4GcvIx97ePHdAiH0Z9EA==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp112r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDIwEAYHKoZIzj0CAQYFK4EEAAcDHgAEHK9uNAILHBmPZdKKh79/nzYE0HbvC//rA7i0Xw==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp112r2:ALICE_cf_secp112r2_PUB
+
+PrivateKey=BOB_cf_secp112r2
+-----BEGIN PRIVATE KEY-----
+MCwCAQAwEAYHKoZIzj0CAQYFK4EEAAcEFTATAgEBBA4WzpVFZnZv9mvtpnYNyw==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp112r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDIwEAYHKoZIzj0CAQYFK4EEAAcDHgAEUzBLNQupqUpGgmZl9JVjKBpwusl52rFg5OVFJA==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp112r2:BOB_cf_secp112r2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp112r2
+PeerKey=BOB_cf_secp112r2_PUB
+SharedSecret=f0e59c9ef1425f7940f101a2776d
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp112r2
+PeerKey=ALICE_cf_secp112r2_PUB
+SharedSecret=d4d11a4ec6403d6405d986b5428a
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp112r2
+PeerKey=BOB_cf_secp112r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=77a5451d55a069d468bc775fbfdc
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp112r2
+PeerKey=ALICE_cf_secp112r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=59b3917d80c179f385bd177fcbed
+
+PublicKey=MALICE_cf_secp112r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDIwEAYHKoZIzj0CAQYFK4EEAAcDHgAEsf2N4SfUZWtXPrUTmEyr71I/JSn8VtzQsFHuqQ==
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_secp112r2
+PeerKey=MALICE_cf_secp112r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_secp112r2
+PeerKey=MALICE_cf_secp112r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=secp128r1 curve tests
+
+PrivateKey=ALICE_cf_secp128r1
+-----BEGIN PRIVATE KEY-----
+MC4CAQAwEAYHKoZIzj0CAQYFK4EEABwEFzAVAgEBBBB+RX18d0+gKpdcKbJJTrEZ
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp128r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDYwEAYHKoZIzj0CAQYFK4EEABwDIgAEG0XMAdrAZOPUW6L9ADU8XK8sZr7dtIcDinSWU1zSV9s=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp128r1:ALICE_cf_secp128r1_PUB
+
+PrivateKey=BOB_cf_secp128r1
+-----BEGIN PRIVATE KEY-----
+MC4CAQAwEAYHKoZIzj0CAQYFK4EEABwEFzAVAgEBBBB/J9/eClt9mimGwOcOsjJF
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp128r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDYwEAYHKoZIzj0CAQYFK4EEABwDIgAE82nknsOS+u8mybP0KJqQhvm83gbPNTZOcvm0ZDVR5sU=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp128r1:BOB_cf_secp128r1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp128r1
+PeerKey=BOB_cf_secp128r1_PUB
+SharedSecret=0077d5a835ea3d656e53d50f641c2483
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp128r1
+PeerKey=ALICE_cf_secp128r1_PUB
+SharedSecret=6696a3a089bb5b091a01f07a413f5498
+
+Title=secp128r2 curve tests
+
+PrivateKey=ALICE_cf_secp128r2
+-----BEGIN PRIVATE KEY-----
+MC4CAQAwEAYHKoZIzj0CAQYFK4EEAB0EFzAVAgEBBBALPaUYCnPgNiLhez93Z1Gi
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp128r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDYwEAYHKoZIzj0CAQYFK4EEAB0DIgAEOKiPRGtZXwxmvTr35NmUkNsAGGk9RKNA4D5BE9ZrjZQ=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp128r2:ALICE_cf_secp128r2_PUB
+
+PrivateKey=BOB_cf_secp128r2
+-----BEGIN PRIVATE KEY-----
+MC4CAQAwEAYHKoZIzj0CAQYFK4EEAB0EFzAVAgEBBBARg3vb436QgyHdyt6l/b6G
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp128r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDYwEAYHKoZIzj0CAQYFK4EEAB0DIgAELph7h27BYjIINC2EddcpIOxKbdz8Xe7h3Az1ZuR9bAI=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp128r2:BOB_cf_secp128r2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp128r2
+PeerKey=BOB_cf_secp128r2_PUB
+SharedSecret=7c8e1f80382e8e814144712746ee7fbb
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp128r2
+PeerKey=ALICE_cf_secp128r2_PUB
+SharedSecret=8e7e7f93585e1c553626457710fb2bdf
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp128r2
+PeerKey=BOB_cf_secp128r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=ccfd9d69b78dbd885151715e155d8008
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp128r2
+PeerKey=ALICE_cf_secp128r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=dfda8f07d48bdd766222734b735e5807
+
+PublicKey=MALICE_cf_secp128r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDYwEAYHKoZIzj0CAQYFK4EEAB0DIgAE6h6RzJIp6HLR6RDOPtyzGDurkuE9aAaZqHosPTnkLxQ=
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_secp128r2
+PeerKey=MALICE_cf_secp128r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_secp128r2
+PeerKey=MALICE_cf_secp128r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=secp160k1 curve tests
+
+PrivateKey=ALICE_cf_secp160k1
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAAkEHDAaAgEBBBUAlxTBO50KwFwWKPtk1rutk75U+Sf=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp160k1_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFK4EEAAkDKgAEcVWIjtPZn1cHckclpn5jKDCphQUVHxFN5tSeFG9wsJZT
+EvqPyLS64w==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp160k1:ALICE_cf_secp160k1_PUB
+
+PrivateKey=BOB_cf_secp160k1
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAAkEHDAaAgEBBBUAdrPkoNkRVUloiuwzruQsZsQDPuY=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp160k1_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFK4EEAAkDKgAESGN41cAj8Fg4pAJM7FUKHiawbCR0b9unMpZWxqOKeW1/
+bxT/CqEkyw==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp160k1:BOB_cf_secp160k1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp160k1
+PeerKey=BOB_cf_secp160k1_PUB
+SharedSecret=d894d6cc80a2550f3b560cdacb5a4d3e70601d32
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp160k1
+PeerKey=ALICE_cf_secp160k1_PUB
+SharedSecret=b705f0ea67f0732f6f491bdcae7e4a1c33860f76
+
+Title=secp160r1 curve tests
+
+PrivateKey=ALICE_cf_secp160r1
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAAgEHDAaAgEBBBUAR6m1+jIBuJnSKx9fHmyAojKtnX6=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp160r1_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFK4EEAAgDKgAEO78GZuBaCfJjHK97c9N21z+4mm37b5x7/Hr3Xc4pUbtb
+OoNj/A+W9w==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp160r1:ALICE_cf_secp160r1_PUB
+
+PrivateKey=BOB_cf_secp160r1
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAAgEHDAaAgEBBBUATqvd54Jj7TbnrLAd2dMYLzXXvga=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp160r1_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFK4EEAAgDKgAEBKDbBSPTwmb00MFvMtJMxQ2YDmcPOZHE8YbVr5hp8s5J
+Jwy17FaNNg==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp160r1:BOB_cf_secp160r1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp160r1
+PeerKey=BOB_cf_secp160r1_PUB
+SharedSecret=8475ab9b6ff4fe5f9f6dfc06e1a1f8f209924593
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp160r1
+PeerKey=ALICE_cf_secp160r1_PUB
+SharedSecret=9105ea7e9aa6af2a5f3def41d2e5f3a300599098
+
+Title=secp160r2 curve tests
+
+PrivateKey=ALICE_cf_secp160r2
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAB4EHDAaAgEBBBUA3IsVg4R4paXaPATDHvzfMKX+wxy=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp160r2_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFK4EEAB4DKgAE4V+25YCpVkKF6NF/UPc1SYxohYWcf3qT3JDoPRhnm/rj
+mSqCCA6gUw==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp160r2:ALICE_cf_secp160r2_PUB
+
+PrivateKey=BOB_cf_secp160r2
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAB4EHDAaAgEBBBUAYT/5C7UpD17DnZm4ObswnUwPB8R=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp160r2_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFK4EEAB4DKgAEB7YVzBmzhnIdouvN/nb8VMXCqO8dkhmebyVzoD0oAzuH
+nN+SfWr6aQ==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp160r2:BOB_cf_secp160r2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp160r2
+PeerKey=BOB_cf_secp160r2_PUB
+SharedSecret=cac1ede6a4777ce98a901be0b47e76eb0304d9a5
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp160r2
+PeerKey=ALICE_cf_secp160r2_PUB
+SharedSecret=dbb2abd4b3623fc77e730fe4b64d09ba6236c5c0
+
+Title=secp192k1 curve tests
+
+PrivateKey=ALICE_cf_secp192k1
+-----BEGIN PRIVATE KEY-----
+MDYCAQAwEAYHKoZIzj0CAQYFK4EEAB8EHzAdAgEBBBikVZrCZQB7ZtkhNfQYpjKHE1jdAxIBe86=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp192k1_PUB
+-----BEGIN PUBLIC KEY-----
+MEYwEAYHKoZIzj0CAQYFK4EEAB8DMgAEyV4EzMZglBXtYdn38hNTrCGflAsJprMkxkOlw58chZ25
+6EAu7gVvYDTpnRkymKyH
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp192k1:ALICE_cf_secp192k1_PUB
+
+PrivateKey=BOB_cf_secp192k1
+-----BEGIN PRIVATE KEY-----
+MDYCAQAwEAYHKoZIzj0CAQYFK4EEAB8EHzAdAgEBBBiJQ/PunKGk9QPUyqIBGMgHCMt+emhm3dj=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp192k1_PUB
+-----BEGIN PUBLIC KEY-----
+MEYwEAYHKoZIzj0CAQYFK4EEAB8DMgAE990Tnmh9QQQHVHuLpfrAsgjvB9R2MJXzhBZN1WvtxLqF
+OZ2oFMP0Kfcr7HbI7a5j
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp192k1:BOB_cf_secp192k1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp192k1
+PeerKey=BOB_cf_secp192k1_PUB
+SharedSecret=e86f3aba843e0de15cacbe173d6eaea830eed88eac4a8d2d
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp192k1
+PeerKey=ALICE_cf_secp192k1_PUB
+SharedSecret=c93e6daf791f5ee24abafb298a1abbd707fdd94dfd1f2f3c
+
+Title=secp224k1 curve tests
+
+PrivateKey=ALICE_cf_secp224k1
+-----BEGIN PRIVATE KEY-----
+MDsCAQAwEAYHKoZIzj0CAQYFK4EEACAEJDAiAgEBBB0AZPk3TzxGhX7TljBBhJDLJRAkHLP1LU3G
+w40Qyg==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp224k1_PUB
+-----BEGIN PUBLIC KEY-----
+ME4wEAYHKoZIzj0CAQYFK4EEACADOgAE4o7LGdJDixqJZ5imnqaX4IeE55NG4W0HEe72LVC7pmn2
+e3m7uC92ZQhduF9lJli4dXD5en/1wkE=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp224k1:ALICE_cf_secp224k1_PUB
+
+PrivateKey=BOB_cf_secp224k1
+-----BEGIN PRIVATE KEY-----
+MDsCAQAwEAYHKoZIzj0CAQYFK4EEACAEJDAiAgEBBB0AdQ02GguRy3yHOjLkpoWb21gI/J0qjDgw
+q2xUfA==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp224k1_PUB
+-----BEGIN PUBLIC KEY-----
+ME4wEAYHKoZIzj0CAQYFK4EEACADOgAEzp00m0DaADn1mGiDCT7K1LZnoj/vCxHPowUDC9yQd17K
+KpJM5sGILrTkkgxqtt5pBeYE1NC1QUQ=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp224k1:BOB_cf_secp224k1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp224k1
+PeerKey=BOB_cf_secp224k1_PUB
+SharedSecret=7b9c8b36a4e8d2e6a06b9599b8c1eaf4da5f22602e834f12394aca91
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp224k1
+PeerKey=ALICE_cf_secp224k1_PUB
+SharedSecret=5c4b2c49a4f1b8e9f34c7812a4c7eee4cf2f54936a975a81378bde30
+
+Title=secp256k1 curve tests
+
+PrivateKey=ALICE_cf_secp256k1
+-----BEGIN PRIVATE KEY-----
+MD4CAQAwEAYHKoZIzj0CAQYFK4EEAAoEJzAlAgEBBCDV8jMZ/aJfiMEkW7HsYqbT50V4MuiE6ze/
+QEXqsNCSpw==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp256k1_PUB
+-----BEGIN PUBLIC KEY-----
+MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAElytZZZHc9CelGzZkNGpzY2CHQ+3z6tUnfsQxUmtiZnUg
+7oKfQC5BV8pZ5WYNPWnbT0RRg5kyBtzry9oQIhO5Lw==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp256k1:ALICE_cf_secp256k1_PUB
+
+PrivateKey=BOB_cf_secp256k1
+-----BEGIN PRIVATE KEY-----
+MD4CAQAwEAYHKoZIzj0CAQYFK4EEAAoEJzAlAgEBBCBh7awFyPey/w4pKBycpAlhcC4CTXydL2gC
+BxJPHrAjrA==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp256k1_PUB
+-----BEGIN PUBLIC KEY-----
+MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE2BQeSJOa7kJAQsAPUbLseHjHhMe3tUOAl3bqoDqtrfO+
+2m2MP/IC/R9Kof2nmaiQ6DostdbS8kB+CnnprK375w==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp256k1:BOB_cf_secp256k1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_secp256k1
+PeerKey=BOB_cf_secp256k1_PUB
+SharedSecret=e5262ca7b22dfcf5b2bb5dfac8c486beb1225b1090eb436bf5727c7daadd8ff9
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_secp256k1
+PeerKey=ALICE_cf_secp256k1_PUB
+SharedSecret=e6787ce0e99cfcd3c0be9cccd2e259dfa7217e0684bf822fc7973f6cecde7be4
+
+Title=sect113r1 curve tests
+
+PrivateKey=ALICE_cf_sect113r1
+-----BEGIN PRIVATE KEY-----
+MC0CAQAwEAYHKoZIzj0CAQYFK4EEAAQEFjAUAgEBBA8ALw9CgsuNBkkhhUHE8bQ=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect113r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFK4EEAAQDIAAEASO9jcamlg1pRE7JffrTAe9kyRZO2xrymHXoGdnA
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect113r1:ALICE_cf_sect113r1_PUB
+
+PrivateKey=BOB_cf_sect113r1
+-----BEGIN PRIVATE KEY-----
+MC0CAQAwEAYHKoZIzj0CAQYFK4EEAAQEFjAUAgEBBA8A/9qbs8sTFNkjS9/4CuM=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect113r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFK4EEAAQDIAAEATykaf/cvJzLOUto1EbbAEz/3++nut6q0dcJOQeV
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect113r1:BOB_cf_sect113r1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect113r1
+PeerKey=BOB_cf_sect113r1_PUB
+SharedSecret=56ca91c2620acb627a41330574383a
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect113r1
+PeerKey=ALICE_cf_sect113r1_PUB
+SharedSecret=81ce63d9218daf194f33120659919f
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect113r1
+PeerKey=BOB_cf_sect113r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=945e1e1b917d1e8c01a5814b725089
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect113r1
+PeerKey=ALICE_cf_sect113r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=676e5b0f984f1b8f99b3792d562474
+
+PublicKey=MALICE_cf_sect113r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFK4EEAAQDIAAEAAAAAAAAAAAAAAAAAAAAAd+TqiBXnTd/lyA/OFsR
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_sect113r1
+PeerKey=MALICE_cf_sect113r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_sect113r1
+PeerKey=MALICE_cf_sect113r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect113r2 curve tests
+
+PrivateKey=ALICE_cf_sect113r2
+-----BEGIN PRIVATE KEY-----
+MC0CAQAwEAYHKoZIzj0CAQYFK4EEAAUEFjAUAgEBBA8AvovirHrqTxoKJ3l+7y0=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect113r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFK4EEAAUDIAAEAFvQ4JgQTS8kjGeVfuITAS81qNcOQvt3PYa1HuCk
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect113r2:ALICE_cf_sect113r2_PUB
+
+PrivateKey=BOB_cf_sect113r2
+-----BEGIN PRIVATE KEY-----
+MC0CAQAwEAYHKoZIzj0CAQYFK4EEAAUEFjAUAgEBBA8ArUjgvp/goxRYb4WuQ80=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect113r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFK4EEAAUDIAAEAUoS3of8y28meYu/NoI5AVdhJZCuDjMqFHTriWY4
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect113r2:BOB_cf_sect113r2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect113r2
+PeerKey=BOB_cf_sect113r2_PUB
+SharedSecret=1213f294bb8ab09cd3741b174004e2
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect113r2
+PeerKey=ALICE_cf_sect113r2_PUB
+SharedSecret=1364a687cc9ac21bf4773b913591c5
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect113r2
+PeerKey=BOB_cf_sect113r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=88efb8224d40487bfa45b55b7f1d12
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect113r2
+PeerKey=ALICE_cf_sect113r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=09dff5437c39459ecb97b33b1d3c26
+
+PublicKey=MALICE_cf_sect113r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFK4EEAAUDIAAEAAAAAAAAAAAAAAAAAAAAAR3dbPHrhFekzJ7Azskr
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_sect113r2
+PeerKey=MALICE_cf_sect113r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_sect113r2
+PeerKey=MALICE_cf_sect113r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect131r1 curve tests
+
+PrivateKey=ALICE_cf_sect131r1
+-----BEGIN PRIVATE KEY-----
+MC8CAQAwEAYHKoZIzj0CAQYFK4EEABYEGDAWAgEBBBEA5C6zHMQM7pXPZ6cJz72NvK==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect131r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDgwEAYHKoZIzj0CAQYFK4EEABYDJAAEBXCuXD6wOOif91GUlJNKXf8FBNw8crgqi5aEJEZbCdBJ
+Ag==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect131r1:ALICE_cf_sect131r1_PUB
+
+PrivateKey=BOB_cf_sect131r1
+-----BEGIN PRIVATE KEY-----
+MC8CAQAwEAYHKoZIzj0CAQYFK4EEABYEGDAWAgEBBBEDYZmjiokBJ/SnTv8sskBR5f==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect131r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDgwEAYHKoZIzj0CAQYFK4EEABYDJAAEB8vGy3OQXwWKcJUSSJbCtpMBjFgJeZxzAaI420+B1B+1
+5A==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect131r1:BOB_cf_sect131r1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect131r1
+PeerKey=BOB_cf_sect131r1_PUB
+SharedSecret=97137279e81d83cbe95bd781c849610757
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect131r1
+PeerKey=ALICE_cf_sect131r1_PUB
+SharedSecret=95215120c85c67bea99ff708b289180214
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect131r1
+PeerKey=BOB_cf_sect131r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=13b542ad74aab407eef2441801dcb0c0dc
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect131r1
+PeerKey=ALICE_cf_sect131r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=44a320ae30fcc036eae0345457afa1b0df
+
+PublicKey=MALICE_cf_sect131r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDgwEAYHKoZIzj0CAQYFK4EEABYDJAAEAAAAAAAAAAAAAAAAAAAAAAABfiJEFG0vRzEGxk2BxjmK
+zw==
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_sect131r1
+PeerKey=MALICE_cf_sect131r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_sect131r1
+PeerKey=MALICE_cf_sect131r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect131r2 curve tests
+
+PrivateKey=ALICE_cf_sect131r2
+-----BEGIN PRIVATE KEY-----
+MC8CAQAwEAYHKoZIzj0CAQYFK4EEABcEGDAWAgEBBBEBnZRUKAQetk5kyUwhIaAyFa==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect131r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDgwEAYHKoZIzj0CAQYFK4EEABcDJAAEA5+Y20L8q989I4jnKknZ7hcGlQ6RUIGni9RahT88kB/d
+dw==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect131r2:ALICE_cf_sect131r2_PUB
+
+PrivateKey=BOB_cf_sect131r2
+-----BEGIN PRIVATE KEY-----
+MC8CAQAwEAYHKoZIzj0CAQYFK4EEABcEGDAWAgEBBBEBnafx9vcMeoCqj/1YNuflXO==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect131r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDgwEAYHKoZIzj0CAQYFK4EEABcDJAAEB2G2uNkhQNjjl0/Ov6UYpxoFaWNXO+qy7poV6cdrFN7z
+pA==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect131r2:BOB_cf_sect131r2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect131r2
+PeerKey=BOB_cf_sect131r2_PUB
+SharedSecret=265e1b3eb41103ba4f9ce5b089cb0d1e3b
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect131r2
+PeerKey=ALICE_cf_sect131r2_PUB
+SharedSecret=943b5d0aa22864ea4c9bc9b699ab3a7d1d
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect131r2
+PeerKey=BOB_cf_sect131r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=427f64e89a39f6f392fd56a97f417a11d1
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect131r2
+PeerKey=ALICE_cf_sect131r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=974d49d32e93d3d961cf41e62b440a65d9
+
+PublicKey=MALICE_cf_sect131r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDgwEAYHKoZIzj0CAQYFK4EEABcDJAAEAAAAAAAAAAAAAAAAAAAAAAAGG5fiIbgziwBZHVzTYqCY
+1w==
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_sect131r2
+PeerKey=MALICE_cf_sect131r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_sect131r2
+PeerKey=MALICE_cf_sect131r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect163r1 curve tests
+
+PrivateKey=ALICE_cf_sect163r1
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAAIEHDAaAgEBBBUAlbn4x1UGJnAimsXufB/UbdNPv3i=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect163r1_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFK4EEAAIDLAAEA0f195HCcD4D+7wWyl3QuPkRovG/ATy5l7fpMl4BNIg/
+sbtEXluCzANF
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect163r1:ALICE_cf_sect163r1_PUB
+
+PrivateKey=BOB_cf_sect163r1
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAAIEHDAaAgEBBBUAoStq6Fjb7nB2PNL6WrzKzPuxoik=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect163r1_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFK4EEAAIDLAAEAul/oBKr9B5MsPHWGF+q07j0JC+WAxj1JzfcIXR98n+r
+9FHWU5LC5pDM
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect163r1:BOB_cf_sect163r1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect163r1
+PeerKey=BOB_cf_sect163r1_PUB
+SharedSecret=09282edd031cb409b7a2ca046d0d142ac1dc0ee53c
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect163r1
+PeerKey=ALICE_cf_sect163r1_PUB
+SharedSecret=39245cfc531da440e7e9ca576b3b409be4df1bc55f
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect163r1
+PeerKey=BOB_cf_sect163r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=3630f6c3dda915a53ba6110dcfbba7676d886945a9
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect163r1
+PeerKey=ALICE_cf_sect163r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=9961c6d6cda294a29cb8180ebfcde8799f690541f2
+
+PublicKey=MALICE_cf_sect163r1_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFK4EEAAIDLAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJkXolVuGFa8fqmk
+cs0Bv7iJuVg1
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_sect163r1
+PeerKey=MALICE_cf_sect163r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_sect163r1
+PeerKey=MALICE_cf_sect163r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect193r1 curve tests
+
+PrivateKey=ALICE_cf_sect193r1
+-----BEGIN PRIVATE KEY-----
+MDcCAQAwEAYHKoZIzj0CAQYFK4EEABgEIDAeAgEBBBkACmcvidKWLtPFB2xqg76F4QnZ6LCmcwZi
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect193r1_PUB
+-----BEGIN PUBLIC KEY-----
+MEgwEAYHKoZIzj0CAQYFK4EEABgDNAAEAeqP0VQobenduwtf4MPmlYQVDjUmxKq50QFHnaBfzwXY
+1TYShZZgBr0R6a5dUGCbiF0=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect193r1:ALICE_cf_sect193r1_PUB
+
+PrivateKey=BOB_cf_sect193r1
+-----BEGIN PRIVATE KEY-----
+MDcCAQAwEAYHKoZIzj0CAQYFK4EEABgEIDAeAgEBBBkAKlSknQ66vpuLjC1mbQyfJNIKO0sx4zoP
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect193r1_PUB
+-----BEGIN PUBLIC KEY-----
+MEgwEAYHKoZIzj0CAQYFK4EEABgDNAAEAaFZVIeqfV9wbPydaBSJKSWJjVyFVSB/QQB5rHonYQmK
+f40zok8PJS6ratIcZwk/n20=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect193r1:BOB_cf_sect193r1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect193r1
+PeerKey=BOB_cf_sect193r1_PUB
+SharedSecret=568b7662875399d3d0cc2f94ef7da978b6d24a0e67154192d9
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect193r1
+PeerKey=ALICE_cf_sect193r1_PUB
+SharedSecret=695d8400043593c4e3ef5a40bf4cb241f1a07f9e03114936a6
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect193r1
+PeerKey=BOB_cf_sect193r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=7320711c36644433d32d2a284683058e4b29f9ac119de89e43
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect193r1
+PeerKey=ALICE_cf_sect193r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=8671316b92559531e57d0b719088256f8e98d4db562bc30c02
+
+PublicKey=MALICE_cf_sect193r1_PUB
+-----BEGIN PUBLIC KEY-----
+MEgwEAYHKoZIzj0CAQYFK4EEABgDNAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHeX7PX3e5n
+zROUg6/STkLp1D+L51L9+wY=
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_sect193r1
+PeerKey=MALICE_cf_sect193r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_sect193r1
+PeerKey=MALICE_cf_sect193r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect193r2 curve tests
+
+PrivateKey=ALICE_cf_sect193r2
+-----BEGIN PRIVATE KEY-----
+MDcCAQAwEAYHKoZIzj0CAQYFK4EEABkEIDAeAgEBBBkAhjkv8lXK/nPp3Qc4IwL/47xxWib4DWUo
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect193r2_PUB
+-----BEGIN PUBLIC KEY-----
+MEgwEAYHKoZIzj0CAQYFK4EEABkDNAAEAIn7oSu3adu4ChNXniHKkMIv9gT24rpzzwAeCTDPIkUT
+kJ+Tit6e4RpgkB/dph4V+uI=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect193r2:ALICE_cf_sect193r2_PUB
+
+PrivateKey=BOB_cf_sect193r2
+-----BEGIN PRIVATE KEY-----
+MDcCAQAwEAYHKoZIzj0CAQYFK4EEABkEIDAeAgEBBBkAwGkR3qSQdfh7Q6KbJ4lH6YNTSXY8V/hv
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect193r2_PUB
+-----BEGIN PUBLIC KEY-----
+MEgwEAYHKoZIzj0CAQYFK4EEABkDNAAEAFdSLKI0tlwZDpkndutOLsnHii1aJO8snwEJ0m/AZgMp
+xiDevOQ/xE9SpMX25W7YqkU=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect193r2:BOB_cf_sect193r2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect193r2
+PeerKey=BOB_cf_sect193r2_PUB
+SharedSecret=01f9e65a14d85f3dd0f993e422638d6ab3c5d979c8b6a79dc2
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect193r2
+PeerKey=ALICE_cf_sect193r2_PUB
+SharedSecret=11e5c05e19f16f8dd8a699f406916d1df5d1d667b0f7a34cf6
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect193r2
+PeerKey=BOB_cf_sect193r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=43df20e458ee18600344acc986695c11b503d645f961778a36
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect193r2
+PeerKey=ALICE_cf_sect193r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=59db34e266fb05116744bdc936279a93c748a926a228535e58
+
+PublicKey=MALICE_cf_sect193r2_PUB
+-----BEGIN PUBLIC KEY-----
+MEgwEAYHKoZIzj0CAQYFK4EEABkDNAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFfdLEkrvsO
+Y7+6QpEvOay9A4MJCUZfZmI=
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_sect193r2
+PeerKey=MALICE_cf_sect193r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_sect193r2
+PeerKey=MALICE_cf_sect193r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect239k1 curve tests
+
+PrivateKey=ALICE_cf_sect239k1
+-----BEGIN PRIVATE KEY-----
+MDwCAQAwEAYHKoZIzj0CAQYFK4EEAAMEJTAjAgEBBB4G4nbQDUtTnkrPOvDGIlhH1wvqRiJafrn8
+5z6lf7o=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect239k1_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFK4EEAAMDPgAEf5paOMjzcnpVAPMQnIkikE4K2jne3ubX2TD1P3aedknF
+lUr6tOU4BsiUQJACF90rQ9/KdeR5mYvYHzvI
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect239k1:ALICE_cf_sect239k1_PUB
+
+PrivateKey=BOB_cf_sect239k1
+-----BEGIN PRIVATE KEY-----
+MDwCAQAwEAYHKoZIzj0CAQYFK4EEAAMEJTAjAgEBBB4e0F0NpepAF+iNrEtoZeo4zAJRWdwJViOK
+Ly4Klfg=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect239k1_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFK4EEAAMDPgAEKnjJ4RHe+EiElXMrF4ou7VGy1pn0ZiO17FouF31Zbvjc
+TcbhfE6ziXM8sekQJBwcwRKQ9+G/Qzq/2A9x
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect239k1:BOB_cf_sect239k1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect239k1
+PeerKey=BOB_cf_sect239k1_PUB
+SharedSecret=3df06a0b9ffb69a0278d5a0865cd1690d94aa663f871d439bcccee9468f5
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect239k1
+PeerKey=ALICE_cf_sect239k1_PUB
+SharedSecret=5aa87e3e1bec03f0403d1b7268ae1458c54ae260f760b920addbcb0851c3
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect239k1
+PeerKey=BOB_cf_sect239k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=854c0a85fb82323cd8e0c416ed43e78a80c905f4b31392fb46c53f5c72e4
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect239k1
+PeerKey=ALICE_cf_sect239k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=061f3e02dc13423dd6c6d859fc76d22f15f736d2b88782dd93f52a5f03f0
+
+PublicKey=MALICE_cf_sect239k1_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFK4EEAAMDPgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_sect239k1
+PeerKey=MALICE_cf_sect239k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_sect239k1
+PeerKey=MALICE_cf_sect239k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=wap-wsg-idm-ecid-wtls10 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls10
+-----BEGIN PRIVATE KEY-----
+MDsCAQAwEAYHKoZIzj0CAQYFZysBBAoEJDAiAgEBBB1zvDMHGgcytka5KvlvQvJzie9R8KO9LyMv
+SJiGyw==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls10_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFZysBBAoDPgAEAZkrhWBz/Q4GB8DY4Ia114ew6H7Eg7ri2uxwxd3rAZs5
+/ShvunNyndjCt3Qaq8sulBM0nUyERSDakyD+
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls10:ALICE_cf_wap-wsg-idm-ecid-wtls10_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls10
+-----BEGIN PRIVATE KEY-----
+MDsCAQAwEAYHKoZIzj0CAQYFZysBBAoEJDAiAgEBBB1SowkHU79PqokOfgllN53rJQ6o6W6PeTE6
+dKPkQg==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls10_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFZysBBAoDPgAEAGavw4ChHCoWplAumMEBwJgJ2aYtw+utu4vhWnscAPIT
+IJ4IiIGj18rCFBap1sgVbpXjhEBLYg6Itwv2
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls10:BOB_cf_wap-wsg-idm-ecid-wtls10_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls10
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls10_PUB
+SharedSecret=0074ed8f26acfd6ee490e0064e062a3cdb356cff81297bdec10c900d584a
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls10
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls10_PUB
+SharedSecret=2923cd8f83deae5bb119e3947e685c0abd283eff93164eccd84b520e423b
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls10
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls10_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=98accc8fcd78dda12a8c2de8405d35a7759d7e5b81c4882ca1a38d6e42c3
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls10
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls10_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=02bbed4dce71aff05d0a1ef5818d80d5855a1d3c33f5146bd1e32a4e01a8
+
+PublicKey=MALICE_cf_wap-wsg-idm-ecid-wtls10_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFZysBBAoDPgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls10
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls10_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls10
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls10_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=wap-wsg-idm-ecid-wtls11 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls11
+-----BEGIN PRIVATE KEY-----
+MDwCAQAwEAYHKoZIzj0CAQYFZysBBAsEJTAjAgEBBB4AkzS3zoqHNCLug/nwoYMQq9wdLgz6h21o
+5jp+FiY=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls11_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFZysBBAsDPgAEABttgKKYeGZRmcH/5UZR56lOSgbU4TH2AuIhvj88AL6H
+zTCX9elzXpck+u22bnmkuvL2A8XKB5+fabMR
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls11:ALICE_cf_wap-wsg-idm-ecid-wtls11_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls11
+-----BEGIN PRIVATE KEY-----
+MDwCAQAwEAYHKoZIzj0CAQYFZysBBAsEJTAjAgEBBB4AWU05mbqPxsB749llNON1//W3x0Wcu2L1
+h/kzfNM=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls11_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFZysBBAsDPgAEAL6Xj/KCmXAQAAo847t0bl0wqBrteWRg93OvIJsPAAOE
+ehdIgJyruc3KsH0RFlipu5QD8pnGSIXvif19
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls11:BOB_cf_wap-wsg-idm-ecid-wtls11_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls11
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls11_PUB
+SharedSecret=39bd2b80cceddee5c7da782dd623d0e3e7a0b5ba04f4203ef795b2c28692
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls11
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls11_PUB
+SharedSecret=52dc8a00daaefde2a7cd435fe339d9d6c0d8c5da64c5627bf601a2f84940
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls11
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls11_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=70a5929868637d1a59a808c0e8ea024835799ce4f9ecbb5ff371600fbf17
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls11
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls11_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=85f0476119393d5d25f290a4b1cd789853817bc0f8aedf5fd437090ebf17
+
+PublicKey=MALICE_cf_wap-wsg-idm-ecid-wtls11_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFZysBBAsDPgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYf4
+Vie5eHTnR+4x4G1xyq7qUvISU+X5RtBh2pE4
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls11
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls11_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls11
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls11_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=wap-wsg-idm-ecid-wtls12 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls12
+-----BEGIN PRIVATE KEY-----
+MDoCAQAwEAYHKoZIzj0CAQYFZysBBAwEIzAhAgEBBBxwvll9Eb9mm2Xadq1evIi1UDI+8A5EZ2du
+LI9a
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls12_PUB
+-----BEGIN PUBLIC KEY-----
+ME4wEAYHKoZIzj0CAQYFZysBBAwDOgAE0t0WqG/pFsiCt6agmebw3FCEWAzf9BpNLuzoCkPEe0Li
+bqn5udrckL6s3stwCTVFaZUfY2qS9QE=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls12:ALICE_cf_wap-wsg-idm-ecid-wtls12_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls12
+-----BEGIN PRIVATE KEY-----
+MDoCAQAwEAYHKoZIzj0CAQYFZysBBAwEIzAhAgEBBBz+5P6gpqXxbeXvvaD5W9Ft81Noiuw7Bg4c
+K3Ax
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls12_PUB
+-----BEGIN PUBLIC KEY-----
+ME4wEAYHKoZIzj0CAQYFZysBBAwDOgAEvyxedqaWkoAOMjaV5W3/tJpheiHAR0zV6BlIeUuGP2mx
++xsOK9/QB7hzipq9cXx1K/dXu58EoSY=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls12:BOB_cf_wap-wsg-idm-ecid-wtls12_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls12
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls12_PUB
+SharedSecret=f5d1d91ee1a60b5a0e988c8c7d6bfe1cc36a593d9d68689b14d4e45b
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls12
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls12_PUB
+SharedSecret=e8a7f38dd1e18a3e9e578a3e6c7aae0ec18d732c6c94313c91c1e95f
+
+Title=wap-wsg-idm-ecid-wtls1 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls1
+-----BEGIN PRIVATE KEY-----
+MCwCAQAwEAYHKoZIzj0CAQYFZysBBAEEFTATAgEBBA5ZNASTt4/g6XPQwRiQ0Q==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls1_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFZysBBAEDIAAEACBNPI48xxsPVQBy07jRAAcWzbIkMo8BQotxpfGJ
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls1:ALICE_cf_wap-wsg-idm-ecid-wtls1_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls1
+-----BEGIN PRIVATE KEY-----
+MCwCAQAwEAYHKoZIzj0CAQYFZysBBAEEFTATAgEBBA6+0x9qk0NIKHSRvlTemQ==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls1_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFZysBBAEDIAAEAEeHMSBTx/EtOu+bjBinALHSkQuJyiP3mg1tu+I2
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls1:BOB_cf_wap-wsg-idm-ecid-wtls1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls1
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls1_PUB
+SharedSecret=8209ff8feee1cb48d159a8c05eeb95
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls1
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls1_PUB
+SharedSecret=8966fc4fbad9ec94f056a0f21dbd29
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls1
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=358472894381d05a55f0a5a3970f7e
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls1
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=855836642795f15b75b8f0d5027b1b
+
+PublicKey=MALICE_cf_wap-wsg-idm-ecid-wtls1_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFZysBBAEDIAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls1
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls1
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=wap-wsg-idm-ecid-wtls3 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls3
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFZysBBAMEHDAaAgEBBBUDO2cHbqQBUxuJBl6UT9UrYYRUvNe=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls3_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFZysBBAMDLAAEBRIzvK9o7eO2NGmtPFV/zo9/1mlvBwjG7+e6hbPG1KdI
+01f8oGBuXMQH
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls3:ALICE_cf_wap-wsg-idm-ecid-wtls3_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls3
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFZysBBAMEHDAaAgEBBBUAhZv9WZ00bDnU9MOaqEegK483biR=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls3_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFZysBBAMDLAAEAYOspjEbzyZw61jCtUrxARr+w66nBH+73QIvlaRVSG/4
+hlBUf5kmG4Yn
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls3:BOB_cf_wap-wsg-idm-ecid-wtls3_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls3
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls3_PUB
+SharedSecret=0379852119c835d7eeecf787716889d18ff1133a4b
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls3
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls3_PUB
+SharedSecret=5649457789f060f2cdfcf955396589f24da2369c6d
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls3
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls3_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=248e2cfc7f5a2b5e2f6a8b9dda4214548a939bc829
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls3
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls3_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=585a6fad0e5a0f9b8b8c3f2acb7792100b795ac784
+
+PublicKey=MALICE_cf_wap-wsg-idm-ecid-wtls3_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFZysBBAMDLAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAB
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls3
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls3_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls3
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls3_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=wap-wsg-idm-ecid-wtls4 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls4
+-----BEGIN PRIVATE KEY-----
+MC0CAQAwEAYHKoZIzj0CAQYFZysBBAQEFjAUAgEBBA8ACFOrBbOh5LjNtJQCuEE=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls4_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFZysBBAQDIAAEAW3K4Mus5+KAJVGLzEYrAYuCJSEYXFTo17aW0TwN
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls4:ALICE_cf_wap-wsg-idm-ecid-wtls4_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls4
+-----BEGIN PRIVATE KEY-----
+MC0CAQAwEAYHKoZIzj0CAQYFZysBBAQEFjAUAgEBBA8Auz4XRc3Rg0bNcbrray8=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls4_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFZysBBAQDIAAEAI0F7ixGqOhnYpsuR80nAdTdSXM+YbcUbLe/U/xG
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls4:BOB_cf_wap-wsg-idm-ecid-wtls4_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls4
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls4_PUB
+SharedSecret=4192616eedaabfa630f5e3464628e4
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls4
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls4_PUB
+SharedSecret=7825938bfdbeefc312d6e1993174c1
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls4
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls4_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=431e4205ee7ab5fa2f5765916127a6
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls4
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls4_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=987b1473dc3cc8ba5b8142608021e5
+
+PublicKey=MALICE_cf_wap-wsg-idm-ecid-wtls4_PUB
+-----BEGIN PUBLIC KEY-----
+MDQwEAYHKoZIzj0CAQYFZysBBAQDIAAEAAAAAAAAAAAAAAAAAAAAAd+TqiBXnTd/lyA/OFsR
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls4
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls4_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls4
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls4_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=wap-wsg-idm-ecid-wtls5 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls5
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFZysBBAUEHDAaAgEBBBUD9gVh3zbLTA7BuRVVi9T8Lok2YKP=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls5_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFZysBBAUDLAAEAH5xyUrvbuN+tWmRhwqrQfFHPHNUBKtAGvJuvSFVwTKk
+uFzn9fPvIDe6
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls5:ALICE_cf_wap-wsg-idm-ecid-wtls5_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls5
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFZysBBAUEHDAaAgEBBBUAr9ZlmuO7bNfqB42xUivJUMrbZeO=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls5_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFZysBBAUDLAAEBdXxEk0L2XAVzRNLPcnMxGXXyDfZAoA1Qw2XpOfVWIVR
+jdoMGRgUuJmO
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls5:BOB_cf_wap-wsg-idm-ecid-wtls5_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls5
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls5_PUB
+SharedSecret=9733a08a15b01eaf3e662cd3d8c282dd5c5b888f32
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls5
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls5_PUB
+SharedSecret=0558e81b74a53fea9b918ed3c6b180ab9a7d880c48
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls5
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls5_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=56beea9d16a611c43577da356cc56da1079378b7fa
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls5
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls5_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=62bddd3b10a367a35395de124ef83dd6237632c0ee
+
+PublicKey=MALICE_cf_wap-wsg-idm-ecid-wtls5_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFZysBBAUDLAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8JxepS05nN/piK
+dhDD3dDKXUih
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls5
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls5_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls5
+PeerKey=MALICE_cf_wap-wsg-idm-ecid-wtls5_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=wap-wsg-idm-ecid-wtls6 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls6
+-----BEGIN PRIVATE KEY-----
+MCwCAQAwEAYHKoZIzj0CAQYFZysBBAYEFTATAgEBBA4ayMbswPbvYMwpwo80jA==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls6_PUB
+-----BEGIN PUBLIC KEY-----
+MDIwEAYHKoZIzj0CAQYFZysBBAYDHgAERPw/8Ip/RrXr0gMgLGRQeiQ4Qd6W+Li0ylGKzg==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls6:ALICE_cf_wap-wsg-idm-ecid-wtls6_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls6
+-----BEGIN PRIVATE KEY-----
+MCwCAQAwEAYHKoZIzj0CAQYFZysBBAYEFTATAgEBBA6kbCpFt3tX2hYBQHMXbg==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls6_PUB
+-----BEGIN PUBLIC KEY-----
+MDIwEAYHKoZIzj0CAQYFZysBBAYDHgAEhJXqpYGxE/l1X/LiBeyRbIcyzqPxUP5Tkv3U3w==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls6:BOB_cf_wap-wsg-idm-ecid-wtls6_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls6
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls6_PUB
+SharedSecret=a0ded465835e43c2c43feedb79b9
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls6
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls6_PUB
+SharedSecret=f5dde946890a52c9d21cecab27a3
+
+Title=wap-wsg-idm-ecid-wtls7 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls7
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFZysBBAcEHDAaAgEBBBUABcyzh4ot9ck/j4/3ehK0ASnxrIs=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls7_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFZysBBAcDKgAEwQLnZ70n45RLqRtAGNzEa3Rl/9nwyjqYUtw2eeHhnNLT
+feGY4CNH0w==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls7:ALICE_cf_wap-wsg-idm-ecid-wtls7_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls7
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFZysBBAcEHDAaAgEBBBUAPyrGRY1SR13hKQswS6yXF0X4DlW=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls7_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFZysBBAcDKgAEZGN44YbN5r3zcNtOHrvbQLt8/lE7BHp4D/9eKLmwFDn1
+QneRu3xwPA==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls7:BOB_cf_wap-wsg-idm-ecid-wtls7_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls7
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls7_PUB
+SharedSecret=fa4d4fdf7667f0346656fa982819fddf94e4228e
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls7
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls7_PUB
+SharedSecret=bc5e8bff0539e2902925de612651fcee99e4586c
+
+Title=wap-wsg-idm-ecid-wtls8 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls8
+-----BEGIN PRIVATE KEY-----
+MC0CAQAwEAYHKoZIzj0CAQYFZysBBAgEFjAUAgEBBA8AnkC18b3pH2O5TIYIqAQ=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls8_PUB
+-----BEGIN PUBLIC KEY-----
+MDIwEAYHKoZIzj0CAQYFZysBBAgDHgAEJD0h4HEfchwxqhp9eMHh9gczQKHX4MtWVoAxKQ==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls8:ALICE_cf_wap-wsg-idm-ecid-wtls8_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls8
+-----BEGIN PRIVATE KEY-----
+MC0CAQAwEAYHKoZIzj0CAQYFZysBBAgEFjAUAgEBBA8AXxPMnqbl3rOuIM5nsvc=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls8_PUB
+-----BEGIN PUBLIC KEY-----
+MDIwEAYHKoZIzj0CAQYFZysBBAgDHgAEZawmRmzr9P+jihImUi6ykOzaSH484JhMKNdrgw==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls8:BOB_cf_wap-wsg-idm-ecid-wtls8_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls8
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls8_PUB
+SharedSecret=79faa8b6b9a4e1bb6adc65ea0556
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls8
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls8_PUB
+SharedSecret=09bbe6f5e4e6b5bd0dae10bf4988
+
+Title=wap-wsg-idm-ecid-wtls9 curve tests
+
+PrivateKey=ALICE_cf_wap-wsg-idm-ecid-wtls9
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFZysBBAkEHDAaAgEBBBUALwvuKs3RLthMAsChbqKjmG1PDTx=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_wap-wsg-idm-ecid-wtls9_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFZysBBAkDKgAET0ppOvd9DU4v+tkKDQ5wRBrN1FwD9+F9t5l3Im+mz3rw
+DB/RYdZuUg==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_wap-wsg-idm-ecid-wtls9:ALICE_cf_wap-wsg-idm-ecid-wtls9_PUB
+
+PrivateKey=BOB_cf_wap-wsg-idm-ecid-wtls9
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFZysBBAkEHDAaAgEBBBUAgeb/vqEM7X5AAAxyBu3M+M6SQcu=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_wap-wsg-idm-ecid-wtls9_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFZysBBAkDKgAEWc37LGt6lt90iF4lhtDYNFdjAqoczebuNgzGff/Uq8ov
+a3EVJ9yK1A==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_wap-wsg-idm-ecid-wtls9:BOB_cf_wap-wsg-idm-ecid-wtls9_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_wap-wsg-idm-ecid-wtls9
+PeerKey=BOB_cf_wap-wsg-idm-ecid-wtls9_PUB
+SharedSecret=854c6196d01cbee16b3cf5e2f16e9bf551054fe3
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_wap-wsg-idm-ecid-wtls9
+PeerKey=ALICE_cf_wap-wsg-idm-ecid-wtls9_PUB
+SharedSecret=395d7752b83baec91e2da1b5a66d9ad831156fc7
+
+# tests: 484
+
+Title=zero x-coord regression tests
+
+PrivateKey=ALICE_zero_prime192v1
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQEEHzAdAgEBBBhaPNk8jG5hSG6y8tUqBPzSlxCf7bYo
+pps=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_prime192v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAe2hWBe5g
+DLNj216pEvK7XjoKLg5gNg8S
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_prime192v1
+PeerKey=BOB_zero_prime192v1_PUB
+SharedSecret=dccabe93f3319a2ce55cafc84c28d55baf0c3ad279d3cc16
+
+PrivateKey=ALICE_zero_prime192v2
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQIEHzAdAgEBBBj1AIQMJ7jqYIKCvxYAS+dqNPAmN3CX
+41k=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_prime192v2_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAQIDMgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4Gj7Qqt
+2wx/jwFlKgvE4rnd50LspdMk
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_prime192v2
+PeerKey=BOB_zero_prime192v2_PUB
+SharedSecret=b6b655f8c49673b6e2428534db2f55e9d502d899aafa850d
+
+PrivateKey=ALICE_zero_prime192v3
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQMEHzAdAgEBBBh/maLQMSlea9BfLqGy0Bsue7rEd/lJ
+GqI=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_prime192v3_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAQMDMgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZEzb63e2
+3MKatRLR9Y1M5JEdI9jwMocI
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_prime192v3
+PeerKey=BOB_zero_prime192v3_PUB
+SharedSecret=a7bc442f727cb0c7f169e7f999ff1470b568b6d488da5d2f
+
+PrivateKey=ALICE_zero_prime239v1
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQQEJTAjAgEBBB5pYWzRYI+c6O7NXCt0f8df0WMT4rLC
+4MrJT8j++CI=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_prime239v1_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAQQDPgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Ox02uwNNLFuvDRn5ip8TxvW0W22R7UzJa9Av6/nh
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_prime239v1
+PeerKey=BOB_zero_prime239v1_PUB
+SharedSecret=8b0556367dd60c50eba1ea040e492a6739d31b717d21a27a871e19dfc162
+
+PrivateKey=ALICE_zero_prime239v2
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQUEJTAjAgEBBB5l8bB7Cpmr7vyx9FiOI6DIu7eQZafU
+bmRr3Vi/xr4=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_prime239v2_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAQUDPgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+IOg3VJGQ89d1GWg4Igxcj5xpDmJiP8tv+e4mxt5U
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_prime239v2
+PeerKey=BOB_zero_prime239v2_PUB
+SharedSecret=581f4182f976f94d48c08c2962f2107047aae0b09721b58c1a7321fa1f66
+
+PrivateKey=ALICE_zero_prime239v3
+-----BEGIN PRIVATE KEY-----
+MD8CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQYEJTAjAgEBBB5HF5FABzUOTYMZg9UdbyL/FbNNK/lm
+M/+otKzpLjA=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_prime239v3_PUB
+-----BEGIN PUBLIC KEY-----
+MFUwEwYHKoZIzj0CAQYIKoZIzj0DAQYDPgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AsZ4u6r3qQI78EYBpiSgWjqNpoeShjr5piecMBWj
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_prime239v3
+PeerKey=BOB_zero_prime239v3_PUB
+SharedSecret=89f72a3ac3165e5648e3e8a1322f66c0b4c5ae5958f97b5a318408caee31
+
+PrivateKey=ALICE_zero_prime256v1
+-----BEGIN PRIVATE KEY-----
+MEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCDXhMb6aR4JR2+l2tmgmYn7b1J2KxZn
+Ld++GasT7vmhCk==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_prime256v1_PUB
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AABmSFx4Di+D1yQzvV2EoGu2VBwq8x2uhxcov4VqF0+T9A==
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_prime256v1
+PeerKey=BOB_zero_prime256v1_PUB
+SharedSecret=d8e2563cce7744e2f8ac01acb1523b7891a76aae8a15a0f9b1e82c65b8f1e82b
+
+PrivateKey=ALICE_zero_secp112r2
+-----BEGIN PRIVATE KEY-----
+MCwCAQAwEAYHKoZIzj0CAQYFK4EEAAcEFTATAgEBBA4hh3tRkG3tnA0496ffMw==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_secp112r2_PUB
+-----BEGIN PUBLIC KEY-----
+MDIwEAYHKoZIzj0CAQYFK4EEAAcDHgAEAAAAAAAAAAAAAAAAAAAS5eEOWDV/Wk7w4djyDQ==
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_secp112r2
+PeerKey=BOB_zero_secp112r2_PUB
+SharedSecret=874bf3af151021353449c5d6b60e
+
+PrivateKey=ALICE_zero_secp128r1
+-----BEGIN PRIVATE KEY-----
+MC4CAQAwEAYHKoZIzj0CAQYFK4EEABwEFzAVAgEBBBCykSzic/h3T2K6SkSP1SGt
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_secp128r1_PUB
+-----BEGIN PUBLIC KEY-----
+MDYwEAYHKoZIzj0CAQYFK4EEABwDIgAEAAAAAAAAAAAAAAAAAAAAAABya8M5aeOpNG3z799IdHc=
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_secp128r1
+PeerKey=BOB_zero_secp128r1_PUB
+SharedSecret=0767d206653f839cc9e69ccf86bb9981
+
+PrivateKey=ALICE_zero_secp160r1
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAAgEHDAaAgEBBBUACoRnbig69XLlh5VcRexpsUP0KnD=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_secp160r1_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFK4EEAAgDKgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAG/w1po29wYlxlygXs
+MGfbiGg5ng==
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_secp160r1
+PeerKey=BOB_zero_secp160r1_PUB
+SharedSecret=5adb8ff8a905e0abce9be52f4800c4ffe62f7834
+
+PrivateKey=ALICE_zero_secp160r2
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAB4EHDAaAgEBBBUAQFGxInSw1eAvd45E9TUdCvvLSeG=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_secp160r2_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFK4EEAB4DKgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAZtSBSZqfmXp47v5z2
+ZZZl2JFxDg==
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_secp160r2
+PeerKey=BOB_zero_secp160r2_PUB
+SharedSecret=728a7a685fe81f286ca096ab67a4244be62fc4da
+
+PrivateKey=ALICE_zero_secp384r1
+-----BEGIN PRIVATE KEY-----
+ME4CAQAwEAYHKoZIzj0CAQYFK4EEACIENzA1AgEBBDD6kgzKbg28zbQyVTdC0IdHEZ7xJBw4xito
+UXmUaAbrfRLuzXHSYEcxBzrhxPyr2QM=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_secp384r1_PUB
+-----BEGIN PUBLIC KEY-----
+MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAPPme8E9RpepjC6P5+WDdWToUyb45/SvSFdO0sIqq+Gu/kn8sRuUqsG+3
+QriFDlIe
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_secp384r1
+PeerKey=BOB_zero_secp384r1_PUB
+SharedSecret=c5cbfbdfd99cdc908a1e1a9267a3379d81a11b2f2c51a416d6005fcab0890b6def635faaa9123356952e73b02c385725
+
+PrivateKey=ALICE_zero_secp521r1
+-----BEGIN PRIVATE KEY-----
+MGACAQAwEAYHKoZIzj0CAQYFK4EEACMESTBHAgEBBEIAbddDLMUWbAsY7l3vbNDmPKFLpEBOoBH5
+S/MZLvBFeEbr7HUWpC0wzeC01tIOYcEnm+Ac9HenM1fee8ReiINo8kM=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_secp521r1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0g7J/qa1d8ENJsobtEb0CymeZIsa
+1Qiq0GiJb+4/jmFLxjBU1Xcr8Bpl1BLgvKqOll0vXTMtfzn4RtRArgAfT4c=
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_secp521r1
+PeerKey=BOB_zero_secp521r1_PUB
+SharedSecret=953bc9787a48ba78e05d0be540280d1f66c74e9df365f2be5752909f2d46cdc57f7503dcf24ad14c53346bb7ac6fe611b62e21798815f21b9580b7680c80ad916045
+
+PrivateKey=ALICE_zero_wap-wsg-idm-ecid-wtls7
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFZysBBAcEHDAaAgEBBBUAoGng7WzYr4P9vtdc3BS/WAVCSo9=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_zero_wap-wsg-idm-ecid-wtls7_PUB
+-----BEGIN PUBLIC KEY-----
+MD4wEAYHKoZIzj0CAQYFZysBBAcDKgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAZtSBSZqfmXp47v5z2
+ZZZl2JFxDg==
+-----END PUBLIC KEY-----
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_zero_wap-wsg-idm-ecid-wtls7
+PeerKey=BOB_zero_wap-wsg-idm-ecid-wtls7_PUB
+SharedSecret=5478cd32ecb111cdd00a9fb9cacf558097bdb1f1
+
+# tests: 14
+
+Title=prime192v1 curve tests
+
+PrivateKey=ALICE_cf_prime192v1
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQEEHzAdAgEBBBhQFYLaobJ47BVWWZv/Rmo8mQ50W/Y2
+TeI=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_prime192v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAEHYbt14KzucSpmKMrlDx1IGz/a28nDs21OjKgx3BK
+PZ78UrllIr69kgrYUKsRg4sd
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_prime192v1:ALICE_cf_prime192v1_PUB
+
+PrivateKey=BOB_cf_prime192v1
+-----BEGIN PRIVATE KEY-----
+MDkCAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQEEHzAdAgEBBBhsbmKHAtygIqirkmUXYAAtnczQ3/gh
+CWM=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_prime192v1_PUB
+-----BEGIN PUBLIC KEY-----
+MEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAEJA+FQcXq5Axzv8pLDslxq1QVt1hjN2i0TgoO6Yxp
+bAekMot69VorE8ibSzgJixXJ
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_prime192v1:BOB_cf_prime192v1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_prime192v1
+PeerKey=BOB_cf_prime192v1_PUB
+SharedSecret=d64aed1e3b6a62e39e979087f19ad08097422bb72492d642
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_prime192v1
+PeerKey=ALICE_cf_prime192v1_PUB
+SharedSecret=a82dbd9f9f2c61d63a024875a72ac83259842ba33788f388
+
+# ECDH Bob with Alice peer : curves with less than 112 bits of strength cannot
+# be used for Key agreement in fips mode
+Availablein = fips
+Derive=BOB_cf_prime192v1
+Securitycheck = 1
+PeerKey=ALICE_cf_prime192v1_PUB
+SharedSecret=b33adb7e2e9e33c82f692735d31ec40830940de30564b767
+Result = DERIVE_SET_PEER_ERROR
+
+Title=prime256v1 curve tests
+
+PrivateKey=ALICE_cf_prime256v1
+-----BEGIN PRIVATE KEY-----
+MEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCDZE0NZiGAFJX6JQxumzvGTf+XpFcty
+TUenUFo9Uujf8C==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_prime256v1_PUB
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5kDOrX6kmk1/jHfEdMBluFos6dyCbzKVOX3v2aa2
+y5IhlhTKtCJdydX+XWLDXWW9sbtIRNP94R3iOOpRPBqpGg==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_prime256v1:ALICE_cf_prime256v1_PUB
+
+PrivateKey=BOB_cf_prime256v1
+-----BEGIN PRIVATE KEY-----
+MEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCAxJgV1dLJw/o2Dmh1fwT8MQBR51sOu
+22WtYW5HwThLVK==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_prime256v1_PUB
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5J6yA+j0zrGi6RilUhjrcL7OUMzYTwpnw5DdRXr0
+creHgE03EFV//7xqadB4BDwFIGM9MV2sE6qREEomWhZFeg==
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_prime256v1:BOB_cf_prime256v1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_prime256v1
+PeerKey=BOB_cf_prime256v1_PUB
+SharedSecret=ba71868a258cbd8cfbf546591209b2653792b88a5a980e299881b685d863698a
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_prime256v1
+PeerKey=ALICE_cf_prime256v1_PUB
+SharedSecret=dc22853c087aff0adfe579098970b3744688e38f7c097c746758e636e104199f
+
+Title=secp224r1 curve tests
+
+PrivateKey=ALICE_cf_secp224r1
+-----BEGIN PRIVATE KEY-----
+MDoCAQAwEAYHKoZIzj0CAQYFK4EEACEEIzAhAgEBBBzeo7Y0HMfrIqKNm3r997jczCom7xLw5ot8
+JA28
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp224r1_PUB
+-----BEGIN PUBLIC KEY-----
+ME4wEAYHKoZIzj0CAQYFK4EEACEDOgAExZc6o84XjBGLOosGj2t0QctgiyzF3NcVgy+DeW7stkVs
+yS2tRzMPBpwnApRzoRsdJR99sb3eM2s=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp224r1:ALICE_cf_secp224r1_PUB
+
+PrivateKey=BOB_cf_secp224r1
+-----BEGIN PRIVATE KEY-----
+MDoCAQAwEAYHKoZIzj0CAQYFK4EEACEEIzAhAgEBBBy2LsqxHhdlSiAmMYKQAEmjIJO35y85EtRE
+ZvXM
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp224r1_PUB
+-----BEGIN PUBLIC KEY-----
+ME4wEAYHKoZIzj0CAQYFK4EEACEDOgAE71Eh6hwTKUrmyl2PdkY787GwxiohIcaqB4eK2Mwg6tU4
+LeJHWcgY18CgPKCaeldUgnkMcJzKj20=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp224r1:BOB_cf_secp224r1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_secp224r1
+PeerKey=BOB_cf_secp224r1_PUB
+SharedSecret=96f2e16091d23a3789adf16b3305354b21ddb64fc8b8779fa8db5db0
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_secp224r1
+PeerKey=ALICE_cf_secp224r1_PUB
+SharedSecret=80c0c52416b02b5431efa71c9771783f44ccc44ee3f4632cc3cb8bf2
+
+Title=secp384r1 curve tests
+
+PrivateKey=ALICE_cf_secp384r1
+-----BEGIN PRIVATE KEY-----
+ME4CAQAwEAYHKoZIzj0CAQYFK4EEACIENzA1AgEBBDAp1ErG6wVjuJs90qVbUBxNgLs0daU6RcF0
+zqy/5ktyvO3fdNRwERyhlAsmtY/sLKL=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp384r1_PUB
+-----BEGIN PUBLIC KEY-----
+MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEx5rt+yujIuPoIXpHGmExKSi/P+58sGYoqgdpdOJUXzn2
+Rc4alCpSxVJeC55xvwaFHc3pzNyRGwnhPmN6oU/KMP6XjBvR4wq35mr/Sym5s0B2blAzkJU37idq
+nTi3xGHx
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp384r1:ALICE_cf_secp384r1_PUB
+
+PrivateKey=BOB_cf_secp384r1
+-----BEGIN PRIVATE KEY-----
+ME4CAQAwEAYHKoZIzj0CAQYFK4EEACIENzA1AgEBBDAUjVgPpiI+xXye0nfRhc8+49YpGRq3TzeM
+VR0Xpc+p20eEjfnvcoeqD9cuZXtvu5d=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp384r1_PUB
+-----BEGIN PUBLIC KEY-----
+MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE+JUBXRSHixH0TrcvYvIzep7+/WNpEhWdCPsLMygigW5j
+pzP30MF41GnQYgfJu5wI/gu1C/jFTv1X6Dgmla3JxBYlPeD+1L0lEMT3evmHKMM/BFe3WKBuXyhP
+ilrNtfee
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp384r1:BOB_cf_secp384r1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_secp384r1
+PeerKey=BOB_cf_secp384r1_PUB
+SharedSecret=b5edb609684d7606ca2a44c71b82fac27a8bb557306c1825f890587f389b4a929b416a2a95c79ce9d0124f185b6c4bfb
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_secp384r1
+PeerKey=ALICE_cf_secp384r1_PUB
+SharedSecret=c1fab162132b7041dd9e27f06d63fbc85b6bd003581f0689d522193a851f1f647d232d6a38f13fb2c5544a162b7a9bfb
+
+Title=secp521r1 curve tests
+
+PrivateKey=ALICE_cf_secp521r1
+-----BEGIN PRIVATE KEY-----
+MGACAQAwEAYHKoZIzj0CAQYFK4EEACMESTBHAgEBBEIBsYIcUKeN2evB626LCdYWn/YGifvuQkBK
+gSpzAh8//NzntLZIQWgYrUY8hyphq/vGXeufhtoPGYGdow7+Ex0VIfQ=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_secp521r1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBufYxJf/4Ds6g7LlFRVS62ljm3xApV2T79hfWH8Lv
+iroIaCFjLBIfOVDF8jvj2PO1ar3yCLiSA2RiLZz1Y+tv/tcATHE0nS7l3SfGiGmEnVycEnhgqlKM
+UM3kpdd7eNkQn5/GO8KAPQqA/sOnvTavg5S01t0ub+PY/w0Y6oBgthaUAW0=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_secp521r1:ALICE_cf_secp521r1_PUB
+
+PrivateKey=BOB_cf_secp521r1
+-----BEGIN PRIVATE KEY-----
+MGACAQAwEAYHKoZIzj0CAQYFK4EEACMESTBHAgEBBEIB+3/adZnNwr6GFUzZpi8SX6rN/8bbR8+7
+PBCxxQuKH4MKbHBOxFNd52oa/n+v2yNp4SngJox4cANhXzQQsvh0fL4=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_secp521r1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBLq2fjyCalnvr24tjaz87ijIWlLMoCH7Hmyq1t2l8
+PFbyBIZbngDC0gwFM5ZI582QSWlW79G3clJP9VxlJOsms50BYBYgd6o2JF4w8AnShVXxFSJU1py4
+klCDNhTFybRHFXpujfuUeNnFxAGIUb4edJ0fAqqc7kkERhYe8EPEZYMKp3Q=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_secp521r1:BOB_cf_secp521r1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_secp521r1
+PeerKey=BOB_cf_secp521r1_PUB
+SharedSecret=20eb6fa2234ba9ec259d334061dbd75a2b9eb4afa7c0524a775eec4a25efcd7a3626f727ae402fade5dc108d0d76b1305aa94b15da5cc95497d7fc515f2caa799983
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_secp521r1
+PeerKey=ALICE_cf_secp521r1_PUB
+SharedSecret=64be4df1424fe7bf658d735968ccc52e7e4cd2cbf5d9855e344bac3d82dbbb3a0664c964da920bcbc8ae562e6b15f3550db52c70fd6fe36314d0ee075c5ebf722108
+
+Title=sect163k1 curve tests
+
+PrivateKey=ALICE_cf_sect163k1
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAAEEHDAaAgEBBBUB905PYfmej8LzbzX6Bg51rnsdCVu=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect163k1_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFK4EEAAEDLAAEBfvs5A1hD8YySP9O2ub8GEUfotVuBpfRx4GIHdAfx8wV
+1UVeTRnyAlWU
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect163k1:ALICE_cf_sect163k1_PUB
+
+PrivateKey=BOB_cf_sect163k1
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAAEEHDAaAgEBBBUCHPtCjJ4/K8ylQBcLlb5Vc4ywXOZ=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect163k1_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFK4EEAAEDLAAEBvgfX1mTRlt6Z4TE1D1MNWo4loH4AoeYa6oowK104LKk
+nsdg7isQ8XBD
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect163k1:BOB_cf_sect163k1_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect163k1
+PeerKey=BOB_cf_sect163k1_PUB
+SharedSecret=96d2c56677c1aa6764152938164ecd43cca61c8d6e
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect163k1
+PeerKey=ALICE_cf_sect163k1_PUB
+SharedSecret=10b3a83698f0ad6324315712736bad86ebf88f1b8e
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect163k1
+PeerKey=BOB_cf_sect163k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=88d810c17269881a30954748be0a463c04bcdb7e21
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect163k1
+PeerKey=ALICE_cf_sect163k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=95e707e22989674a89335727bc0d151e77aeca1a82
+
+PublicKey=MALICE_cf_sect163k1_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFK4EEAAEDLAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAB
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_sect163k1
+PeerKey=MALICE_cf_sect163k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_sect163k1
+PeerKey=MALICE_cf_sect163k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect163r2 curve tests
+
+PrivateKey=ALICE_cf_sect163r2
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAA8EHDAaAgEBBBUBjCs/M3N31jsAueYrOq21rpIUySe=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect163r2_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFK4EEAA8DLAAEBd8Z1/HpA+89hF4I98EST3svWns3BAEbhWmL/fgxk2uu
+YwVrmqhgqH/C
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect163r2:ALICE_cf_sect163r2_PUB
+
+PrivateKey=BOB_cf_sect163r2
+-----BEGIN PRIVATE KEY-----
+MDMCAQAwEAYHKoZIzj0CAQYFK4EEAA8EHDAaAgEBBBUBsiouT9Df+mwHWrpPg1JSkA9MVvA=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect163r2_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFK4EEAA8DLAAEBULqBZ+nhLhDEMYY8NEEzZ126MdxAcFXWv8zmPEH9505
+8vT5zU3aq6HV
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect163r2:BOB_cf_sect163r2_PUB
+
+# ECDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect163r2
+PeerKey=BOB_cf_sect163r2_PUB
+SharedSecret=842e052b38a8f9204dfbe0439a35725607acac988b
+
+# ECDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect163r2
+PeerKey=ALICE_cf_sect163r2_PUB
+SharedSecret=777f077d38c4c8388afac3900b26604801effd242a
+
+# ECC CDH Alice with Bob peer
+Availablein = default
+Derive=ALICE_cf_sect163r2
+PeerKey=BOB_cf_sect163r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=371178b14832dbfa81c978ed623715546e4908c70b
+
+# ECC CDH Bob with Alice peer
+Availablein = default
+Derive=BOB_cf_sect163r2
+PeerKey=ALICE_cf_sect163r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=328672d55048dbde21b769fc441858045b2328c92d
+
+PublicKey=MALICE_cf_sect163r2_PUB
+-----BEGIN PUBLIC KEY-----
+MEAwEAYHKoZIzj0CAQYFK4EEAA8DLAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsJbhbrfiSdZPSHD
+ZtqJwDlp802l
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Availablein = default
+Derive=BOB_cf_sect163r2
+PeerKey=MALICE_cf_sect163r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Availablein = default
+Derive=ALICE_cf_sect163r2
+PeerKey=MALICE_cf_sect163r2_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect233k1 curve tests
+
+PrivateKey=ALICE_cf_sect233k1
+-----BEGIN PRIVATE KEY-----
+MDsCAQAwEAYHKoZIzj0CAQYFK4EEABoEJDAiAgEBBB0z/3heNFjJL+2sAT/38yRsh0ul7UrT4Z+T
+Gua8Kw==
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect233k1_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFK4EEABoDPgAEALQyn0zJmOrHm4S2EIjxRe899PadBnfpYjLKWGvpAIzf
+MEG861Nv1IYJkmkO1xlfNHeeRtqFgsQVFKZh
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect233k1:ALICE_cf_sect233k1_PUB
+
+PrivateKey=BOB_cf_sect233k1
+-----BEGIN PRIVATE KEY-----
+MDsCAQAwEAYHKoZIzj0CAQYFK4EEABoEJDAiAgEBBB1I0ucrC4d9i6Z+0cbar5r7uphJ7NsXAauo
+DFMTUA==
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect233k1_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFK4EEABoDPgAEAatdqazxSghJ568CBFyMXhEvVeAiLewOY/jk9H5DAOB4
+ufNGbdd131KLaKPivB38a6n5Y+2BVSJangow
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect233k1:BOB_cf_sect233k1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_sect233k1
+PeerKey=BOB_cf_sect233k1_PUB
+SharedSecret=731726811e1bd44929b857d198072bc5758ca5c58595c8c3767eddbbd142
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_sect233k1
+PeerKey=ALICE_cf_sect233k1_PUB
+SharedSecret=516133900e7fc83166d608e878369df3353bb8f73365c3a1005efdeaa408
+
+# ECC CDH Alice with Bob peer
+Derive=ALICE_cf_sect233k1
+PeerKey=BOB_cf_sect233k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=38de3b4f0d98f79c4db38bbd72fdafe79cd578cd2dd8bfe2d4d55b6b615a
+
+# ECC CDH Bob with Alice peer
+Derive=BOB_cf_sect233k1
+PeerKey=ALICE_cf_sect233k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=97da7b8f7f55e75d8fa50bef39fbabd60ae337fa9df1beb7c5c27b9b767c
+
+PublicKey=MALICE_cf_sect233k1_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFK4EEABoDPgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Derive=BOB_cf_sect233k1
+PeerKey=MALICE_cf_sect233k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Derive=ALICE_cf_sect233k1
+PeerKey=MALICE_cf_sect233k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect233r1 curve tests
+
+PrivateKey=ALICE_cf_sect233r1
+-----BEGIN PRIVATE KEY-----
+MDwCAQAwEAYHKoZIzj0CAQYFK4EEABsEJTAjAgEBBB4ATcy7zVpIsJ9rl5EIDmzRm3AjaHLMlAjd
+HP3Pt8Y=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect233r1_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFK4EEABsDPgAEAQMQHiJ44LiCnZkEg1zyww1h+idTbsw8E07P33WUAUfD
+NeQ4hWEhTXPnytIbEhFKpnd3j/FbyZnJqxh8
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect233r1:ALICE_cf_sect233r1_PUB
+
+PrivateKey=BOB_cf_sect233r1
+-----BEGIN PRIVATE KEY-----
+MDwCAQAwEAYHKoZIzj0CAQYFK4EEABsEJTAjAgEBBB4ALpOlFn4OfiIAkRAZGOsn8U2t6UNihsp4
+mQVC2pw=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect233r1_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFK4EEABsDPgAEAJQw+NWqFJXYw4dVMovzvw76OYnYOTaDaEPNW8ECAQbl
+TzzbBSTp5iqM13mP0/Bo4OO66NS3lA9e/GTO
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect233r1:BOB_cf_sect233r1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_sect233r1
+PeerKey=BOB_cf_sect233r1_PUB
+SharedSecret=48591e6026e68d0e1e1d2f01bae1cce806c66b8492df1db56ac885c7a569
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_sect233r1
+PeerKey=ALICE_cf_sect233r1_PUB
+SharedSecret=00847e1070a05d2b3a2d5e55eec0dec719b65a3054fe8bd68cf227e0c963
+
+# ECC CDH Alice with Bob peer
+Derive=ALICE_cf_sect233r1
+PeerKey=BOB_cf_sect233r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=56a2ee7d54d90f1d291268817e70bcb6997be25658f804e2c73c5604c146
+
+# ECC CDH Bob with Alice peer
+Derive=BOB_cf_sect233r1
+PeerKey=ALICE_cf_sect233r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=42f2cd3a84a19d2e558712518d86fce4426fe69168c323e6e28e6784a197
+
+PublicKey=MALICE_cf_sect233r1_PUB
+-----BEGIN PUBLIC KEY-----
+MFIwEAYHKoZIzj0CAQYFK4EEABsDPgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYf4
+Vie5eHTnR+4x4G1xyq7qUvISU+X5RtBh2pE4
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Derive=BOB_cf_sect233r1
+PeerKey=MALICE_cf_sect233r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Derive=ALICE_cf_sect233r1
+PeerKey=MALICE_cf_sect233r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect283k1 curve tests
+
+PrivateKey=ALICE_cf_sect283k1
+-----BEGIN PRIVATE KEY-----
+MEICAQAwEAYHKoZIzj0CAQYFK4EEABAEKzApAgEBBCQAY1Mi9rST7PiP1t03qYRcqT/iSV+kXzA8
+4AOLbARQwhJUPXC=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect283k1_PUB
+-----BEGIN PUBLIC KEY-----
+MF4wEAYHKoZIzj0CAQYFK4EEABADSgAEBMjBO8WoxHS/vz8po52WZGxS+RK5yolrUe6tfbAMA3Sd
+5/JjBDVjOz95vM4gUnqzUWHN5nKBQtj6HiU9Q/R+zqg98OiQKTyA
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect283k1:ALICE_cf_sect283k1_PUB
+
+PrivateKey=BOB_cf_sect283k1
+-----BEGIN PRIVATE KEY-----
+MEICAQAwEAYHKoZIzj0CAQYFK4EEABAEKzApAgEBBCQBCZC8Is+YSjgXJBBDioEl4AN38EmjYpeM
+0s7108MYZhdwpt0=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect283k1_PUB
+-----BEGIN PUBLIC KEY-----
+MF4wEAYHKoZIzj0CAQYFK4EEABADSgAEAGEQKZVHYAlvtjHrFyZVm12qUb5j+T5/WNoC962+kwUM
+QkBYA5BpuG8Knlugq1iB31whPAgRCZfdLKHpHRPJSfXvKyUIdeUm
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect283k1:BOB_cf_sect283k1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_sect283k1
+PeerKey=BOB_cf_sect283k1_PUB
+SharedSecret=46b30a22caa346b27557c20cce8d6e955329f534eadabf497224866f2bb687f6cd06924d
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_sect283k1
+PeerKey=ALICE_cf_sect283k1_PUB
+SharedSecret=31a36f48bef973b68675f20bab2e3c311049b192cdbfbf309056372f6ef019d6ae30992e
+
+# ECC CDH Alice with Bob peer
+Derive=ALICE_cf_sect283k1
+PeerKey=BOB_cf_sect283k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=0868dc76e73c164590fc362ae9b7009fa3ff62b42b4f521b68fcf8268f3b8fbdbaed7401
+
+# ECC CDH Bob with Alice peer
+Derive=BOB_cf_sect283k1
+PeerKey=ALICE_cf_sect283k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=6746cd90e45d633283bd174ed3b0182dd8ce63d60d8f272d46bab4705f6e0dbebbab7688
+
+PublicKey=MALICE_cf_sect283k1_PUB
+-----BEGIN PUBLIC KEY-----
+MF4wEAYHKoZIzj0CAQYFK4EEABADSgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Derive=BOB_cf_sect283k1
+PeerKey=MALICE_cf_sect283k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Derive=ALICE_cf_sect283k1
+PeerKey=MALICE_cf_sect283k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect283r1 curve tests
+
+PrivateKey=ALICE_cf_sect283r1
+-----BEGIN PRIVATE KEY-----
+MEICAQAwEAYHKoZIzj0CAQYFK4EEABEEKzApAgEBBCQCQ5pqKvPxDysd1pi2Bv8Z83FqfrJlalAV
+4mm9xgmy2FxIGvc=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect283r1_PUB
+-----BEGIN PUBLIC KEY-----
+MF4wEAYHKoZIzj0CAQYFK4EEABEDSgAEBcsrGDgO7pbGybQX/00gRHtQq3+X9XrGb7Uzv9Nabwc/
+kntnBMF0I2KU+aaTjQx1GVtmNf7CvFwPLEBnfKjJAjekjsGyIqoq
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect283r1:ALICE_cf_sect283r1_PUB
+
+PrivateKey=BOB_cf_sect283r1
+-----BEGIN PRIVATE KEY-----
+MEICAQAwEAYHKoZIzj0CAQYFK4EEABEEKzApAgEBBCQDxItnY3cDCrX/jGnVuAKDHmDCNNS4o01j
+MDHtO3fvGDK2+cz=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect283r1_PUB
+-----BEGIN PUBLIC KEY-----
+MF4wEAYHKoZIzj0CAQYFK4EEABEDSgAEBJ2C9BCkX0YRfs2ufgUKvreUXFWp2AGK+iHlZB4N3LqO
+PKpmAkrAeCMty6mw2mEnOR5HA1d4Ee+z7/NJgJJ80Ra9bFnreOW3
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect283r1:BOB_cf_sect283r1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_sect283r1
+PeerKey=BOB_cf_sect283r1_PUB
+SharedSecret=6238206cf58368179fb559bde0c74a2de0643b15865729a14e754f90652fc75790df5859
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_sect283r1
+PeerKey=ALICE_cf_sect283r1_PUB
+SharedSecret=4907419ce75538975ec856def8f82c8da0803e40982515f46a122e06895ac82385bc6049
+
+# ECC CDH Alice with Bob peer
+Derive=ALICE_cf_sect283r1
+PeerKey=BOB_cf_sect283r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=91d2b563447ff43a59738cb10c7ebe3f0da411953669792adcb107f1591f615ba7e444d3
+
+# ECC CDH Bob with Alice peer
+Derive=BOB_cf_sect283r1
+PeerKey=ALICE_cf_sect283r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=95f7b414495eb14b20699aa22a7eea7e2ab135687941117aabe272f2672a355bc6f950b3
+
+PublicKey=MALICE_cf_sect283r1_PUB
+-----BEGIN PUBLIC KEY-----
+MF4wEAYHKoZIzj0CAQYFK4EEABEDSgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAByvMnFeSsevoGYMIn7b4NaL9IgowRCTKF8CCrhdEKu3pubP2
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Derive=BOB_cf_sect283r1
+PeerKey=MALICE_cf_sect283r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Derive=ALICE_cf_sect283r1
+PeerKey=MALICE_cf_sect283r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect409k1 curve tests
+
+PrivateKey=ALICE_cf_sect409k1
+-----BEGIN PRIVATE KEY-----
+MFECAQAwEAYHKoZIzj0CAQYFK4EEACQEOjA4AgEBBDMOthcLahkXFgM0wjOzm767J6R61fpvNUWj
+KUd+kH8h8wzXbGm8uM+p2L9vt/Z9cdXGqXA=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect409k1_PUB
+-----BEGIN PUBLIC KEY-----
+MH4wEAYHKoZIzj0CAQYFK4EEACQDagAEAbiYYpeFgCMsZFMzQaiwMJDrC+mCMT7KmhYtD5EMMgLW
+5OvhaqYdpRf49A8LOtVcRT7J5gGcMrXQgmQeS3FenA5owWnB2NIgrTNf5d8AAEtrOupsJ4c3kL6e
+aAzayZ1+UCEj8skbC9U=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect409k1:ALICE_cf_sect409k1_PUB
+
+PrivateKey=BOB_cf_sect409k1
+-----BEGIN PRIVATE KEY-----
+MFECAQAwEAYHKoZIzj0CAQYFK4EEACQEOjA4AgEBBDMO43ldQllTewdZwffH4OEXgVFFnnpdDTk0
+3/lEcjfHZHU/xa9yjNxnyd98kPAGPNu8UAV=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect409k1_PUB
+-----BEGIN PUBLIC KEY-----
+MH4wEAYHKoZIzj0CAQYFK4EEACQDagAEAVTQj6hRizVmOx4Z6vroN/zMkmAY+QhkQ0CnFeJ0AydY
+Fv+f+/420vMC1Mhqsc9VzPMmIAH6ZrgGKDsd4Ce9JUtYE0rVhGeiG2RaN1U5RlhVK4avkWhFlyQ5
+vuu4aApQiWE3yQd9v/I=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect409k1:BOB_cf_sect409k1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_sect409k1
+PeerKey=BOB_cf_sect409k1_PUB
+SharedSecret=10dcd20566529c5a5ae9d9f2822eb7c455e83c7f6d7ab5abae1b04219855ac7085721433bc10d17b0b3ce2d4761702e5ef38cac2
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_sect409k1
+PeerKey=ALICE_cf_sect409k1_PUB
+SharedSecret=50dfa47088875b6b1dc5f3e4847cc2c793b95f5a5a9ab3bbab5e47452700ee1729427529ec87d78e6a7fd2a6762354b5bd18aca8
+
+# ECC CDH Alice with Bob peer
+Derive=ALICE_cf_sect409k1
+PeerKey=BOB_cf_sect409k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=917f2087d1716ad9012ac59d72d4bb643eb8ea52a8e939b815d50c43a8f7697babdd66e35dd2e0027a7f9fc05053cf43630384de
+
+# ECC CDH Bob with Alice peer
+Derive=BOB_cf_sect409k1
+PeerKey=ALICE_cf_sect409k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=632f6040a7755bd6464ab55d84a7cb483ea5bc79a3e807b948d18d19c8a5095ceead47e59ac7a2582b3b7fd34084cc72560184ac
+
+PublicKey=MALICE_cf_sect409k1_PUB
+-----BEGIN PUBLIC KEY-----
+MH4wEAYHKoZIzj0CAQYFK4EEACQDagAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAA=
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Derive=BOB_cf_sect409k1
+PeerKey=MALICE_cf_sect409k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Derive=ALICE_cf_sect409k1
+PeerKey=MALICE_cf_sect409k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect409r1 curve tests
+
+PrivateKey=ALICE_cf_sect409r1
+-----BEGIN PRIVATE KEY-----
+MFICAQAwEAYHKoZIzj0CAQYFK4EEACUEOzA5AgEBBDQAxSC9lST5dtfXQI1Ug9VMKGFX6JWFi9VT
++qKtZpY2nWpS78nsbo9/MFj4Lz0BSbSzWN8P
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect409r1_PUB
+-----BEGIN PUBLIC KEY-----
+MH4wEAYHKoZIzj0CAQYFK4EEACUDagAEASAvXAM15DJerAu1JttpBuMJK1/fEfFohu2iEpt3r7Ui
+iQoER6HUsWiw1hhcJyTv7WzpJQHFWrOlJMe/KjmQa/CygSc65YHDzG27oUL+KGdQUGc79ZRSwl/q
+fGZqa3D+bDVMwrhmZto=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect409r1:ALICE_cf_sect409r1_PUB
+
+PrivateKey=BOB_cf_sect409r1
+-----BEGIN PRIVATE KEY-----
+MFICAQAwEAYHKoZIzj0CAQYFK4EEACUEOzA5AgEBBDQARen+1P3JQzBgOv0pUYwspmtAhmMEMzgo
+6QCa5LK9Nj3KBLvaTqbXy3j7t8aMSzXwg/Ze
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect409r1_PUB
+-----BEGIN PUBLIC KEY-----
+MH4wEAYHKoZIzj0CAQYFK4EEACUDagAEAbDUw066TtdfOpDvrlKosEyqUNEG7rY+AKvDqKw+HOzf
+sUTYee6cEf71oqJ1sCKPQiYzlwCu/HLQeWPxISE6Uo+53kkeJml2xpMBwoE25Gq/DSS61dR7SRTZ
++sUmumbIuGzbrjtMRmw=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect409r1:BOB_cf_sect409r1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_sect409r1
+PeerKey=BOB_cf_sect409r1_PUB
+SharedSecret=05f301725abe6a788ba70e36d87b7265cefe16522002326131dc1cbcf0d7d05ebf0fa56e8027a3eadda6aae1de0a5f99985db5d2
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_sect409r1
+PeerKey=ALICE_cf_sect409r1_PUB
+SharedSecret=10e185366caa5a595ba13d81c65c7911afad10656557030008ad9efec8d6d80bab6ce26a1403f4bffda9afb9bc8b1c44450ce2a2
+
+# ECC CDH Alice with Bob peer
+Derive=ALICE_cf_sect409r1
+PeerKey=BOB_cf_sect409r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=8301c56eed125d4765d83d229eb406fec95e3617a8ee07aa016eb0e0353b61d6376ecdb9772ec4271c01a6949b41a69dee743feb
+
+# ECC CDH Bob with Alice peer
+Derive=BOB_cf_sect409r1
+PeerKey=ALICE_cf_sect409r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=3751f88fae656f5849a79e208de678dda94f4263b0ea19db864fe6a3417f62b2346bccb4861bd7815c09d2250e84a42fed901fce
+
+PublicKey=MALICE_cf_sect409r1_PUB
+-----BEGIN PUBLIC KEY-----
+MH4wEAYHKoZIzj0CAQYFK4EEACUDagAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAACZNffkdo7i7yL5tKKfU8tdk6su0K185XwbJkn96JWVDPZXZ3My
+bFKKSOJ7hyrM8Lwl1e8=
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Derive=BOB_cf_sect409r1
+PeerKey=MALICE_cf_sect409r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Derive=ALICE_cf_sect409r1
+PeerKey=MALICE_cf_sect409r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect571k1 curve tests
+
+PrivateKey=ALICE_cf_sect571k1
+-----BEGIN PRIVATE KEY-----
+MGYCAQAwEAYHKoZIzj0CAQYFK4EEACYETzBNAgEBBEgB4agvk7Qdf9bVb9aMVdtXU8bmsi5DxbPr
+HLpTaImH/gWK8ejPokCuY1jaZGR8CFfMdkypEMv9Zl4sf3wgpVNmqOImev3iqD2=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect571k1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGnMBAGByqGSM49AgEGBSuBBAAmA4GSAAQDUZq0ZrgYpTXNpOptjExaur0K9FAYHv1j9cvAptwX
+dcmQf3VqekMkGZCfNdqNeqCajG3QHRkBHe4FZhWr3FXi8whvvr463lUDf+t46un1kE6FTYfhILGa
+sBZm7OdfkarYd9TXBbmnkFA+XkyPlkM1+6daM3/WmnegK+TYghFDXLgwiyF8s0ElllF7z38Gmc4=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect571k1:ALICE_cf_sect571k1_PUB
+
+PrivateKey=BOB_cf_sect571k1
+-----BEGIN PRIVATE KEY-----
+MGYCAQAwEAYHKoZIzj0CAQYFK4EEACYETzBNAgEBBEgA3pINxGOI7L9M+Mil+bm/VpLxv4wz7Dvx
+h2eiIDPXpF64Msd6OUxtqmZHGuO10tJD7GblNriVnqV6EJXTM+0SnkCTVkQrmmT=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect571k1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGnMBAGByqGSM49AgEGBSuBBAAmA4GSAAQDZRr5GCSq2uzGxmWNB+bED7zye18Rr/KehwXrbn1r
+rKtR8fe+dg2V15FieC3qZe/wCpMtyp79VmEabGi6iGLlAN/rUE81URsA/K7GVpmklslV5gmwryR0
+3E7jGKPFesun9iNtmpgM18P9y3aJd4Qr4hMlwW2Nyw187l6QB/W2e/i+8vKXFTLHlz5WLAyAcpA=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect571k1:BOB_cf_sect571k1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_sect571k1
+PeerKey=BOB_cf_sect571k1_PUB
+SharedSecret=89f32c43aaa37ea0d8acbfef41a8ed2a54b0c627bf69b659344b39228820987b97813d454b8d91493863f757ad310ac148990520901d0941537141987c2b1d9376ea1af29a3df12f
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_sect571k1
+PeerKey=ALICE_cf_sect571k1_PUB
+SharedSecret=82d49d47cfc48fc3f1cfcebe62c3be0e43a9a956ec42c630707f97523171885c15899d829c9e51243787e265fd545db682282041129b8086470547760d0c8c0882cf6ba76b4ec64f
+
+# ECC CDH Alice with Bob peer
+Derive=ALICE_cf_sect571k1
+PeerKey=BOB_cf_sect571k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=847cfa361061d3812f1a2b4a09d3c0d059e26ae5e05a75021b279e82d2416a86e15a18128b7924bf2344f1b0adfba0f323f5d069220e617bfeac71518d06c6e4cf321eee113e50d3
+
+# ECC CDH Bob with Alice peer
+Derive=BOB_cf_sect571k1
+PeerKey=ALICE_cf_sect571k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=131aae232736a0273f7c5a7b23a0c7f093f54fd1a84b22786a373d73f2032b02a02a82420f7735af1593c7e8bdceb6d934e8c950144e523dddea01605b77c9e8ee628ddb441e26d7
+
+PublicKey=MALICE_cf_sect571k1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGnMBAGByqGSM49AgEGBSuBBAAmA4GSAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Derive=BOB_cf_sect571k1
+PeerKey=MALICE_cf_sect571k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Derive=ALICE_cf_sect571k1
+PeerKey=MALICE_cf_sect571k1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+Title=sect571r1 curve tests
+
+PrivateKey=ALICE_cf_sect571r1
+-----BEGIN PRIVATE KEY-----
+MGYCAQAwEAYHKoZIzj0CAQYFK4EEACcETzBNAgEBBEgAxfL2/gUsmJonvDMR95Azx2eVuwzbWSRF
++dw+IGq29TyYM95sMU1ZzB5vjtf4b671I1a8yeZGjEHMEpd8yFaqf9wn5lPD9LG=
+-----END PRIVATE KEY-----
+
+PublicKey=ALICE_cf_sect571r1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGnMBAGByqGSM49AgEGBSuBBAAnA4GSAAQBK5L9ccIWacU2A1srZ35opPu6kcbEOsBPmvj/rlMS
+fFrdMOcagOYfcD0/ouYHPhvkHbr9k87IlQJfnV6ZNRA4PmWSp/FjkNwETm/fqTCUQHti/qqnKH7R
+Ed4fYROLFGvz+PX6E20SryOt1vrmoRyC7Z5FVmgMVOQQ1AaBNAHi3+IPtKx41YdXdbqHJxuI5jE=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=ALICE_cf_sect571r1:ALICE_cf_sect571r1_PUB
+
+PrivateKey=BOB_cf_sect571r1
+-----BEGIN PRIVATE KEY-----
+MGYCAQAwEAYHKoZIzj0CAQYFK4EEACcETzBNAgEBBEgAzcRvASPpWi0ybpOGlj0LSvg26H8P2dcG
+n3DTgU5nskMHpvUYIJpU11IpAkSvcbhFzBwH2eN4z2zLojKSaP1bFORO0AeRZvm=
+-----END PRIVATE KEY-----
+
+PublicKey=BOB_cf_sect571r1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGnMBAGByqGSM49AgEGBSuBBAAnA4GSAAQH3dnL22NajtqDWTX6qD14w1BOlpHFBUPTr24VySlh
+kiiBlOF95u7hFr/hSb7gm/3f+IVKyE18Sh2kR4KaxWcPWKY5xKTiqiICT7hCistuzNRt8gR+kNOT
+c1rETMV6ZruZinwzEWWWjwJf6612oy2HG3CX3B8Rm+a3sS0q6IzowEwqmDv6v9bMTFk8bsCv0Fk=
+-----END PUBLIC KEY-----
+
+PrivPubKeyPair=BOB_cf_sect571r1:BOB_cf_sect571r1_PUB
+
+# ECDH Alice with Bob peer
+Derive=ALICE_cf_sect571r1
+PeerKey=BOB_cf_sect571r1_PUB
+SharedSecret=6700a4722ab66a1f24aa73eb029fc838a5e15eb41c789c4d0fa6ee7b5755ece13d288f3bf8f6003e995a519dca3429d70fb376299ff440304a53689595f64b918944b5a0d6cb3419
+
+# ECDH Bob with Alice peer
+Derive=BOB_cf_sect571r1
+PeerKey=ALICE_cf_sect571r1_PUB
+SharedSecret=7937c1532ea15d1a71ab48de181db243d3b16da76c661c1d1da7ea4b3863ced51e171b7eb5a0039a159d049bbc3440d46ae441637ba108107d74766897e35d046763b7f5b6de0390
+
+# ECC CDH Alice with Bob peer
+Derive=ALICE_cf_sect571r1
+PeerKey=BOB_cf_sect571r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=104b6e1a2262963ae84b9be6b71bbced71e9c9c2f7c0a10e75f80d472fdd5d526cb7676a6b67d675c40e6e35ddfd3e29836fb51e87f2bcafcb6ef0a4e09b29ac1a97e2d7613b3aa5
+
+# ECC CDH Bob with Alice peer
+Derive=BOB_cf_sect571r1
+PeerKey=ALICE_cf_sect571r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+SharedSecret=545b7f4c1130248bc65c3fb3b56febce38a4a2a9c7f9c67a17f03c579fae2e978cc7100b3f07f648a95b4c97fbba3a45845bd63f57c9dafbbc1eb0d0e89f58db2e36d9a3670f3fa0
+
+PublicKey=MALICE_cf_sect571r1_PUB
+-----BEGIN PUBLIC KEY-----
+MIGnMBAGByqGSM49AgEGBSuBBAAnA4GSAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHMtVWZAwgtd1zmgWN/9WC
+aNQcWRNUKesEHXqhJVkC5jYsSACodKsLYFNrWEYM0gwG8DQONZSn93G+38EM45tkaZsIRDt2HEM=
+-----END PUBLIC KEY-----
+
+# ECC CDH Bob with Malice peer
+Derive=BOB_cf_sect571r1
+PeerKey=MALICE_cf_sect571r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity
+
+# ECC CDH Alice with Malice peer
+Derive=ALICE_cf_sect571r1
+PeerKey=MALICE_cf_sect571r1_PUB
+Ctrl=ecdh_cofactor_mode:1
+Result=DERIVE_ERROR
+Reason=point at infinity

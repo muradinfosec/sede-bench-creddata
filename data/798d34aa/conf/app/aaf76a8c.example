@@ -1,0 +1,30 @@
+app:
+  port: 9900
+  auth:
+    jwtSettings:
+      secret: "eyJhbGciOiJYRDE2NiIsImtpZCI6InBGZWFfa05sZF8zNDE4NTc2MyIsInR5cCI6IlFQTCJ9"
+  database:
+    name: "srv-account"
+
+database:
+  mongodb:
+    uri: mongodb://localhost:27017/
+    name: srv-account
+    options: ""
+
+  eventstore:
+    poolMax:
+    poolMin:
+    streamProtocol: "http"
+    hostname: "localhost"
+    httpPort: 2113
+    httpPotocol: "http"
+    tcpPassword: "jbxpvkzo"
+    tcpUsername: "admin"
+    tcpPort: 1113
+    tcpProtocol: tcp
+
+  redis:
+    host: "localhost"
+    port: "6379"
+    password: ""

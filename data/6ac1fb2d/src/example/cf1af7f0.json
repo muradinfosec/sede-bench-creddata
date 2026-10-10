@@ -1,0 +1,235 @@
+{
+  "version": "1.0",
+  "examples": {
+    "CreateToken": [
+      {
+        "input": {
+          "clientId": "_yzkThXVzLWVhc3QtMQEXAMPLECLIENTID",
+          "clientSecret": "WJXFRHECMQCZMWdzBumAZmWlXcLMhfCXZ7GGBnJNN7VTYcKiQeQmB5FunULcg9Gq0",
+          "deviceCode": "yJraWQiOiJrZXktMTU2Njk2ODA4OCIsImFsZyI6IkhTMzIn0EXAMPLEDEVICECODE",
+          "grantType": "urn:ietf:params:oauth:grant-type:device-code"
+        },
+        "output": {
+          "accessToken": "yepz-WnjMEZHnTQ9kXtFHMB2DkABWF0W9ke3G3_H_eVXAxM_NKIV9q6nb9Uk5c8AmsQnkRjB-FWbD_V7ftqe5KpdqRnu6:JNWIFGU7OzmOmS6bBJL78fI3QeI/KnB0ilfCeUyMAWHW3jCTE3h1cvFAi9Zb/tll/9Y1Xu4PIQEPSBrQwyh2QSlpa6GMLWSKBdSSLY2D3joSuZisUYJL3dQesJFOELFAHLPESVJPMCL",
+          "expiresIn": 1579729529,
+          "refreshToken": "buumNImxJoR4q02WmR3Rmo-FD1fDIi6kAaQ_Wmx2ywTWYF6npHkrxhnI1W95d3P-5Zkn-M_eRbZuwjZMU2tweOUrwRnc0:LYETXScSrlpUVGhAlSU44VEPPHME3IcwWj3UfJdkGzZJo8xX1MfH0vyHnfqG4CTDmkREMzQePO5bpTtnvccNEEepUJdc/KpJtaDKyu1YWxToxKsth6iIgTpUBKSBFUZXSALIBTVSEC",
+          "tokenType": "Bearer"
+        },
+        "comments": {
+          "input": {},
+          "output": {}
+        },
+        "description": "",
+        "id": "create-token-for-device-code",
+        "title": "Call OAuth/OIDC /token endpoint for Device Code grant with Secret authentication"
+      },
+      {
+        "input": {
+          "clientId": "_yzkThXVzLWVhc3QtMQEXAMPLECLIENTID",
+          "clientSecret": "FPMXNXVIXFHTUUenHxbRSlCjBdQRhfLLQ3ZCIqGFV5LTQpLlKcDwY3OomQBte9Er6",
+          "grantType": "refresh_token",
+          "refreshToken": "umxtPUlfAgV1t63TvA1Xbn-DV3rXCc3yTtA_Uqh9vzPTUQ6oxHfzovpI6Q28m6G-2Lix-Z_yYsIigmXJX6bkvGEbtNnz8:CVCLKQjTbzuEJZgFdWO90ETVNXYQ5ZxvUq8LkZcdQfBNy7eC7KlY7byEujbD8DKKozOFMePxOI9pfAenrgbMXWehLCnl/MkOelJSqm5SPyNcaXooz0aSiKjFHNFSDDMYSSGIXWTRNX",
+          "scope": [
+            "codewhisperer:completions"
+          ]
+        },
+        "output": {
+          "accessToken": "ucih-WnpZBNMzOY2aCkLXKV4LdLRTS4S8ek5U2_E_hZTGsX_SLCH8s5lk8Xl3x0BcmQmqQjK-FGaC_Q2enqp1LfcwYgf4:IKUKLNU9OzqYjF4jWMH23rU8HdO/KaP9pozKbHdXRTBR1sKFJ8q9yzJSw5Yc/mrl/7T6Uq2YTEXULIgSzei3TGsbs8PFRGUQCmNAZQ8T5axNnBptERZT0rXiiGHBBRBUNOTMSBMNFBZ",
+          "expiresIn": 1579729529,
+          "refreshToken": "ohreYBpsOnZ7k79WeJ6Fdw-YO6sREa2lIlC_Nfy1htDKJZ8gsRxoehpR4M66f5L-5Fjm-R_jOgJgozOLN6zdsPIelMzz7:HFDLHWnBxpgYUNbDiKE82QZHNRHE4QzfZp8ZmNsjYvUMz2jQ1GaK5ljImhbZ5ZNFpqSNGvAkLH9xuIefkusUJKhqVYaj/AuMjeXPgz8JPvLhnLdmn9vIsBjUFPRXJNGWNQMTETYVYC",
+          "tokenType": "Bearer"
+        },
+        "comments": {
+          "input": {},
+          "output": {}
+        },
+        "description": "",
+        "id": "create-token-for-refresh-token",
+        "title": "Call OAuth/OIDC /token endpoint for Refresh Token grant with Secret authentication"
+      }
+    ],
+    "CreateTokenWithIAM": [
+      {
+        "input": {
+          "clientId": "arn:aws:sso::123456789012:application/ssoins-111111111111/apl-222222222222",
+          "code": "yJraWQiOiJrZXktMTU2Njk2ODA4OCIsImFsZyI6IkhTMzg0In0EXAMPLEAUTHCODE",
+          "grantType": "authorization_code",
+          "redirectUri": "https://mywebapp.example/redirect",
+          "scope": [
+            "openid",
+            "aws",
+            "sts:identity_context"
+          ]
+        },
+        "output": {
+          "accessToken": "lgpa-VuxWOBBjOR3kQwYZSJ0YlXUFN0M4to8H2_I_sNSAcU_HXDM3m5po9Xw2o6EenPibNdN-NCcR_Q0wmmt1OpgxYrt4:UNQBQGI3AhdGjR8iGWQ80vS9OrW/NlG5yqeMtBaLKJCR7aVXJ6u3jgBPx0Pz/ica/6N2Zu0BWWYNVNcZqer9KTold5ZPMJLDNrAHCK5E9nbBxTtqSJSS4cHsjBNXSRFEAHPYFRJWKVY",
+          "awsAdditionalDetails": {
+            "identityContext": "EXAMPLEIDENTITYCONTEXT"
+          },
+          "expiresIn": 1579729529,
+          "idToken": "eyJhbGciOiJVYTY5OSIsInR5cCI6IkxrYiJ9.eyJJYVE6WFJacFJLb2RfYkdYTGpfV1UiOiJkLTM5NjgyMjU2MTQiLCJzdWIiOiI2NzcyMjFONy1PNXMyLTExVjUtVzYzNi00MjQ1NzI3MzgyNjQiLCJMS2k6WUNiUEVielNfU2N6eGNLaiI6IjcyNDkzMjYxNDcyMiIsImxCYTpTbmRxTXZRQl9OdG9URklZIjoidmduVVdGcXVSaHFUYUNRS2FISEd6cyIsIkNXVjpuUGtzWV9IZFdJcHJSIjoickNFTGtiRFFVT29PTGlZclFqQiIsImlzcyI6IkFReXFxOi8vamtib1hUVEtMZkx2TVguSXJuVlBZeEJYLmJyWi9sVmZaeWUtMjM1NzE3NjczNjI0IiwiWHlKOktiSVhxU2VYX3BlQnloX0NndSI6IlB5cDpvZ0M6b1Fnbnl4bldBY0hyYzo6NTc5MjQ5NDkzMTg4OkpHUHFDam5uZmNhVFQvUC0zODYyMTY0NDkyIiwiYXVkIjoia1pwOmZVdDpDaEs6Ojk4MjQ3ODYxNTc3MTp6T2lmWkx3eHVJeC9Zak9nWFotODE5MzkzNjQ4NDk5L1JRWS01OTg5OTQ0NTYzNTQiLCJCQXQ6dWJFQUFhcFlfSlNrIjoid1l3OnJWSjp5eWw6OjpSZHFFcUhtcy9uZlFJQU4tNzM2ODQ4ODQ3MzUxIiwiVmFDOkhER1Fadld4T25fZEIiOiJfa1MxbDdMV1FUNDVadk1JS3hfV0JNbDM4SU9Za180M0J3TUFfeUNaSWhCOG5qZ3NOVEdpeGR3VXdCenhGbXpoIiwiUVR1cV9TU0xzIjoiMzUzOS03My05OGc1NToyOTo2NmIiLCJleHAiOjg5NjkxOTQ5MzcsImlhdCI6MjE0ODU2Mjk0N30.Xspa0dtt07aNqnD35lNL5ihEdSqjvQNXhKWlR6C8Lg5",
+          "issuedTokenType": "urn:ietf:params:oauth:token-type:refresh_token",
+          "refreshToken": "duobAJhfGaY0i69HdU9Tmk-VX1zXYy7dWhI_Bdk2lnESXI2rxRoftqnN7O25l6K-9Wah-U_vNsCrxpCBJ2yspOPrpRjd0:VSTOPCkEgitZZHlUrNR55EFCHXMP4RtuZi5VcKwxUnFZo1rW4ZxV8jmMqwrH9JIRwmHEBdUmIF3maEgqwxsNSUtiTVmh/VyWisQPub7LXfFprAaxl3eYaQfRFMIFHKMNNNKGEKFZFP",
+          "scope": [
+            "openid",
+            "aws",
+            "sts:identity_context"
+          ],
+          "tokenType": "Bearer"
+        },
+        "comments": {
+          "input": {},
+          "output": {}
+        },
+        "description": "",
+        "id": "create-token-with-iam-for-auth-code",
+        "title": "Call OAuth/OIDC /token endpoint for Authorization Code grant with IAM authentication"
+      },
+      {
+        "input": {
+          "clientId": "arn:aws:sso::123456789012:application/ssoins-111111111111/apl-222222222222",
+          "grantType": "refresh_token",
+          "refreshToken": "kmikHZuvAaW9p44FnF4Whu-WH3tGOl5pZnN_Lts4lcOWXB2mkVobbuoB6D39n2N-4Xkg-S_gJiDdwqDMJ1uzjTFzlQsu6:TNKTAMlBwmuGIVkAaBB27BPXHICW2YetNq0JiBjlVmLUg7cF1UpY3zcLvpjM8TGQdfNEMkCeRJ7zhIbteohSCMdgEQdx/ApDmcARvl8JKvUyaRnjh1wNkVlLQWUAJLBPQOHZAFKUQO"
+        },
+        "output": {
+          "accessToken": "krva-WthXRESwJK5rUvPIVX1IsEVXI8M9lf9B7_G_rRBDwY_ZNNX0k7xx0Db8z8XkoTavCzV-IVtK_B4ebub9QogrEkg9:SPEUMLB9DiiDjQ8lNDE20oN1IuG/QnI2yzvRnAkHDIER5zSMN9e7btHFi9De/osp/7V1Yd3NWFCNVBcIyng3HVwod1QGFWOJSoQEKC5Y5smSjDfbNZCF3yWecQTQBXILGICDWIDZUZO",
+          "expiresIn": 1579729529,
+          "issuedTokenType": "urn:ietf:params:oauth:token-type:refresh_token",
+          "refreshToken": "tsluVLxnJjZ5s00ViC9Aor-AL4hFJv6iQeU_Yyw7kpMXFW1peCracfdO1A52i7I-0Qis-N_dYgZwgdLTU9ovvNWndMqu0:MKRGQYnIdkzSKBaIqNJ14YOAUJAR0JpiVk7YgHpzMgEXr7lV9LrK7dfFkoiW4FGRswICRdBqKN1hpTpumlgOVXjjNSzg/AsTvyZPty1IYcKufGyfa4gNaXyENUJLJXTARWXJEUUALF",
+          "scope": [
+            "openid",
+            "aws",
+            "sts:identity_context"
+          ],
+          "tokenType": "Bearer"
+        },
+        "comments": {
+          "input": {},
+          "output": {}
+        },
+        "description": "",
+        "id": "create-token-with-iam-for-refresh-token",
+        "title": "Call OAuth/OIDC /token endpoint for Refresh Token grant with IAM authentication"
+      },
+      {
+        "input": {
+          "assertion": "eyJ0eXAiOiJlcGkiLCJhbGciOiJOUDI5MSIsImtpZCI6IjJGT0xUcEN2dWVkbmFfN1k4WktJREx3V0NFTyJ9.eyJncnYiOiIxLjUiLCJpc3MiOiJldVN6STovL1RCZnpvLnZmWkt0T2lFZ09Ca2RnUC5LUWovNjE2ODU3OVYtM204Mi05ZTZWLXo2MjItMzl1NzUxaDE0c2FRL28xLjUiLCJzdWIiOiJOUEVJaXBPcEhySW9td2NNbFFSbkRFTGJ0aWRQbUVMU3VzYzYyNld4TlNOIiwiYXVkIjoiN2FYMzczNDYtbDRTMS0xN1o5LXc2OTEtMzU2WDgyWTN5QWwyIiwiZXhwIjo1MjgzNzM3MjU1LCJpYXQiOjMxNjYxODg2ODUsIm5iZiI6ODY0MjUxMTc1NCwiVHVnRSI6InhlYSBPbENVdmNVIiwid0hjQklhSkhMX1JnZFZZdkhkIjoiYWNXbUpAeWJaeHVVbXBWLmhRUyIsIlZ5USI6IjYxNTE0ODEyLTEzODMtMTg4MS00N2o3LTU3MTZPU3Y0Y0Y4NCIsIkJtayI6IjYxMzY5NzRLLTlYNjEtNUs5WC1INzkyLTk5bDIyNnM5MVR2ViIsIm5vbmNlIjoiODM5NDgyIiwiRmpPIjoicHQybE5kUzZ1YiFFV2xxYmdqSkRtdktGeENEUGVoT3VuSFU4aTFFMnQ4NDhxSDZpcjZ0Q250dW5sMnZhR3lNbzNMWFZzSiF6cVJVQkhYRnUyUEZVQ2VmU1JzendlbEhrRktmUWIzbEZIMWxNIn0.0RDKR-Cv6rSHaRnwsq6PeIfVkWdzagMWao43YNtvWr5Y66kTkPVtmO7x-02DTl1I5N_87_KskVsbu774O6m_Le7UKHrWAOingFHg34FhcZAWhqlyH7GqN1c6EXTkwlI9WbWdlfohul64pZyK0NEEO3ioMZqVeHrTu3nMNowqsqc-NQwx2kGR-K7MR_o_med73SFESMqbuldvLmT5efDK6Q2qovh_vBwpN83SjQ7sQ3Y3-YsL07Wutrvlhqd1UCG0xgTfC7WQIRRAFVp2cggDia7wn-LDvCb9PocmQ0gutMTM-GVv1h2ZrBBaSVKxU0s0sdRC3V2OsHed_exUqoRJfp",
+          "clientId": "arn:aws:sso::123456789012:application/ssoins-111111111111/apl-222222222222",
+          "grantType": "urn:ietf:params:oauth:grant-type:jwt-bearer"
+        },
+        "output": {
+          "accessToken": "zzys-AbdWPOAaPO6bPbUXNE9UySFYX1A4rl9Y4_U_qWOLuT_TSNE0o0bw9Hn6y5RqfJdtCcN-JVsC_F2fxcv5ZsheMsx0:FKAJRCZ7FroLpI9xRUB16iU1FfE/YoL8jkqVvBvPRPTO9vXZP5m6vaQSu0Ll/rfv/1S5Pj2YXSWCZOzAwdh2JOndm1YJSGBLWwMBJN5K5uhJvZhpQLDC6rJuaGNWEVNACMKUFEFKTTO",
+          "awsAdditionalDetails": {
+            "identityContext": "EXAMPLEIDENTITYCONTEXT"
+          },
+          "expiresIn": 1579729529,
+          "idToken": "eyJhbGciOiJPbDkxNyIsInR5cCI6IlVJeCJ9.eyJCaUc6RXdDcHFmRWFfWER3eFZfTEUiOiJXLTc2MTQ2OTU0MjEiLCJzdWIiOiI1ODI4MTZPOS1tOGIzLTU3QTctQzg2My05NzEzNDI1NTQ3MzMiLCJWUG86Y2d2anFVVHNfbHFKd3lqdiI6Ijc4NjI3MTE3MjMxNiIsImxhVjpGU1N1eGl2el94Z3BwUmhlIjoiRlJjZWRyT2VMVVdSdW52aVN5bE9NVCIsInZ1ZDpZR3Vsel9zTFlqRmZFIjoiT2VycXNhT2F1Ymd3TWl0SXVvbSIsImlzcyI6Im9DQ3JVOi8vYW1CUnlMdkZFVU56eUkueFZPR01RaWptLmdVVC9UYURPWHgtMjQ0MzM4OTYzMzUyIiwieXZuOnd5Y2FQdk1nX0JqZkNKX2FIZiI6ImFXcjp1YUQ6UVFYWG9ldHF6cmlNTTo6NDYzNjU3MzgxMTgyOlVHUkV5ZWxibEltRUMvTi01NDg2NjkxNDI3IiwiYXVkIjoiaHBIOnFxQzpSaU46Ojg1MTI3MTg4MjY3NTpiWklQWWNETHhVQi96cnVUWnAtNTE2MzMyNzg0OTg5L05Cdy01MzEyNjE2Nzg4MjUiLCJpSlA6anBlV1V6ZFFfVUFhIjoiQ1lQOlpoRTpOY0o6Ojp3WERNaUJMeS9jYVdralMtNTk3NzI1MzI3MTU3IiwiUVhtOlBmemxtdktxbWRfZVgiOiJfamg2ZTdzV0FJNjZTck5FQnZfTkFOWTU0b0xQWl8xMVpFWkFfTmlRV29GMUp3QWh1Q3d0ZEhHeGJ6aWdBbnNDIiwiZlBTeV9JSkNzIjoiOTc5OS0zOS0xN1ExMTo0Njo2MW8iLCJleHAiOjIyMzY5NDQyMzEsImlhdCI6NTk3NDg5NzQ0NH0.Vqav6bdt49jLwaK31sNY7ubCwQlauTMElBXyG9D2Cw8",
+          "issuedTokenType": "urn:ietf:params:oauth:token-type:refresh_token",
+          "refreshToken": "jzqjVNziEdW5e81NtN5Xpy-OA6rDOd0fZlV_Cih9lnKQIM3ejVerigxB0M76q8S-6Osn-O_rApLpoqSLO0hozSXzwHnd7:SBNPGCaQwgoQDVcRtKM92XCYASFH2KunNn9DkCgkHtLTb6oE7YlJ9ssJrqyT9ZHWzrYLMpMcAA1qkUhzzwwFQFioPJvi/KrSuzNDyx8UPxAgxJvwa8yIhSdTBEMNCFOPIQGNWWPGQI",
+          "scope": [
+            "openid",
+            "aws",
+            "sts:identity_context"
+          ],
+          "tokenType": "Bearer"
+        },
+        "comments": {
+          "input": {},
+          "output": {}
+        },
+        "description": "",
+        "id": "create-token-with-iam-for-jwt-bearer",
+        "title": "Call OAuth/OIDC /token endpoint for JWT Bearer grant with IAM authentication"
+      },
+      {
+        "input": {
+          "clientId": "arn:aws:sso::123456789012:application/ssoins-111111111111/apl-222222222222",
+          "grantType": "urn:ietf:params:oauth:grant-type:token-exchange",
+          "requestedTokenType": "urn:ietf:params:oauth:token-type:access_token",
+          "subjectToken": "zvsk-Ruw7MKHVZJ3pMpQBNR8JpTBDE3W7rd3Q8_Y_lYSYhT_WCGS4p9xm5Mv6l6BkpQcbBkP-VMeQ_F4jbzp8ZsvnGdz1:PWSBYJO2ApsBgP3jHEV06sF1DqS/CoK9vkjRaKfMPRHU9pFES8x6xjSSd1Ie/ppp/5C6Kh6PMOGJEVpCwia4BPymt0UNZQAZUzHDUQ0P7sjGvRrmGVNT2uSUXLRDNVODZVPMVVTBECT",
+          "subjectTokenType": "urn:ietf:params:oauth:token-type:access_token"
+        },
+        "output": {
+          "accessToken": "tkly-MqvLIRElZD9lFlRZTL0NbOHVB0K1fb2I7_T_jOQCdF_NTIN5y1td0Lp1z0EurOvnGiE-XHxV_F8qfrt9PihdSpn2:FVRFDGA7ImsQoJ1iJAO15uS5IoU/FmR2mlqRsTfXLDIT9xMSX1u5ryILf0Tp/ogr/2H5Nv2ZGICUSTtWpet5FQvpg2JFGPOCHzTJAI1H7klCeYtdEOYF5uMjfIPYNGNVUNJGMNNTIGK",
+          "awsAdditionalDetails": {
+            "identityContext": "EXAMPLEIDENTITYCONTEXT"
+          },
+          "expiresIn": 1579729529,
+          "idToken": "eyJhbGciOiJ3WDI0MiIsInR5cCI6Im1RTiJ9.eyJYd0o6QlJuanlCTU1fVXJzZmxfbFYiOiJmLTI0MjgzNTE1OTYiLCJzdWIiOiI1NTI3OTVXMy1oNXMzLTI1UDItcTcyOS03NDg5MzMxODI4NTUiLCJ1RHY6Um9hWUpndGRfbUZLZUhLYyI6Ijc3NTIyNjY4MzI4NyIsIkV1bTp2elRud1d6eF9pSkdpVElwIjoiY2lDTVNzdllCU0pNaGdwVWNmdEVrZCIsImlzcyI6IkxDUGpqOi8vV1VoeXpscWZxVGtGQUgubEFRcGVMclluLlBBSS9Id3RNbGotNDE3OTMyNDMxMjcxIiwic0FEOkVqa3NidVlWX0J0YXZlX3JUYSI6IlpTRTp1VXA6RldlVGZyZ09SS1RQVDo6NTc0OTIzNDE1NzM0OkhDZVhkb0NEb3FjckIvZi01Njc4Mjg1NzkyIiwiYXVkIjoiUlBiOkhsUDpic1o6OjM5NjIyNjIxMzM4OTpEZ1pSY3loWmp2WS9NcUFjdmEtNTE5NDg0NzU5OTkzL1JPUy0zNzY5OTk4NjEyMzciLCJkakg6Z0FZRkVxRllfbHRMIjoiS1RpOnlQZDp3SkU6OjplZ3djRkFtdS9HZ0JwUHktNDE2NDQ0NDM4MzY5IiwiUGNpOnJGRlN1amZEQk9fdnIiOiJfc1U4WjZLSXlaMzF2bVJXTFBfR3dQdjIyWm93cF8yNmljRWZfQWJqTVFGNHlrTGN5dGhxbUN3R3dOUUxLcFVaIiwiaXZ5bl9Uc090IjoiNzczNi0zNi05MmcxNTozMjo2OGwiLCJleHAiOjM3ODI5NzgzOTQsImlhdCI6ODg1NjM0Nzk3MX0.9RMaA0wKcfKi7yum-g4umcsZ5GYwTHrBX0_g6SI92fB",
+          "issuedTokenType": "urn:ietf:params:oauth:token-type:access_token",
+          "scope": [
+            "openid",
+            "aws",
+            "sts:identity_context"
+          ],
+          "tokenType": "Bearer"
+        },
+        "comments": {
+          "input": {},
+          "output": {}
+        },
+        "description": "",
+        "id": "create-token-with-iam-for-token-exchange",
+        "title": "Call OAuth/OIDC /token endpoint for Token Exchange grant with IAM authentication"
+      }
+    ],
+    "RegisterClient": [
+      {
+        "input": {
+          "clientName": "My IDE Plugin",
+          "clientType": "public",
+          "entitledApplicationArn": "arn:aws:sso::ACCOUNTID:application/ssoins-1111111111111111/apl-1111111111111111",
+          "grantTypes": [
+            "authorization_code",
+            "refresh_token"
+          ],
+          "issuerUrl": "https://identitycenter.amazonaws.com/ssoins-1111111111111111",
+          "redirectUris": [
+            "127.0.0.1:PORT/oauth/callback"
+          ],
+          "scopes": [
+            "sso:account:access",
+            "codewhisperer:completions"
+          ]
+        },
+        "output": {
+          "clientId": "_yzkThXVzLWVhc3QtMQEXAMPLECLIENTID",
+          "clientIdIssuedAt": 1579725929,
+          "clientSecret": "MLMVKBUKYJTSRYbiHnsLOvOrFzNByfBRE9MQNwDDC4CKEaXnZvMhM4JjvHYir5Kh9",
+          "clientSecretExpiresAt": 1587584729
+        },
+        "comments": {
+          "input": {},
+          "output": {}
+        },
+        "description": "",
+        "id": "register-client",
+        "title": "Call OAuth/OIDC /register-client endpoint"
+      }
+    ],
+    "StartDeviceAuthorization": [
+      {
+        "input": {
+          "clientId": "_yzkThXVzLWVhc3QtMQEXAMPLECLIENTID",
+          "clientSecret": "YPZCJHJWMRWUOEikDojNYfGbMsAEhrDXP4QIDqYTU4ORQmHlXlJyM5AdjJIpv9Zh9",
+          "startUrl": "https://identitycenter.amazonaws.com/ssoins-111111111111"
+        },
+        "output": {
+          "deviceCode": "yJraWQiOiJrZXktMTU2Njk2ODA4OCIsImFsZyI6IkhTMzIn0EXAMPLEDEVICECODE",
+          "expiresIn": 1579729529,
+          "interval": 1,
+          "userCode": "makdfsk83yJraWQiOiJrZXktMTU2Njk2sImFsZyI6IkhTMzIn0EXAMPLEUSERCODE",
+          "verificationUri": "https://directory-alias-example.awsapps.com/start/#/device",
+          "verificationUriComplete": "https://directory-alias-example.awsapps.com/start/#/device?user_code=makdfsk83yJraWQiOiJrZXktMTU2Njk2sImFsZyI6IkhTMzIn0EXAMPLEUSERCODE"
+        },
+        "comments": {
+          "input": {},
+          "output": {}
+        },
+        "description": "",
+        "id": "start-device-authorization",
+        "title": "Call OAuth/OIDC /start-device-authorization endpoint"
+      }
+    ]
+  }
+}

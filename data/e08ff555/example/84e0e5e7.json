@@ -1,0 +1,419 @@
+{
+	"id": "347697db-0486-76b0-a068-b50ff1f4d812",
+	"name": "HackerNews API",
+	"description": "HackerNews API collection for Postman. I added more documentation.",
+	"order": [],
+	"folders": [
+		{
+			"id": "d017abbb-78cf-4c4f-2000-bfe5fe477e49",
+			"name": "Items",
+			"description": "Description",
+			"owner": "5",
+			"lastUpdatedBy": "5",
+			"lastRevision": 62968,
+			"collection": "377887cf-4029-08d3-e292-e69bc2b6b960",
+			"order": [
+				"f969a4d3-0275-dc05-73ae-84814790abe6",
+				"e09f4883-2117-deb1-4a55-7e75ec4f195b",
+				"39027069-510c-ae78-be83-70d5877a058d",
+				"8c8f386e-40b9-fc9a-a3a1-0639981342cc"
+			],
+			"createdAt": "2015-05-12T06:44:41.000Z",
+			"updatedAt": "2015-05-12T06:44:52.000Z",
+			"write": false,
+			"collection_name": "HackerNews API",
+			"collection_owner": "5",
+			"collection_id": "351737bc-3841-69b7-a138-b60ba1b4a569"
+		},
+		{
+			"id": "04594c79-f615-1aac-73ba-b907eefef7da",
+			"name": "Live data",
+			"description": "The coolest part of Firebase is its support for change notifications. While you can subscribe to individual items and profiles, you'll need to use the following to observe front page ranking, new items, and new profiles.",
+			"owner": "5",
+			"lastUpdatedBy": "5",
+			"lastRevision": 374418,
+			"collection": "215239ed-6208-76f3-f914-f10af6f8e256",
+			"order": [
+				"ee5829ed-c84a-deb4-c466-2bb549b61764",
+				"5223e4a4-5287-13ba-3c3c-0b10f5daaf95",
+				"cb7208c4-fbc4-5471-3b0b-cb012f355021"
+			],
+			"createdAt": "2015-05-12T06:44:42.000Z",
+			"updatedAt": "2015-06-17T00:49:22.000Z",
+			"write": false,
+			"collection_name": "HackerNews API",
+			"collection_owner": "5",
+			"collection_id": "695698ef-6143-21c8-f376-b61df8f7b853"
+		},
+		{
+			"id": "4b12a294-8e49-da4d-07d6-e1403dc8e70a",
+			"name": "Users",
+			"description": "Users are identified by case-sensitive ids, and live under https://tngkuh-oggh.firebaseio.com/v0/user/.\n",
+			"owner": "5",
+			"lastUpdatedBy": "5",
+			"lastRevision": 62970,
+			"collection": "714454fa-5745-94d9-d081-f78fd5a1b667",
+			"order": [
+				"d5f11b4a-b615-ad0a-799b-0e1a63a9ddbd"
+			],
+			"createdAt": "2015-05-12T06:44:42.000Z",
+			"updatedAt": "2015-05-12T06:44:53.000Z",
+			"write": false,
+			"collection_name": "HackerNews API",
+			"collection_owner": "5",
+			"collection_id": "472758af-3077-76d1-b700-a30bf1c2e999"
+		}
+	],
+	"timestamp": 0,
+	"owner": "5",
+	"remoteLink": "http://beta.getpostman.com/collections/093d718a055757a2dc46",
+	"public": false,
+	"requests": [
+		{
+			"id": "9980d4b3-7988-86cb-2a0f-2b78b7eabe83",
+			"name": "Item and profile changes",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Description",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://wcztns-qonj.firebaseio.com/v0/updates.json?print=pretty",
+			"preRequestScript": "",
+			"tests": "",
+			"version": 2,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"folder": "12993a72-d430-4dfc-51ca-b992cbfab3ec",
+			"collectionId": "391013df-2905-71e7-f203-e16bb9c6b153"
+		},
+		{
+			"id": "7b9b079d-36f2-db6e-c1b2-3448832007cb",
+			"name": "Poll option",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "question",
+					"value": "unknown",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "answer",
+					"value": "42",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Description",
+			"headers": "",
+			"method": "COPY",
+			"pathVariables": {},
+			"url": "https://quhoos-hhlp.firebaseio.com/v0/item/160705.json?print=pretty",
+			"preRequestScript": "",
+			"tests": "",
+			"version": 2,
+			"currentHelper": "normal",
+			"helperAttributes": "{}",
+			"folder": "a703abab-75df-8d6b-6432-cdc0cc439e01",
+			"collectionId": "045352fd-3966-12e2-b800-c14ef5a8a049"
+		},
+		{
+			"id": "07690784-525c-bd97-bd31-88c3602d461d",
+			"name": "Poll",
+			"dataMode": "urlencoded",
+			"data": [
+				{
+					"key": "but",
+					"value": "this",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "is",
+					"value": "going",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "to",
+					"value": "be",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "urle",
+					"value": "encodeded asda asd",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Description",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://cnppvl-tjwt.firebaseio.com/v0/item/126809.json?print=pretty",
+			"preRequestScript": "",
+			"tests": "",
+			"version": 2,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"folder": "d165fbbb-47fe-1e8b-5169-dbe5bb243c23",
+			"collectionId": "966813fe-4102-59c9-a552-d71de9a1b711"
+		},
+		{
+			"id": "f664d9d6-4061-da63-22de-63794844bdd4",
+			"name": "Story",
+			"dataMode": "urlencoded",
+			"data": [
+				{
+					"key": "but",
+					"value": "this",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "is",
+					"value": "going",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "to",
+					"value": "be",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "urle",
+					"value": "encodeded asda asd",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Description",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://lysorh-mocd.firebaseio.com/v0/item/8863.json?print=pretty",
+			"preRequestScript": "",
+			"tests": "",
+			"version": 2,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"folder": "c382ecfd-09df-1a3a-5289-fde6db606f79",
+			"collectionId": "943934bf-6360-95b0-c238-d33bc9d2c858",
+			"responses": [
+				{
+					"owner": "5",
+					"lastUpdatedBy": "5",
+					"lastRevision": 93689,
+					"request": {
+						"name": "Story",
+						"description": "Description",
+						"url": "https://oyeuwv-mqtb.firebaseio.com/v0/item/8863.json?print=pretty",
+						"pathVariables": {},
+						"headers": "",
+						"dataMode": "params",
+						"method": "GET",
+						"tests": "",
+						"isFromCollection": true,
+						"write": true,
+						"version": 2,
+						"id": "c380e6a3-8537-ee07-31ea-96105497caa1",
+						"collectionId": "390960ca-2715-86d8-d120-b55cf6e9a471",
+						"currentHelper": "normal",
+						"helperAttributes": {}
+					},
+					"id": "23a0fa10-68b0-c0a0-2ce5-6056c4eae0a2",
+					"name": "200 OK",
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": "211",
+					"headers": [
+						{
+							"name": "Cache-Control",
+							"key": "Cache-Control",
+							"value": "no-cache",
+							"description": "Description"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "456",
+							"description": "Description"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "Description"
+						},
+						{
+							"name": "Strict-Transport-Security",
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31556926; includeSubDomains; preload",
+							"description": "Description"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\n  \"by\" : \"dhouston\",\n  \"descendants\" : 71,\n  \"id\" : 8863,\n  \"kids\" : [ 8952, 9224, 8917, 8884, 8887, 8943, 8869, 8958, 9005, 9671, 8940, 9067, 8908, 9055, 8865, 8881, 8872, 8873, 8955, 10403, 8903, 8928, 9125, 8998, 8901, 8902, 8907, 8894, 8878, 8870, 8980, 8934, 8876 ],\n  \"score\" : 111,\n  \"time\" : 1175714200,\n  \"title\" : \"My YC app: Dropbox - Throw away your USB drive\",\n  \"type\" : \"story\",\n  \"url\" : \"http://www.getdropbox.com/u/2/screencast.html\"\n}\n",
+					"language": "javascript",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "{\"name\":\"Story\",\"description\":\"\",\"url\":\"https://upljsw-xzpj.firebaseio.com/v0/item/8863.json?print=pretty\",\"pathVariables\":{},\"headers\":\"\",\"dataMode\":\"params\",\"method\":\"GET\",\"tests\":\"\",\"isFromCollection\":true,\"write\":true,\"version\":2,\"id\":\"b050a6a8-2515-bc31-08ae-98863101dee6\",\"collectionId\":\"821252ed-5539-63d2-f003-c45ba3d2b538\",\"currentHelper\":\"normal\",\"helperAttributes\":{}}",
+					"createdAt": "2015-05-20T21:25:17.000Z",
+					"updatedAt": "2015-05-20T21:25:17.000Z",
+					"write": false
+				}
+			]
+		},
+		{
+			"id": "ed4978da-f64d-ffc7-e526-6af978e79971",
+			"name": "Max Item ID",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Description",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://gdfhtk-luta.firebaseio.com/v0/maxitem.json?print=pretty",
+			"preRequestScript": "",
+			"tests": "",
+			"version": 2,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"folder": "77242d19-a652-3ddf-68ee-d689bdffd7db",
+			"collectionId": "265891ae-8519-69b4-d861-c88ff9b2d579"
+		},
+		{
+			"id": "d98d0645-9108-bad4-9c14-1a67de7d179c",
+			"name": "Comment",
+			"dataMode": "urlencoded",
+			"data": [
+				{
+					"key": "but",
+					"value": "this",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "is",
+					"value": "going",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "to",
+					"value": "be",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "urle",
+					"value": "encodeded asda asd",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Description",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://ghwvxy-kqmo.firebaseio.com/v0/item/2921983.json?print=pretty",
+			"preRequestScript": "",
+			"tests": "",
+			"version": 2,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"folder": "d805dcec-21df-9a0b-6388-caa5da749f10",
+			"collectionId": "580746dc-7268-47b2-f525-e45ae6c6e278"
+		},
+		{
+			"id": "db2226a3-bab6-8662-3a2d-ea749b480217",
+			"name": "Current top 100 stories",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Description",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://ybavae-fuwo.firebaseio.com/v0/topstories.json?print=pretty",
+			"preRequestScript": "",
+			"tests": "",
+			"version": 2,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"folder": "25478f43-a162-8bee-09ac-a946fdefc1ad",
+			"collectionId": "428485bc-4812-09e3-a934-b42ff9a2d954"
+		},
+		{
+			"id": "a7b83a4e-d471-bf9b-413e-0d8d74c0eaba",
+			"name": "User",
+			"dataMode": "urlencoded",
+			"data": [
+				{
+					"key": "but",
+					"value": "this",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "is",
+					"value": "going",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "to",
+					"value": "be",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "urle",
+					"value": "encodeded asda asd",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Description",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://wtpglm-acog.firebaseio.com/v0/user/jl.json?print=pretty",
+			"preRequestScript": "",
+			"tests": "",
+			"version": 2,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"folder": "3a80a633-0c82-bf9e-98f3-b1444bf9b88e",
+			"collectionId": "842671bb-5472-90c7-a912-e33eb9b9f920"
+		}
+	]
+}

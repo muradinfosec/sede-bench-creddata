@@ -1,0 +1,27 @@
+{
+  "kind": "EncryptionConfiguration",
+  "apiVersion": "apiserver.config.k8s.io/v1",
+  "resources": [
+    {
+      "resources": [
+        "ignored"
+      ],
+      "providers": [
+        {
+          "aescbc": {
+            "keys": [
+              {
+                "name": "B",
+                "secret": "+bfnpGOR7xDFL0SpK4vFKJICPQ9EAWaXh2dROq73JRX="
+              },
+              {
+                "name": "A",
+                "secret": "Bir4O4MyVjRtwsT7zPjzl1JcTPvfK8e2AjFGyO5XJV2="
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

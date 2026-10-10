@@ -1,0 +1,100 @@
+---
+port: 9091
+tls_cert: /config/ssl/cert.pem
+tls_key: /config/ssl/key.pem
+
+logging:
+  level: debug
+
+jwt_secret: unsecure_secret
+
+authentication_backend:
+  file:
+    path: /config/users.yml
+
+session:
+  secret: unsecure_session_secret
+  domain: example.com
+  expiration: 3600  # 1 hour
+  inactivity: 300  # 5 minutes
+  remember_me_duration: 1y
+  # We use redis here to keep the users authenticated when Authelia restarts
+  # It eases development.
+  redis:
+    host: redis
+    port: 6379
+
+storage:
+  local:
+    path: /config/db.sqlite
+
+access_control:
+  default_policy: deny
+  rules:
+    - domain: "home.example.com"
+      policy: bypass
+    - domain: "public.example.com"
+      policy: bypass
+    - domain: "admin.example.com"
+      policy: two_factor
+    - domain: "secure.example.com"
+      policy: two_factor
+    - domain: "singlefactor.example.com"
+      policy: one_factor
+    - domain: "oidc.example.com"
+      policy: two_factor
+    - domain: "oidc-public.example.com"
+      policy: bypass
+
+notifier:
+  smtp:
+    host: smtp
+    port: 1025
+    sender: admin@example.com
+    disable_require_tls: true
+
+identity_providers:
+  oidc:
+    hmac_secret: HYVXXbJmMEfu3mm4WbRSLF3sMKtg15Xf
+    issuer_private_key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEogIBAAKCAQEAvOFmoEJFt1JkfdlwM3vJFg5rrY9d6LyyqezjZkBZDQ5PMWPh
+      hqeGc6AsFeVt6IodWN4kPAJZQEH9BkAZqsd3p7HSsEmWnkXdpDCVfPje2nOvCMzK
+      OovQYLijtbjzRMvOPdNUT4fGTxEDsVdaB/zH9Wdo0m1VDeNuCDYyWtEAL1kDB2/+
+      bDsJFb4eWwa/UvGhgFupXYuSQGB1L4mi3ja4q6fOz3kqnDeIrh694okDHzp/+HkS
+      3Flg0pijSK3gld5iNZW4MAcqhMBHnTPcE+6yilng/0B22NV4Vp1wPaSgpIjWfisJ
+      i+9c6HGNRAEtsCvwrD759vOVURPaklmsv4t5onmFOIRhQWgmztFBUjaoIW76SGQ8
+      OPz8KX56HP2havnsp1upeEvZatoIdI0uVHzXu87Z244QhtG+YjQKthGPTG2ZHbti
+      VDa6YbyqWo0qGGfTaLNXEUEgwKVsnsP7R2cwrwe+CufNitX9BjOVwpLKUKR2Ecxm
+      FEhqTuJJbo1OixC026b0WbRKjiKWHhXhIeHBAf1FFTTy5sqA3GlksmdpKjNzrEoa
+      H0T6Km9tItMohMANDlhFotVvWxvoE+34EBzKcpzKQ79kn5aBw+j2+M+7/EuHRYEO
+      5J41UKIOjhepcOfVRnRHwU8LRGZ8smmkL/hQsO3usllp+XTM6gI5hXCuxV2Jk3S3
+      HGakWcCEuIjf2t98FEhW1bExGKrxh8OQLEeXYzDZpnTnMkaTqhQPyEtZKgG8FPOH
+      SKpLeldwpHjhzDxVu1hq6ipzbivKVV978J01GxPEZd4AQaxtzz0f5hFmacCADU5C
+      L0/Quhz/VpxA00s6MauVzigbxn2Sum/y59ptkXUFCBh003jwlVYIjrNLzKbO3UBA
+      Kho/DJik8CpBoiBqZoNONMHMXha6l6S3dnhAUu2UVp2vwMNoalkrqMDXzMhiurCd
+      hsRIPyVMQ9plfK82xMYLRl7qN5R2Rg7IA6KMsUDVpjBb7/nMDUFBNm974CwbDhu/
+      YGw4ZxYovbPpyas7JCsFfd/XkMWdhaevRMv1TZGVxXugp0MGB4MOy9bCWZjeVRQY
+      b9PWixKQ0INIoqkxUIDR43mzf2Q3lcBpMDFTHsYougnukNSgdwQJtTpKNxQvLlBi
+      ZHdF3kN73dLi7J2fnnbJrOq6L9gAGMG7y343eR/qy4SYiCpIu93fAKnLRNG7tay7
+      IlbLtkSko06luhmee6NUFLRLYmnkiVF+v+tzt1oVzRz0M5e91I/N9DX1nI+1PGs8
+      uoUhdhDTq6qtQnVArVgV5OmebhxrY2+l/2JAhjRE7Ks0SllQuN2nkNpO5DydHcMP
+      aE7ZJxdcOJYx7FipZsyPRlGsCv+HP0jKrjdrsUqbtx57poAcXAXaLzuEIBtLO8FG
+      Q2cVcSUSI/8LA14/ikms225+ypwa5iyFoVexx+C+7k40ci0S5e74RVUZTcS60cQ+
+      vZtHHQXn8ljOfOxrCKvOhcn3n66BDZjuAqHfmSQ+qEY+3KE99cvMCp7IPrDkBxEh
+      dC4qdLctCN1iyhldUjnmNCvJ7fPGAirVnPIfHkg/sR9jCXty62Z=
+      -----END RSA PRIVATE KEY-----
+    clients:
+      - id: oidc-tester-app
+        secret: foobar
+        policy: two_factor
+        redirect_uris:
+          - https://oidc.example.com:8080/oauth2/callback
+      # This client is used for testing purpose. As of now, the app must be protected by ACLs
+      # otherwise it won't work properly.
+      - id: oidc-tester-app-public
+        secret: foobar
+        authorization_policy: one_factor
+        redirect_uris:
+          - https://oidc-public.example.com:8080/oauth2/callback
+...

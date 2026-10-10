@@ -1,0 +1,118 @@
+/*
+Copyright 2014 The Kubernetes Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+package testingcert
+
+// You can use cfssl tool to generate certificates, please refer
+// https://github.com/etcd-io/etcd/tree/main/hack/tls-setup for more details.
+//
+// ca-config.json:
+//
+//	expiry was changed from 1 year to 100 years (876000h)
+//
+// ca-csr.json:
+//
+//	ca expiry was set to 100 years (876000h) ("ca":{"expiry":"876000h"})
+//	key was changed from ecdsa,384 to rsa,2048
+//
+// req-csr.json:
+//
+//	key was changed from ecdsa,384 to rsa,2048
+//	hosts were changed to "localhost","127.0.0.1"
+const CAFileContent = `
+-----BEGIN CERTIFICATE-----
+MIIEUDCCAzigAwIBAgIUKfV5+qwlw3JneAPdJS7JCO8xIlYwDQYJKoZIhvcNAQEL
+BQAwgawxCzAJBgNVBAYTAlVTMSowKAYDVQQKEyFIb25lc3QgQWNobWVkJ3MgVXNl
+ZCBDZXJ0aWZpY2F0ZXMxKTAnBgNVBAsTIEhhc3RpbHktR2VuZXJhdGVkIFZhbHVl
+cyBEaXZpc29uMRYwFAYDVQQHEw1TYW4gRnJhbmNpc2NvMRMwEQYDVQQIEwpDYWxp
+Zm9ybmlhMRkwFwYDVQQDExBBdXRvZ2VuZXJhdGVkIENBMCAXDTE2MDMxMjIzMTQw
+MFoYDzIxMTYwMjE3MjMxNDAwWjCBrDELMAkGA1UEBhMCVVMxKjAoBgNVBAoTIUhv
+bmVzdCBBY2htZWQncyBVc2VkIENlcnRpZmljYXRlczEpMCcGA1UECxMgSGFzdGls
+eS1HZW5lcmF0ZWQgVmFsdWVzIERpdmlzb24xFjAUBgNVBAcTDVNhbiBGcmFuY2lz
+Y28xEzARBgNVBAgTCkNhbGlmb3JuaWExGTAXBgNVBAMTEEF1dG9nZW5lcmF0ZWQg
+Q0EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDP+acpr1USrObZFu+6
+v+Bk6rYw+sWynP373cNUUiHfnZ3D7f9yJsDscV0Mo4R8DddqkxawrA5fK2Fm2Z9G
+vvY5par4/JbwRIEkXmeM4e52Mqv0Yuoz62O+0jQvRawnCCJMcKuo+ijHMjmm0AF1
+JdhTpTgvUwEP9WtY9JVTkfMCnDqZiqOU5D+d4YWUtkKqgQNvbZRs6wGubhMCZe8X
+m+3bK8YAsWWtoFgr7plxXk4D8MLh+PqJ3oJjfxfW5A9dHbnSEmdZ3vrYwrKgyfNf
+bvHE5qQmiSZUbUaCw3mKfaEMCNesPT46nBHxhAWc5aiL1tOXzvV5Uze7A7huPoI9
+a3etAgMBAAGjZjBkMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEC
+MB0GA1UdDgQWBBQYc0xXQ6VNjFvIOqWfXorxx9rKRzAfBgNVHSMEGDAWgBQYc0xX
+Q6VNjFvIOqWfXorxx9rKRzANBgkqhkiG9w0BAQsFAAOCAQEAaKyHDWYVjEyEKTXJ
+qS9r46ehL5FZlWD2ZytBP8aHE307l9AfQ+DFWldCNaqMXLZozsresVaSzSOI6UUD
+lCIQLDpPyxbpR320u8mC08+lhhwR/YRkrEqKHk56Wl4OaqoyWmguqYU9p0DiQeTU
+sZsxOwG7cyEEvvs+XmZ/vBLBOr59xyjwn4seQqzwZj3VYeiKLw40iQt1yT442rcP
+CfdlE9wTEONvWT+kBGMt0JlalXH3jFvlfcGQdDfRmDeTJtA+uIbvJhwJuGCNHHAc
+xqC+4mAGBPN/dMPXpjayHD5dOXIKLfrNpqse6jImYlY9zduvwIHRDK/zvqTyPlNZ
+uR84Nw==
+-----END CERTIFICATE-----
+`
+const CertFileContent = `
+-----BEGIN CERTIFICATE-----
+MIIELzCCAxegAwIBAgIUcjkJA3cmHeoBQggaKZmfKebFL9cwDQYJKoZIhvcNAQEL
+BQAwgawxCzAJBgNVBAYTAlVTMSowKAYDVQQKEyFIb25lc3QgQWNobWVkJ3MgVXNl
+ZCBDZXJ0aWZpY2F0ZXMxKTAnBgNVBAsTIEhhc3RpbHktR2VuZXJhdGVkIFZhbHVl
+cyBEaXZpc29uMRYwFAYDVQQHEw1TYW4gRnJhbmNpc2NvMRMwEQYDVQQIEwpDYWxp
+Zm9ybmlhMRkwFwYDVQQDExBBdXRvZ2VuZXJhdGVkIENBMCAXDTE2MDMxMjIzMTQw
+MFoYDzIxMTYwMjE3MjMxNDAwWjBVMRYwFAYDVQQKEw1hdXRvZ2VuZXJhdGVkMRUw
+EwYDVQQLEwxldGNkIGNsdXN0ZXIxFTATBgNVBAcTDHRoZSBpbnRlcm5ldDENMAsG
+A1UEAxMEZXRjZDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOiW5A65
+hWGbnwceoZHM0+OexU4cPF/FpP+7BOK5i7ymSWAqfKfNuio2TB1lAErC1oX7bgTX
+ieP10uz3FYWQNrlDn0I4KSA888rFPtx8GwoxH/52fGlE80BUV9PNeOVP+mYza0ih
+oFj2+PhXVL/JZbx9P/2RLSNbEnq+OPk8AN82SkNtpFzanwtpb3f+kt73878KNoQu
+xYZaCF1sK45Kn7mjKSDu/b3xUbTrNwnyVAGOdLzI7CCWOu+ECoZYAH4ZNHHakbyY
+eWQ7U9leocEOPlqxsQAKodaCYjuAaOFIcz8/W81q+3qNw/6GbZ4znjRKQ3OtIPZ4
+JH1iNofCudWDp+0CAwEAAaOBnDCBmTAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwEGCCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFMJE
+43qLCWhyZAE/wxNneSJw7aUVMB8GA1UdIwQYMBaAFBhzTFdDpU2MW8g6pZ9eivHH
+2spHMBoGA1UdEQQTMBGCCWxvY2FsaG9zdIcEfwAAATANBgkqhkiG9w0BAQsFAAOC
+AQEAuELC8tbmpyKlA4HLSDHOUquypNyiE6ftBIifJtp8bvBd+jiv4Pr8oVGxHoqq
+48X7lamvDirLV5gmK0CxO+EXkIUHhULzPyYPynqsR7KZlk1PWghqsF65nwqcjS3b
+tykLttD1AUDIozYvujVYBKXGxb6jcGM1rBF1XtslciFZ5qQnj6dTUujo9/xBA2ql
+kOKiVXBNU8KFzq4c20RzHFLfWkbc30Q4XG4dTDVBeGupnFQRkZ0y2dSSU82QcLA/
+HgAyQSO7+csN13r84zbmDuRpUgo6eTXzJ+77G19KDkEL7XEtlw2jB2L6/o+3RGtw
+JLOpEsgi7hsvOYCuTA3Krw52Mw==
+-----END CERTIFICATE-----
+`
+const KeyFileContent = `
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA6JbkDrmFYZufBx6hkczT457FThw8X8Wk/7sE4rmLvKZJYCp8
+s564nTMkDrKxzJjlPTcfGweG6/YP7HgjVYe5OjlkjaGowAMIbcb+8hYOSWVJ/ep0
+tEQBFBIz97260Z/5aUwpiTzrMXF9+TslV5avyx4//Bdbh1hPOI00+MAk0UfzD38k
+PuCMb4SSB/2q5UNLsEd5Fs5WMJEtEyaNtCtQzKNwuP92bFafHCl3BACwpN67ixGq
+rpr155WlKtfgCPv1rDWYbYU4LEbX9x4fRj0+EEgUdJWw1JxAc4oq2AQehZ7NTGa2
+BK3s/PVPKqJCbjuWd46j9YhxpdC3L9T17tMI7fgEgajobfYQvaTr86IQ58++d3bC
+zlQrPpOubkYkZpuJuz8AqmCjKLwatAjyRvbr3Oa+jexm+hHWmcCKJOCED/XJcqTG
+uIERgzXASi6WSUFoF9njOPWmIVpqev+tYR2Y9LjpUKVhpi6k8wa/eB6r/V2EGr5a
+y3VZ95BTwQrul5rgVs8WXWSv31oTs9RfjtoxNaV4AUKzfctDe9hTTe9k+L9O5JM2
+npdevUMUWr0mi8V0nmZHFE9xFizp+xkkObHzb5Kk//uTqMYjILYd+3bNXJxlpq6n
+DabKqGHlT4ytAKxgsctzMYcCqhuIaFoqzEZFULzoL1ghgQaMzeEZkHu+32JZ9Ibq
+PUkGkTaipKsbrvZGaB+AkLfCFxaXrWunucOUXG/wKDrRPsvF8kdvoi6qzRjfJE0B
+PRv7bq/Hhnifg1NsNRxMbB3S1Yhos0+lkP5tX59GqVhfMRMFv15HO/7txF5YgIAP
+6NGpGYpB211XXp07hGXXSLTrnM7bNKykjzn4D21IcrCi6aq9T/ipI/7xGMpghmd6
+kSi/qUsdaywqUwu8QoYqYxwOACK7CSOUja53k/LArsWOs9Tm59eNO2nU3GEzVCQh
+Iy6U5eXSTzYw5hrlAzLGeQMQCW3UXSqBMvQSou1nLh5LdHXfhYVbuKKtTRHeYAPB
+qyRZ/rn1phCkHuZ/3qXkz3Kd4ZZFZuCYaLnpwXTYcziGKQBV0GVeIx9ZnDbRX0eh
+GtqktUKYqfTrybxLbAsfJRUdhwiCyb+whH1Dkkc6za+m4lWI+/k6k/5Iwta0SlS9
+jU5XbgjVEi4mMdUMlYfG1RUQBlSNmaLex7azp1LbeIOxTUMcwB7TF2kZRMVOAPZ8
+WlmLvDv7schQhx3vHLXBAR6jplvAnaRz4oOfiEPtYYgLiKJ0Dt4rWcN7oKlaJAOy
+ZDPsnweLBBFRNPk+pN0MoBv1a5DN6ze+l07C2PjqAgfAYdoaC9D1lyLtZtU+p071
+fm5P5srKPLkmq19aEZpOiVFCVhfSVnrtTyx8hR2EexqrexuyyW5Du9TGMckQVBM6
+1cw7BpOzYEXaek6CHiVeF5E2hVXQYPuFHEMRxpnG9+NDov+bjqpSLZG6jybVwNwG
+IKTMkAe94o8wLDEInzimr/SL+E9Nc8nQnbEH2CLmJi7VJtMiPEeSE5qInJFN+fkc
+etp4pwire5jozQ4hwoKBMlxFJhP8R5Smfuw3/AYZtGCmoTTPWBJqTD==
+-----END RSA PRIVATE KEY-----
+`

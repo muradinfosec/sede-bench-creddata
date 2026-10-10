@@ -1,0 +1,594 @@
+# yaml-language-server: $schema=../config.schema.json
+
+version: '1'
+
+# General router options
+graph:
+  token: 'mytoken'
+
+plugins:
+  enabled: true
+  path: 'some/path/to/plugins'
+
+log_level: 'info'
+listen_addr: 'localhost:3002'
+controlplane_url: 'https://cosmo-cp.wundergraph.com'
+playground_enabled: true
+playground_path: '/'
+playground:
+  enabled: false
+  path: '/my-playground'
+  concurrency_limit: 1500
+introspection_enabled: true
+introspection:
+  enabled: true
+  secret: 'AN_EXAMPLE_PLACEHOLDER_SECRET_ONLY'
+json_log: true
+log_service_name: 'my-custom-router'
+shutdown_delay: 15s
+grace_period: 20s
+poll_interval: 10s
+health_check_path: '/health'
+readiness_check_path: '/health/ready'
+liveness_check_path: '/health/live'
+router_registration: true
+graphql_path: /graphql
+dev_mode: false
+tls:
+  server:
+    enabled: false
+  client:
+    all:
+      cert_file: '/path/to/client.crt'
+      key_file: '/path/to/client.key'
+      ca_file: '/path/to/ca.crt'
+      insecure_skip_ca_verification: false
+    subgraphs:
+      products:
+        cert_file: '/path/to/products-client.crt'
+        key_file: '/path/to/products-client.key'
+        ca_file: '/path/to/products-ca.crt'
+        insecure_skip_ca_verification: false
+  client_grpc:
+    all:
+      enabled: true
+      cert_file: '/path/to/grpc-client.crt'
+      key_file: '/path/to/grpc-client.key'
+      ca_file: '/path/to/grpc-ca.crt'
+      insecure_skip_ca_verification: false
+    subgraphs:
+      my-grpc-subgraph:
+        enabled: true
+        cert_file: '/path/to/my-grpc-subgraph-client.crt'
+        key_file: '/path/to/my-grpc-subgraph-client.key'
+        ca_file: '/path/to/my-grpc-subgraph-ca.crt'
+        insecure_skip_ca_verification: false
+instance_id: ''
+graphql_metrics:
+  enabled: true
+  collector_endpoint: 'https://cosmo-metrics.wundergraph.com'
+localhost_fallback_inside_docker: true
+
+# MCP Server
+mcp:
+  enabled: false
+  expose_schema: false
+  enable_arbitrary_operations: false
+  exclude_mutations: false
+  omit_tool_name_prefix: false
+  graph_name: cosmo
+  router_url: https://cosmo-router.wundergraph.com
+  server:
+    listen_addr: localhost:5025
+    base_url: 'http://localhost:5025'
+  storage:
+    provider_id: mcp
+
+watch_config:
+  enabled: true
+  interval: '10s'
+
+  startup_delay:
+    enabled: true
+    maximum: '10s'
+
+demo_mode: true
+
+# Cross-Origin Resource Sharing (CORS)
+cors:
+  allow_origins: ['*']
+  allow_methods:
+    - HEAD
+    - GET
+    - POST
+  allow_headers:
+    - Origin
+    - Content-Length
+    - Content-Type
+  allow_credentials: true
+  max_age: 5m
+
+access_logs:
+  enabled: true
+  router:
+    fields:
+      - key: 'hello'
+        value_from:
+          context_field: 'operation_name'
+      - key: 'request_information'
+        value_from:
+          expression: "request.error ?? 'success'"
+    ignore_query_params_list:
+      - variables
+      - anothervalue
+  subgraphs:
+    enabled: true
+    fields:
+      - key: 'response_field'
+        value_from:
+          response_header: 'X-Response-Field'
+
+compliance:
+  anonymize_ip:
+    enabled: true
+    method: redact # hash or redact
+
+# Config for custom modules
+# See "https://cosmo-docs.wundergraph.com/router/metrics-and-monitoring" for more information
+telemetry:
+  # Common options
+  service_name: 'cosmo-router'
+
+  # If no exporter is specified it uses https://cosmo-otel.wundergraph.com for tracing and metrics
+
+  # OpenTelemetry Tracing
+  tracing:
+    enabled: true
+    sampling_rate: 1
+    export_graphql_variables: true
+    with_new_root: false
+    propagation:
+      # https://www.w3.org/TR/trace-context/
+      trace_context: true
+      # https://www.w3.org/TR/baggage/
+      baggage: false
+      # https://www.jaegertracing.io/ (compliant with opentracing)
+      jaeger: false
+      # https://github.com/openzipkin/b3-propagation (zipkin)
+      b3: false
+      datadog: true
+    exporters:
+      # If no exporters are defined, the default one is used
+      - exporter: http # or grpc
+        disabled: false
+        endpoint: https://my-otel-collector.example.com
+        # headers: {Authorization: Bearer <my-token>}
+        batch_timeout: 10s
+        export_timeout: 30s
+        path: '/v1/traces'
+        headers: {}
+    attributes:
+      - key: 'wg.tracing.custom.conn.subgraph.hostport'
+        value_from:
+          expression: 'subgraph.name'
+
+  # OpenTelemetry Metrics
+  metrics:
+    otlp:
+      enabled: true
+      router_runtime: true
+      graphql_cache: true
+      connection_stats: true
+      network:
+        enabled: true
+      resolver:
+        enabled: true
+      engine_stats:
+        subscriptions: true
+      cost_stats:
+        estimated_enabled: false
+        actual_enabled: false
+      exclude_metric_labels: []
+      exclude_metrics: []
+      # If no exporters are defined, the default one is used
+      exporters:
+        - exporter: http # or grpc
+          disabled: false
+          headers: {}
+          path: '/v1/metrics'
+          endpoint: https://my-otel-collector.example.com
+          # headers: {Authorization: Bearer <my-token>}
+      log_exporter:
+        enabled: true
+        exclude_metrics:
+          - "process\\."
+          - "server\\.uptime"
+      exemplar_filter: trace_based
+
+    # Expose OpenTelemetry metrics for scraping
+    prometheus:
+      enabled: true
+      path: '/metrics'
+      listen_addr: '127.0.0.1:8088'
+      graphql_cache: true
+      connection_stats: true
+      network:
+        enabled: true
+      resolver:
+        enabled: true
+      engine_stats:
+        subscriptions: true
+      cost_stats:
+        estimated_enabled: false
+        actual_enabled: false
+      exclude_metrics: []
+      exclude_metric_labels: []
+      exclude_scope_info: true
+
+      schema_usage:
+        enabled: true
+        include_operation_sha: true
+      exemplar_filter: trace_based
+
+cache_control_policy:
+  enabled: true
+  value: 'max-age=180, public'
+  subgraphs:
+    - name: 'products'
+      value: 'max-age=60, public'
+
+# Config for custom modules
+# See "https://cosmo-docs.wundergraph.com/router/custom-modules" for more information
+modules:
+  myModule:
+    # Arbitrary values, unmarshalled by the module
+    value: 1
+
+cluster:
+  name: 'my-cluster'
+
+# Traffic configuration
+# See "https://cosmo-docs.wundergraph.com/router/traffic-shaping" for more information
+traffic_shaping:
+  # Apply to all requests from clients to the router
+  router:
+    # Is the maximum size of the request body in MB, mib
+    max_request_body_size: 5MB
+    max_header_bytes: 4MiB
+    decompression_enabled: false
+    response_compression_min_size: 4KiB
+  all: # Rules are applied to all subgraph requests.
+    # Subgraphs transport options
+    request_timeout: 60s
+    dial_timeout: 30s
+    tls_handshake_timeout: 0s
+    response_header_timeout: 0s
+    expect_continue_timeout: 0s
+    keep_alive_idle_timeout: 0s
+    keep_alive_probe_interval: 30s
+    # Retry
+    retry: # Rule is only applied to GraphQL operations of type "query"
+      enabled: true
+      algorithm: 'backoff_jitter'
+      max_attempts: 5
+      interval: 3s
+      max_duration: 10s
+  subgraphs:
+    products: # Will only affect this subgraph
+      request_timeout: 120s
+
+# Header manipulation
+# See "https://cosmo-docs.wundergraph.com/router/proxy-capabilities" for more information
+headers:
+  all: # Header rules for all subgraph requests.
+    request:
+      - op: 'propagate' # Forward a client header
+        named: X-Test-Header # Exact match (Use the canonical version)
+
+      - op: 'propagate'
+        matching: (?i)^X-Custom-.* # Regex match (Case insensitive)
+
+      - op: 'propagate'
+        named: 'X-User-Id'
+        default: '123' # Set the value when the header was not set
+      - op: 'set'
+        name: 'X-API-Key'
+        value: 'some-secret'
+      - op: 'set'
+        name: 'x-operation-name'
+        value_from:
+          context_field: 'operation_name'
+      - op: 'set'
+        name: 'x-expression-header'
+        expression: "request.header.Get('X-Operation-Name')"
+      - op: 'set'
+        name: 'x-from-file-header'
+        from_file:
+          path: '/etc/secrets/api-key'
+          refresh_interval: 1m
+    response:
+      - op: 'propagate'
+        algorithm: 'append'
+        named: 'X-Custom-Header'
+  subgraphs:
+    specific-subgraph: # Will only affect this subgraph
+      request:
+        - op: 'propagate'
+          named: Subgraph-Secret
+          default: 'some-secret'
+      response:
+        - op: 'set'
+          name: 'X-Subgraph-Key'
+          value: 'some-subgraph-secret'
+  cookie_whitelist:
+    - 'cookie1'
+    - 'cookie2'
+  router:
+    response:
+      - name: 'X-Client-Version'
+        expression: "request.header.Get('User-Agent')"
+      - name: 'X-Request-ID'
+        expression: "request.header.Get('X-Request-ID') ?? 'default-request-id'"
+
+# Authentication and Authorization
+# See https://cosmo-docs.wundergraph.com/router/authentication-and-authorization for more information
+authentication:
+  ignore_introspection: false
+  jwt:
+    jwks:
+      - url: 'https://example.com/.well-known/jwks.json'
+        refresh_interval: 1m
+        algorithms: ['RS256']
+      - url: 'https://example.com/.well-known/jwks2.json'
+        refresh_interval: 2m
+        algorithms: ['RS256', 'ES256']
+        refresh_unknown_kid:
+          enabled: true
+          max_wait: 10s
+          interval: 5s
+          burst: 3
+      - url: 'https://example.com/.well-known/jwks3.json'
+    header_name: Authorization
+    header_value_prefix: Bearer
+    scope_claim: customscp
+    header_sources:
+      - type: header
+        name: X-Authorization
+        value_prefixes: [Bearer, Token]
+      - type: header
+        name: authz
+
+authorization:
+  require_authentication: false # Set to true to disable requests without authentication
+
+cdn:
+  url: https://cosmo-cdn.wundergraph.com
+  cache_size: 100MB
+
+events:
+  providers:
+    nats:
+      - id: default
+        url: 'nats://localhost:4222'
+      - id: my-nats
+        url: 'nats://localhost:4222'
+        authentication:
+          # token: "token"
+          user_info:
+            username: 'admin'
+            password: 'admin'
+    kafka:
+      - id: my-kafka
+        brokers:
+          - 'localhost:9092'
+        tls:
+          enabled: true
+        authentication:
+          sasl_plain:
+            username: 'admin'
+            password: 'admin'
+        fetch_max_wait: 10ms
+    redis:
+      - id: my-redis
+        urls:
+          - 'redis://localhost:6379/11'
+        cluster_enabled: true
+  handlers:
+    on_receive_events:
+      max_concurrent_handlers: 100
+      handler_timeout: 5s
+
+engine:
+  enable_single_flight: true
+  enable_request_tracing: true
+  force_unauthenticated_request_tracing: false
+  enable_execution_plan_cache_response_header: false
+  max_concurrent_resolvers: 32
+  enable_net_poll: true
+  enable_subgraph_fetch_operation_name: true
+  enable_defer: false
+  websocket_client_write_timeout: 10s
+  websocket_server_read_timeout: 5s
+  websocket_server_write_timeout: 10s
+  websocket_server_poll_timeout: 1s
+  websocket_server_conn_buffer_size: 128
+  websocket_client_read_limit: 1MB
+  websocket_client_ping_interval: 10s
+  websocket_client_ping_timeout: 30s
+  websocket_client_ack_timeout: 30s
+  execution_plan_cache_size: 1024
+  resolver_max_recyclable_parser_size: 4096
+  debug:
+    report_websocket_connections: false
+    report_memory_usage: false
+    enable_cache_response_headers: false
+
+rate_limit:
+  enabled: true
+  strategy: 'simple'
+  storage:
+    cluster_enabled: true
+    urls:
+      - 'test@localhost:8000'
+      - 'test2@localhost:8001'
+    key_prefix: 'cosmo_rate_limit'
+  simple_strategy:
+    rate: 60
+    burst: 60
+    period: '60s'
+    reject_exceeding_requests: true
+    overrides:
+      - matching: '^premium-.*'
+        rate: 200
+        burst: 200
+        period: '60s'
+
+override_routing_url:
+  subgraphs:
+    some-subgraph: http://router:3002/graphql
+
+overrides:
+  subgraphs:
+    some-subgraph:
+      routing_url: http://router:3002/graphql
+      subscription_url: http://router:3002/graphql/ws
+      subscription_protocol: ws
+      subscription_websocket_subprotocol: graphql-ws
+
+websocket:
+  enabled: true
+  absinthe_protocol:
+    enabled: true
+    handler_path: /absinthe/socket
+  forward_initial_payload: true
+  forward_upgrade_headers:
+    enabled: true
+    allow_list:
+      - 'Authorization'
+  forward_upgrade_query_params:
+    enabled: true
+    allow_list:
+      - 'Authorization'
+  authentication:
+    from_initial_payload:
+      enabled: true
+      key: 'Authorization'
+      export_token:
+        enabled: true
+        header_key: 'Authorization'
+
+storage_providers:
+  file_system:
+    - id: 'mcp'
+      path: 'operations'
+  s3:
+    - id: 's3'
+      endpoint: 'localhost:10000'
+      bucket: 'cosmo'
+      access_key: 'El1nfS3851PhiogOSpDe'
+      secret_key: 'PYZl1J5wlYld76iggJ5AYA3cJNUMzqEqJ0Nw69a8'
+      region: 'us-east-1'
+      secure: false
+  redis:
+    - id: 'my_redis'
+      cluster_enabled: false
+      urls:
+        - 'test@localhost:8000'
+        - 'test2@localhost:8001'
+
+security:
+  complexity_calculation_cache:
+    enabled: true
+    size: 1024
+  complexity_limits:
+    mode: enforce
+    depth:
+      enabled: true
+      limit: 5
+      ignore_persisted_operations: true
+    total_fields:
+      enabled: true
+      limit: 7
+      ignore_persisted_operations: true
+    root_fields:
+      enabled: true
+      limit: 3
+      ignore_persisted_operations: true
+    root_field_aliases:
+      enabled: true
+      limit: 4
+      ignore_persisted_operations: true
+  cost_control:
+    enabled: true
+    mode: enforce
+    max_estimated_limit: 1000
+    estimated_list_size: 10
+    expose_headers: false
+  operation_name_length_limit: 2000
+persisted_operations:
+  safelist:
+    enabled: true
+  log_unknown: true
+  cache:
+    size: 100MB
+  storage:
+    provider_id: s3
+    object_prefix: '3cd98c63-bae8-4d0d-08f8-6b6ce402c2a6/19f95e91-c31f-9784-c8a7-8209e3b207db/operations/foo'
+  manifest:
+    enabled: true
+    file_name: manifest.json
+    poll_interval: 30s
+    poll_jitter: 10s
+
+automatic_persisted_queries:
+  enabled: true
+  cache:
+    size: 100MB
+    ttl: 900
+  storage:
+    provider_id: redis
+    object_prefix: 'cosmo_apq'
+
+subgraph_error_propagation:
+  mode: pass-through
+  rewrite_paths: true
+  attach_service_name: true
+  default_extension_code: DOWNSTREAM_SERVICE_ERROR
+  omit_locations: true
+  omit_extensions: true
+  propagate_status_codes: false
+  allowed_extension_fields:
+    - 'field1'
+    - 'field2'
+  allow_all_extension_fields: true
+
+subgraph_extension_propagation:
+  enabled: true
+  allowed_extension_fields:
+    - rateLimit
+    - auth
+  algorithm: last_write
+
+execution_config:
+  storage:
+    provider_id: s3
+    object_path: '8fe00a84-aeb6-6a4e-51e3-0c2ea025d5f0/00f43c24-f13a-4087-d5a8-1090c3d693fe/routerconfigs/latest.json'
+
+split_config_poller:
+  skip_missing_feature_flags: true
+  ignored_feature_flags:
+    - 'experimental-checkout'
+    - 'ab-test-foo'
+
+router_config_path: 'latest.json'
+
+client_header:
+  name: 'Client-Name'
+  version: 'Client_Version'
+
+apollo_compatibility_flags:
+  enable_all: false
+  replace_undefined_op_field_errors:
+    enabled: true
+  use_graphql_validation_failed_status:
+    enabled: true

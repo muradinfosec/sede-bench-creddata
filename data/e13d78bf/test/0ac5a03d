@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<testcase>
+<info>
+<keywords>
+IMAP
+SASL
+SASL AUTH NTLM
+SASL-IR
+NTLM
+</keywords>
+</info>
+
+# Server-side
+<reply>
+<servercmd>
+AUTH NTLM
+CAPA SASL-IR
+REPLY AUTHENTICATE + TlRMTVNTUAACAAAAWaCVHRXKGSMZomJCu10ZNBOdfMoPSMZLUCZCWS1TtdPtDVFMZ2WKAKUYJcGBYDIFLxQEXBtSSSVCVZPNSiSBYPBSSVSWNCvEDxCuHC8PxTCmFGJMHSTuNHQLYsRyFPXRAtRuLSDRdSTkQLMYCVJwKOYLuDStVZ5CClEbRW7VhNWaNIQHDBTyKJPBDrOyRRXYBPHQFE==
+REPLY TlRMTVNTUAADAAAAETOGFDJZQPTHGIuHCEKMRYXHKPVbZOOJQFGFJCHMNBQDXKlUfYGPZEOIMWACWEMAfsZJNXbnJqNNZXTMuhg4yl42oTxPDNZhsllxXjgTvfjXko5e+gxfnzVN4Y43aUb0W3mrZFXik5V0i5UiG34CZ6MABEURF42= A002 OK AUTHENTICATE completed
+</servercmd>
+<data crlf="yes">
+From: me@somewhere
+To: fake@nowhere
+
+body
+
+--
+  yours sincerely
+</data>
+</reply>
+
+# Client-side
+<client>
+<server>
+imap
+</server>
+<features>
+NTLM
+SSL
+!SSPI
+</features>
+<name>
+IMAP NTLM authentication with initial response
+</name>
+<command>
+'imap://%HOSTIP:%IMAPPORT/%TESTNUMBER/;MAILINDEX=1' -u testuser:testpass
+</command>
+</client>
+
+# Verify data after the test has been "shot"
+<verify>
+<protocol crlf="yes">
+A001 CAPABILITY
+A002 AUTHENTICATE NTLM %b64[NTLMSSP%00%01%00%00%00%06%82%08%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00]b64%
+TlRMTVNTUAADAAAANQHSNGOPGDUMKMpEPQQLYZMACWBqPBWRXECDILFTGMTUAOhDdQRSVQWJPDCVKPDLbfHVXPxcHvQSLTARzbs5pd74tPaBQCGymthrGziOfxmEdb2k+mxtqkQP1N60hAm7O3pvZSSjv0A3d7FbH43KG5TNFUNQZ61=
+A003 SELECT %TESTNUMBER
+A004 FETCH 1 BODY[]
+A005 LOGOUT
+</protocol>
+</verify>
+</testcase>

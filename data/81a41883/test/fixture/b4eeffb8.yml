@@ -1,0 +1,36 @@
+walrus:
+  name:  Lando Walrussian
+  email: walrus@shopify.com
+  login: walrus
+  encrypted_github_access_token: "zyXe7ggwWLrqDWihfXvaFwicU41Q\n" # t0k3n
+  encrypted_github_access_token_iv: "gXMzrvVK+frzIOcI\n"
+
+codertocat:
+  name: Coding Cat
+  email: coding@cat.com
+  login: Codertocat
+  encrypted_github_access_token: "xlJh7byoPLnnTHjljPydEyyjP12O\n" # t0k3n
+  encrypted_github_access_token_iv: "lECvibUT+wxbYVeJ\n"
+
+bob:
+  name:  Bob the Builder
+  email: bob@bob.com
+  github_id: 1234
+  login: bob
+
+anonymous:
+  name:  Anonymous Legion
+  email: anonymous@example.com
+  # no Github info
+
+shipit:
+  name: Shipit
+  github_id: 38352116
+  login: "shipit[bot]"
+
+legacy:
+  name:  Legacy Walrussian
+  email: legacy@shopify.com
+  login: legacy
+  encrypted_github_access_token: VfQb2buOhZD3Gv20kcuTMFiGmkht # t0k3n
+  encrypted_github_access_token_iv: "PSX8wcWqFPMbWlem\n"

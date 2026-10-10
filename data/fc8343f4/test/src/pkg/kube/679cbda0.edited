@@ -1,0 +1,13 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2017-02-03T05:59:00Z"
+  name: mymap
+  namespace: default
+  resourceVersion: "149"
+  selfLink: /api/v1/namespaces/default/configmaps/mymap
+  uid: bfff22a5-b5b4-79e1-9c6a-bcff68f6cb10

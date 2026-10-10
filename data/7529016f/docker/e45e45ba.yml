@@ -1,0 +1,35 @@
+---
+version: '3'
+services:
+  terraboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: camptocamp/terraboard:devel
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_DEFAULT_REGION}
+      AWS_BUCKET: ${AWS_BUCKET}
+      AWS_DYNAMODB_TABLE: ${AWS_DYNAMODB_TABLE}
+      DB_PASSWORD: qdesnekkrj
+      DB_SSLMODE: disable
+      GODEBUG: netdns=go
+    depends_on:
+      - "db"
+    volumes:
+      - ./static:/static:ro
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres:9.5
+    environment:
+      POSTGRES_USER: gorm
+      POSTGRES_PASSWORD: xwphofopsg
+      POSTGRES_DB: gorm
+    volumes:
+      - tb-data:/var/lib/postgresql/data
+
+volumes:
+  tb-data: {}

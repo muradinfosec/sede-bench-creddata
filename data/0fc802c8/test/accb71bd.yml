@@ -1,0 +1,27 @@
+---
+# Instance settings
+cloud_image: ubuntu-1804
+mode: ha
+vm_memory: 1600Mi
+
+# Kubespray settings
+kubeadm_certificate_key: 3074b01db1239dd06b305163b52d507605f28af052861c90afcc65e39b430766
+kube_proxy_mode: iptables
+kube_network_plugin: flannel
+helm_enabled: true
+krew_enabled: true
+kubernetes_audit: true
+container_manager: containerd
+etcd_events_cluster_enabled: true
+local_volume_provisioner_enabled: true
+etcd_deployment_type: host
+deploy_netchecker: true
+dns_min_replicas: 1
+kube_encrypt_secret_data: true
+ingress_nginx_enabled: true
+cert_manager_enabled: true
+# Disable as health checks are still unstable and slow to respond.
+metrics_server_enabled: false
+metrics_server_kubelet_insecure_tls: true
+kube_token_auth: true
+enable_nodelocaldns: false

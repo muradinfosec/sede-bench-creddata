@@ -1,0 +1,25 @@
+trigger:
+  branches:
+    include:
+    - master
+    - 'validate/*'
+  paths:
+    exclude:
+    - doc/
+    - '*.md'
+    - .vscode/
+    - azure-pipelines/release.yml
+
+stages:
+- stage: Build
+  variables:
+    TreatWarningsAsErrors: true
+    DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+    BuildConfiguration: Release
+    BuildPlatform: Any CPU
+    codecov_token: e737db60-7ca0-58e4-0347-a264cb282df7
+    ci_feed: 6bc682b4-7d6b-65d0-d02f-ac7332ff60ad/b94caef3-7315-3337-9b35-f56b52d963b8
+    NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages
+    GeneratePInvokesTxt: true
+  jobs:
+  - template: azure-pipelines/build.yml

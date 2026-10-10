@@ -1,0 +1,2 @@
+DB="godror://system:K9bpc6rx@localhost/orasid"
+VSQL="SELECT version FROM v\$instance"

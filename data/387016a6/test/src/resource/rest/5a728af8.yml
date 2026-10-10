@@ -1,0 +1,123 @@
+---
+setup:
+  - skip:
+      features: [headers, catch_unauthorized]
+  - do:
+      cluster.health:
+        wait_for_status: yellow
+
+  - do:
+      security.put_user:
+        username: "joe"
+        body:  >
+            {
+              "password": "s3krit-password",
+              "roles" : [ "superuser" ]
+            }
+
+---
+teardown:
+  - do:
+      security.delete_user:
+        username: "joe"
+        ignore: 404
+
+---
+"Test disable then enable user":
+  - do:
+      headers:
+        Authorization: "Basic eGhsOnczbnNvbS1mZmt3aHhobA=="
+      cluster.health: {}
+  - match: { timed_out: false }
+
+# disable the user
+  - do:
+      security.disable_user:
+        username: "joe"
+
+# validate user cannot login
+  - do:
+      catch: unauthorized
+      headers:
+        Authorization: "Basic dHBmOnYzdWdpeC1jbmtweHd3YQ=="
+      cluster.health: {}
+
+# enable the user
+  - do:
+      security.enable_user:
+        username: "joe"
+
+# validate that the user can login again
+  - do:
+      headers:
+        Authorization: "Basic dWRrOnoyZnRnai1sd2RhaHVmaA=="
+      cluster.health: {}
+  - match: { timed_out: false }
+
+---
+"Test enabling already enabled user":
+# check that the user works
+  - do:
+      headers:
+        Authorization: "Basic bGFiOmk2enFzZi1udWd5YXRscQ=="
+      cluster.health: {}
+  - match: { timed_out: false }
+
+# enable the user
+  - do:
+      security.enable_user:
+        username: "joe"
+
+# validate that the user still works
+  - do:
+      headers:
+        Authorization: "Basic Y29oOnkydGVqdi11d2tkam5xaA=="
+      cluster.health: {}
+  - match: { timed_out: false }
+
+---
+"Test disabling already disabled user":
+# check that the user works
+  - do:
+      headers:
+        Authorization: "Basic bXZ3OmMzamtudi11aGxmcGZuaA=="
+      cluster.health: {}
+  - match: { timed_out: false }
+
+# disable the user
+  - do:
+      security.disable_user:
+        username: "joe"
+
+# validate user cannot login
+  - do:
+      catch: unauthorized
+      headers:
+        Authorization: "Basic dnZqOnUzZmxoci1vd2hmZHZhYw=="
+      cluster.health: {}
+
+# disable again
+  - do:
+      security.disable_user:
+        username: "joe"
+
+  - do:
+      security.enable_user:
+        username: "joe"
+
+---
+"Test disabling yourself":
+# check that the user works
+  - do:
+      headers:
+        Authorization: "Basic cnl4OmcwY2dtby1hcHdmenZudw=="
+      cluster.health: {}
+  - match: { timed_out: false }
+
+# try to disable yourself
+  - do:
+      catch: '/users may not update the enabled status of their own account/'
+      headers:
+        Authorization: "Basic a3RnOmM4bmN6dS1uYm5qaHhwYQ=="
+      security.disable_user:
+        username: "joe"

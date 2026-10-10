@@ -1,0 +1,56 @@
+{
+  "name": "PASERK k4.local-pw Test Vectors",
+  "tests": [
+    {
+      "name": "k4.local-pw-1",
+      "expect-fail": false,
+      "unwrapped": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "password": "908e469952551704572c120677623018973259071263039588614b54",
+      "options": {"memlimit": 67108864, "opslimit": 2},
+      "paserk": "k4.local-pw.2NnqssN_s84LVssK7naslXDVKLRDLRLPROIJOkNNVCC_gvLVK-PyIqKZ7YYXeFXNhhPK0uUxLZnQbuYXsV3UDzxHum4dHzBUDeVrTHqkIGI73MwGJZ7FUONEJuDuvXVrlVGSFhQusAanOie_lsWlK8Ko2-E5HSa-"
+    },
+    {
+      "name": "k4.local-pw-2",
+      "expect-fail": false,
+      "unwrapped": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "password": "890e508660139217336b876969357413642095797746169029978b03",
+      "options": {"memlimit": 268435456, "opslimit": 3},
+      "paserk": "k4.local-pw.mzqavYtvlHUM7Wjhpc2b-MUTVMDJBAUXJHEGWaKBHUNLz5yK-ZTZZ1lwup7opaJUmwxnt0iVLnPsZK7QeRfJcVw8DJr9jsvuau-3o-srNBbeD1V7191-ro1Q1vxI5lRiKP0vAneEwXsRE7Dx_lsAvmWMIiLIRJvd"
+    },
+    {
+      "name": "k4.local-pw-3",
+      "expect-fail": false,
+      "unwrapped": "707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f",
+      "password": "correct horse battery staple",
+      "options": {"memlimit": 268435456, "opslimit": 3},
+      "paserk": "k4.local-pw.9gLgUp8ERwB51GGm03ktEWOMCWTBGQBBHAYILsGJWGT5AIhT_G8kRgHN1aEPc1GtN7-t84q8fdRnsTttGf7_uqvXRiqHY4zCLEx_PILiRPxVmMn7qJM0QmRrWVf1x1o9MUpnIcfaCXhJtiFI8Ymi5MnQlv8jW3Qf"
+    },
+    {
+      "name": "k4.local-pw-fail-1",
+      "expect-fail": true,
+      "comment": "Incorrect password",
+      "unwrapped": null,
+      "password": "022a941140601803465c695903048846368293570261120493543b58",
+      "options": {"memlimit": 268435456, "opslimit": 3},
+      "paserk": "k4.local-pw.jhxxwQnatFSM8Geyks3z-TMDIERNUJPDFQXATdQAQFJQw3tX-ISHH7lnsc6munQVabyfc8yNXrTsJS8VqBtCaCl4BBr0rgaclh-9d-enMHowV9P3021-ni6I9mjX8nWpSM3uVyhGeFnJX0Ze_xhTrcXSRsWSOZpl"
+    },
+    {
+      "name": "k4.local-pw-fail-2",
+      "expect-fail": true,
+      "comment": "Incorrect authentication tag on ciphertext",
+      "unwrapped": null,
+      "password": "892f352544438375790c833200508056048931247297375784261d61",
+      "options": {"memlimit": 268435456, "opslimit": 3},
+      "paserk": "k4.local-pw.yxgxbVxzoKIV8Fhgim1o-KYFSZHVSOOZDHCBTcVJETLRe1tO-GYDP8sduh2sxmXZrbbet5yGNyNtKR7MnAwKrRf2BEe5ryecxd-2h-ueRRnlJ5C0082-wh7L0bmS0pFnPK3pKdxJfIeIB7Yz_weWziVMNfXEOEmi"
+    },
+    {
+      "name": "k4.local-pw-fail-3",
+      "expect-fail": true,
+      "comment": "Implementations MUST NOT accept a PASERK of the wrong version.",
+      "unwrapped": null,
+      "password": "447f090935685611663d318329310352854960740969978159708e27",
+      "options": {"iterations":  10000},
+      "paserk": "k3.local-pw.GTew4EtcDI5XIBv8mX0H8sLZdkCXuZ_V3TdRdtbiJT3FPSlILd7UqTOmX4cubokSuWtxTSDx80StkqfgEHCC4zq5zvFOCAvfCbAu39sf2yBrCIyTjMfdZXF3shHsSq90pmAsUzQ8bEDnMKM32ysjogEDmO8lKmP8L7LGdI50w9F-MGE5"
+    }
+  ]
+}

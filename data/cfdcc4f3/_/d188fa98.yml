@@ -1,0 +1,18 @@
+---
+n8n_enabled: false
+
+# Networking
+n8n_available_externally: "false"
+n8n_port: 5678
+n8n_hostname: "n8n"
+
+# Directories
+n8n_data_directory: "{{ docker_home }}/n8n"
+
+
+# Security
+n8n_basic_auth_user: "n8n_user"
+n8n_basic_auth_password: "j8t_gnzsfp_uw"
+
+# specs
+n8n_memory: 1g

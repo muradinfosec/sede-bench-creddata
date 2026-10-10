@@ -1,0 +1,52 @@
+#
+# Copyright 2001-2020 The OpenSSL Project Authors. All Rights Reserved.
+#
+# Licensed under the Apache License 2.0 (the "License").  You may not use
+# this file except in compliance with the License.  You can obtain a copy
+# in the file LICENSE in the source distribution or at
+# https://www.openssl.org/source/license.html
+
+# Tests start with one of these keywords
+#       Cipher Decrypt Derive Digest Encoding KDF MAC PBE
+#       PrivPubKeyPair Sign Verify VerifyRecover
+# and continue until a blank line. Lines starting with a pound sign are ignored.
+
+Title = scrypt tests (from draft-josefsson-scrypt-kdf-03 and others) Using PBE
+
+PBE = scrypt
+Password = ""
+Salt = ""
+N = 16
+r = 1
+p = 1
+Key = 80e6059432692a659b60da90c78f7752c04f2667e3966ee6caedcf3aaef53546eec4751dbf7719b2030b215d0db54b39b5d2f3ab3b0e6330cb98c27e03d84735
+
+PBE = scrypt
+Password = "password"
+Salt = "NaCl"
+N = 1024
+r = 8
+p = 16
+Key = dcaabf8a0c6864112923f6176c56f7fe0f1eb8bbb9540848b45274024d4589120cfb74a87d48b5575bd440918c8958bfe171cef33e30df9f4967fbedb1fe7230
+
+PBE = scrypt
+Password = "hkdjpokkjeftm"
+Salt = "SodiumChloride"
+N = 16384
+r = 8
+p = 1
+Key = 7619cafb2fee3632939a27ad46ee28bcaaf0dbfd960b6d5ba9d131c3644ea7a1f4042227676e9dcf81f20996779b1df0b82c30dd6b908c97dede365a58429753
+
+# NB: this test requires more than 1GB of memory to run so it will hit the
+# scrypt memory limit and return an error. To run this test without error
+# uncomment out the "maxmem" line and comment out the "Result"
+# line
+PBE = scrypt
+Password = "ztpyczlujzhql"
+Salt = "SodiumChloride"
+N = 1048576
+r = 8
+p = 1
+Key = 3559ee0b3b400abaaccbdd36cd38d133ef930d886b6dcc1cfba3fa5264dcfe505c65ba5c5cd6a30cdc0f2a510a49f1e048410384d7c043cffac39f6ec13e59c3
+Result = SCRYPT_ERROR
+#maxmem = 10000000000

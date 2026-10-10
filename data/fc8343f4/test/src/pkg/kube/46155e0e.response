@@ -1,0 +1,21 @@
+{
+	"apiVersion": "company.com/v1",
+	"field1": "value1",
+	"field2": true,
+	"field3": [
+		1
+	],
+	"field4": {
+		"a": true,
+		"b": false
+	},
+	"kind": "Bar",
+	"metadata": {
+		"name": "test2",
+		"namespace": "default",
+		"selfLink": "/apis/company.com/v1/namespaces/default/bars/test2",
+		"uid": "8ef7a104-c843-64a3-a551-cced67a1aa45",
+		"resourceVersion": "16955",
+		"creationTimestamp": "2017-02-13T00:50:10Z"
+	}
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../../resources/js-test-pre.js"></script>
+<script src="resources/common.js"></script>
+</head>
+<body>
+<p id="description"></p>
+<div id="console"></div>
+
+<script>
+description("Test unwrapping an RSA key with AES-CBC.");
+
+jsTestIsAsync = true;
+
+var extractable = true;
+var nonExtractable = false;
+
+var publicKeyJSON = {
+    kty: "RSA",
+    alg: "RS256",
+    n: "rcCUCv7Oc1HVam1DIhCzqknThWawOp8QLk8Ziy2p10ByjQFCajoFiyuAWl-R1WXZaf4xitLRracT9agpzIzc-MbLSHIGgWQGO21lGiImy5ftZ-D8bHAqRz2y15pzD4c4CEou7XSSLDoRnR0QG5MsDhD6s2gV9mwHkrtkCxtMWdBi-77as8wGmlNRldcOSgZDLK8UnCSgA1OguZ989bFyc8tOOEIb0xUSfPSz3LPSCnyYz68aDjmKVeNH-ig857OScyWbGyEy3Biw64qun3juUlNWsJ3zngkOdteYWytx5Qr4XKNs6R-Myyq72KUp02mJDZiiyiglxML_i3-_CeecCw",
+    e: "AQAB",
+    ext: false,
+    use: "sig"
+};
+
+var unwrappingKeyOctets = hexStringToUint8Array("2a45e3e573d16f5dc88eb189bbeefde0");
+var wrappedKey = hexStringToUint8Array("4455c4426da45cf90b6acea2b4eb23984fabfe57ce6a32055abca1886848dfaf60a0512be0d68e8e6bf10ef2bdb0fa08a5c82ec698e88ab97202770f88f3a1aa7160456e500cfe8cee21879cc05c172756b5d071ce37ae9d879c4d7fcda971ab6193eae4971179de2bc183911cd51fcd668fed66578801dd1f00e866f943fef4b57e6c0f9a2053c31b13a3410273fb2100355c0ea55a16bfbfb08268082253ff111d8b72f366b62b3389f8c98a11c59e8e2cee67a4c9c7e154cd8ed13cd1377e67b5241b9a8e957070b90baec4564a4f57548a29cb2d8de16ce06938dbb0588c0b157a0b2f07868dae06300226a05bda8b268d7aa7c9590e822a611a753f701ddfbd0dd4dae4f7e88ccd0ff52461475f44d8006621a50ed5dfb8aa30dc98c4efa33dbcce5b03358bb87fbec53bb9d6e4af191ffaade584522195bea97b91c1dce3a907a424408bfaaddfc28404c44a12dad3e6080a7dbfd704f4b35a1e285d7761ea9d730f4eef0babe6b59c40df78eca9859f05512cb3e3fe17233a4c6c2811bae62fe25e8b360950d04bc10b2ea866cc4e944cece137841e0d98237f75048c");
+
+debug("Importing an unwrapping key...");
+crypto.subtle.importKey("raw", unwrappingKeyOctets, "AES-CBC", nonExtractable, ["unwrapKey"]).then(function(result) {
+    unwrappingKey = result;
+    shouldBe("unwrappingKey.algorithm.name", "'AES-CBC'");
+    var unwrapAlgorithm = {name: "AES-CBC", iv: hexStringToUint8Array("000102030405060708090a0b0c0d0e0f")};
+    debug("Unwrapping a key...");
+    return crypto.subtle.unwrapKey("jwk", wrappedKey, unwrappingKey, unwrapAlgorithm, null, extractable, ["sign", "verify", "encrypt", "decrypt", "wrap", "unwrap"]);
+}).then(function(result) {
+    unwrappedKey = result;
+
+    shouldBe("unwrappedKey.toString()", "'[object Key]'");
+    shouldBe("unwrappedKey.type", "'public'");
+    shouldBe("unwrappedKey.usages", "['sign','verify']");
+    shouldBe("unwrappedKey.algorithm.name", "'RSASSA-PKCS1-v1_5'");
+    shouldBe("unwrappedKey.algorithm.modulusLength", "2048");
+    shouldBe("Base64URL.stringify(unwrappedKey.algorithm.publicExponent)", "publicKeyJSON.e");
+    shouldBe("unwrappedKey.algorithm.hash.name", "'SHA-256'");
+    shouldBe("unwrappedKey.extractable", "false");
+    finishJSTest();
+});
+
+</script>
+
+<script src="../../resources/js-test-post.js"></script>
+</body>
+</html>

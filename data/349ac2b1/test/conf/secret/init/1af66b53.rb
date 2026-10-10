@@ -1,0 +1,5 @@
+# frozen_string_literal: true
+
+config = Rails.application.config
+
+config.secret_key_base = 'a370f66cfac39f03344fd9af22746684af5b7fed8bb444cf198cbc9f9bfc3ac9b6c49c10c79d1441f4f42bdb4ae9be782ce47a18ca615058d78148d606541d81'

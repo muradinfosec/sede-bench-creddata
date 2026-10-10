@@ -1,0 +1,33 @@
+{
+	"kind": "Service",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "svc1",
+		"namespace": "edit-test",
+		"selfLink": "/api/v1/namespaces/edit-test/services/svc1",
+		"uid": "7bfb37ea-f4b3-40b1-6e1d-bece60c3bd58",
+		"resourceVersion": "1064",
+		"creationTimestamp": "2017-02-03T06:11:32Z",
+		"annotations":{"kubernetes.io/change-cause":"original creating command b"},
+		"labels": {
+			"app": "svc1",
+			"new-label": "foo"
+		}
+	},
+	"spec": {
+		"ports": [
+			{
+				"name": "80",
+				"protocol": "TCP",
+				"port": 81,
+				"targetPort": 81
+			}
+		],
+		"clusterIP": "10.0.0.248",
+		"type": "ClusterIP",
+		"sessionAffinity": "None"
+	},
+	"status": {
+		"loadBalancer": {}
+	}
+}
